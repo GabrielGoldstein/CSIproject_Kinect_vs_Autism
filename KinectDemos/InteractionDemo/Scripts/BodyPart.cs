@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System;
 public class BodyPart : MonoBehaviour {
 
 	Vector3 pos;
@@ -9,6 +9,7 @@ public class BodyPart : MonoBehaviour {
 	Color color;
 	Renderer rend;
 	Vector3 partOrigin;
+	public GameObject emptyObject;
 
 	public AudioClip snap;
 	public AudioClip boing;
@@ -51,17 +52,19 @@ public class BodyPart : MonoBehaviour {
 		if (grabScript.isGrabbed == false)
 		{
 			if(other.gameObject.tag == gameObject.tag) { //if the body part matches
+				isSnapped = true;
 				rend.material.color = color;
 				Vector3 position = gameObject.transform.position;
 				other.gameObject.transform.position = position;
-				isSnapped = true;
+
 				if(isSnapped){
 					other.GetComponent<AudioSource>().PlayOneShot(snap);
 					gameObject.SetActive(false);
+					Debug.Log("Snapped " + other.gameObject.tag);
 					keepInPlace(other);
 				}
 				Debug.Log("Position " + position);
-			} else { //reset part back to origin
+			} else if (isSnapped == false) { //reset part back to origin
 				other.gameObject.transform.position = other.GetComponent<Zzero>().origin;
 				other.GetComponent<AudioSource>().PlayOneShot (boing);
 			}
@@ -74,11 +77,27 @@ public class BodyPart : MonoBehaviour {
 
 	void keepInPlace(Collider other)
 	{
+
+		int i = 0;
+		
+		grabScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<GrabDropScript>();
 		//nulls the element in the array with the same name as current object that just snapped
-		for(int i = 0; i < grabScript.draggableObjects.Length; i++){
-			if(other.gameObject.name == grabScript.draggableObjects[i].name)
-				grabScript.draggableObjects[i] = null;
+		Debug.Log ("Sent " + other.gameObject.tag);
+
+		for(i = 0; i < grabScript.draggableObjects.Length; i++){
+
+
+			if(other.gameObject.tag == grabScript.draggableObjects[i].tag)
+			{
+				Debug.Log ("Current GameObject " + grabScript.draggableObjects[i].tag);
+				grabScript.draggableObjects[i] = emptyObject;
+			}
+
+			//else Debug.Log ("Current GameObject outside " + grabScript.draggableObjects[i].tag);
 		}
+		
+
+
 	}
 }
 
