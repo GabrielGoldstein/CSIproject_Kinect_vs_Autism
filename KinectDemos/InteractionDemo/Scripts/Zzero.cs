@@ -10,6 +10,8 @@ public class Zzero : MonoBehaviour {
 	GrabDropScript grabScript;
 	bool isGrabbed;
 
+	public bool isSnapped;
+
 	public Vector3 origin;
 
 	public AudioClip snap;
@@ -22,6 +24,7 @@ public class Zzero : MonoBehaviour {
 		grabScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<GrabDropScript>();
 		source = GetComponent<AudioSource>();
 		origin = this.transform.position;
+		isSnapped = false;
 	}
 
 	// Update is called once per frame

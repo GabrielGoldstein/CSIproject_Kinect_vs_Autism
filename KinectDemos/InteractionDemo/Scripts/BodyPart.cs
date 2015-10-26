@@ -14,6 +14,7 @@ public class BodyPart : MonoBehaviour {
 	public AudioClip snap;
 	public AudioClip boing;
 
+	public PecCard pec;
 	public AudioSource source;
 
 	bool isSnapped = false;
@@ -23,6 +24,7 @@ public class BodyPart : MonoBehaviour {
 		rend = GetComponent<Renderer>();
 		grabScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<GrabDropScript>();
 		source = GetComponent<AudioSource>();
+		pec = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PecCard>();
 	}
 	
 	// Update is called once per frame
@@ -52,22 +54,43 @@ public class BodyPart : MonoBehaviour {
 		if (grabScript.isGrabbed == false)
 		{
 			if(other.gameObject.tag == gameObject.tag) { //if the body part matches
-				isSnapped = true;
+				other.GetComponent<Zzero>().isSnapped = true;
+				pec.snapCounter ++;
+				//other.isSnapped = true;
 				rend.material.color = color;
 				Vector3 position = gameObject.transform.position;
 				other.gameObject.transform.position = position;
+				Debug.Log ("Match");
 
-				if(isSnapped){
+				Debug.Log("game mode: " + GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PecCard>().bodyMatchMode);
+				if(other.GetComponent<Zzero>().isSnapped && GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PecCard>().bodyMatchMode){
 					other.GetComponent<AudioSource>().PlayOneShot(snap);
 					gameObject.SetActive(false);
 					Debug.Log("Snapped " + other.gameObject.tag);
 					keepInPlace(other);
 				}
 				Debug.Log("Position " + position);
-			} else if (isSnapped == false) { //reset part back to origin
+				//The line below delays a check for an incorrect piece
+				//prevents multiple correct/incorrect piece placement
+
+			} else if (other.GetComponent<Zzero>().isSnapped == false){
+				//StartCoroutine(delayReset(other));
 				other.gameObject.transform.position = other.GetComponent<Zzero>().origin;
 				other.GetComponent<AudioSource>().PlayOneShot (boing);
+				Debug.Log("incorrect");
 			}
+		}
+	}
+
+	//Explanation
+	//http://forum.unity3d.com/threads/how-can-i-make-a-c-method-wait-a-number-of-seconds.61011/
+	IEnumerator delayReset(Collider other){
+		yield return new WaitForSeconds(0.5f);
+		if (other.GetComponent<Zzero>().isSnapped == false){
+
+//			other.gameObject.transform.position = other.GetComponent<Zzero>().origin;
+//			other.GetComponent<AudioSource>().PlayOneShot (boing);
+			Debug.Log ("Both");
 		}
 	}
 
