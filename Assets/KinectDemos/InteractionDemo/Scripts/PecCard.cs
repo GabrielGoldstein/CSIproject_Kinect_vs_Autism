@@ -13,10 +13,19 @@ public class PecCard : MonoBehaviour {
 	public GameObject[] match;
 	public GameObject[] pec ;
 
+	public GameObject[] placeHolders;
+
+	public AudioSource source;
+	public AudioClip boing;
+	public AudioClip clapping;
+
+	bool temp = true;
+
 	// Use this for initialization
 	void Start () {
 		//pec = new GameObject[arraySize];
 		grabScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<GrabDropScript>();
+		source = GetComponent<AudioSource>();
 			
 	}
 	
@@ -41,22 +50,42 @@ public class PecCard : MonoBehaviour {
 			if (match[0].name == match[1].name) {
 				//START HEAD PART 
 				Debug.Log ("CONTINUE");
+
+				if (temp)
+				{
+					source.PlayOneShot(clapping);
+					temp = false;
+				}
 			}
 			else {
 
-				Debug.Log ("ELSESLE");
-				Debug.Log (match[0].gameObject.GetComponent<Zzero>().origin);
+				Debug.Log ("RESTART");
+
+				source.PlayOneShot (boing);
 
 				//Sets PEC cards back to there original positions
 				match[0].gameObject.transform.position = match[0].gameObject.GetComponent<Zzero>().origin;
 				match[1].gameObject.transform.position = match[1].gameObject.GetComponent<Zzero>().origin;
 
-				//Restores PEC cards grab
-				grabScript.draggableObjects[0] = match[0];
-				grabScript.draggableObjects[1] = match[1];
+				//Sets the Array set fucntion to true so function can repeate multiple times.
+				placeHolders[0].gameObject.GetComponent<PecMatch>().arraySet = true;
+				placeHolders[1].gameObject.GetComponent<PecMatch>().arraySet = true;
 
-				match[0] = null;
-				match[1] = null;
+
+				for(int i = 0; i < grabScript.draggableObjects.Length; i++){
+					if(grabScript.draggableObjects[i].tag == "Junk")
+					{
+						if (match[0] != null) {
+							grabScript.draggableObjects[i] = match[0];
+							match[0] = null;
+						}
+						else if (match[1] != null){
+							grabScript.draggableObjects[i] = match[1];
+							match[1] = null;
+						}
+					}
+				}
+				
 
 
 

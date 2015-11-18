@@ -33,11 +33,13 @@ public class BodyPart : MonoBehaviour {
 		pos = transform.position;
 		pos.z = 0;
 		transform.position = pos;
+
 	}
 	
 	void OnTriggerEnter(Collider other) {
 		
 		color = rend.material.color;
+
 		if(this.gameObject.tag == other.gameObject.tag)
 		{
 			if (grabScript.isGrabbed == true)
