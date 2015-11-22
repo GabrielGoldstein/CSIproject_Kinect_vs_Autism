@@ -230,8 +230,8 @@ public class GrabDropScript : MonoBehaviour
                         sInfo = "Kinect is not initialized. Check the log for details.";
                     }
                 }
-                gui.text += (manager.GetLastLeftHandEvent() == InteractionManager.HandEventType.Grip ||
-                                                            manager.GetLastRightHandEvent() == InteractionManager.HandEventType.Grip) + " isGrabbed";
+                gui.text += "Player "+ manager.playerIndex.ToString() + (manager.GetLastLeftHandEvent() == InteractionManager.HandEventType.Grip ||
+                                                            manager.GetLastRightHandEvent() == InteractionManager.HandEventType.Grip) + " isGrabbed\r\n";
 
                 //infoGuiText.GetComponent<GUIText>().text = draggedObject.transform.position.z.ToString();
             }
