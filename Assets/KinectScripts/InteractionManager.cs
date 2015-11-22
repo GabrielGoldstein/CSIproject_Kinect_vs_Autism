@@ -94,17 +94,25 @@ public class InteractionManager : MonoBehaviour
 	private bool interactionInited = false;
 	
 	// The single instance of FacetrackingManager
-	private static InteractionManager instance;
-	
+	//private static InteractionManager instance;
+    private static System.Collections.Generic.List<InteractionManager> _Managers = new System.Collections.Generic.List<InteractionManager>();
 	
 	// returns the single InteractionManager instance
-	public static InteractionManager Instance
-	{
-		get
-		{
-			return instance;
-		}
-	}
+    //public static InteractionManager Instance
+    //{
+    //    get
+    //    {
+    //        return instance;
+    //    }
+    //}
+
+    public static System.Collections.Generic.List<InteractionManager> Managers
+    {
+        get
+        {
+            return _Managers;
+        }
+    }
 	
 	// returns true if the InteractionLibrary is initialized, otherwise returns false
 	public bool IsInteractionInited()
@@ -229,12 +237,13 @@ public class InteractionManager : MonoBehaviour
 	}
 	
 	//----------------------------------- end of public functions --------------------------------------//
-	
-	void Start() 
-	{
-		instance = this;
-		interactionInited = true;
-	}
+
+    void Start()
+    {
+        //instance = this;
+        _Managers.Add(this);
+        interactionInited = true;
+    }
 	
 	void OnDestroy()
 	{
@@ -242,7 +251,7 @@ public class InteractionManager : MonoBehaviour
 		if(interactionInited)
 		{
 			interactionInited = false;
-			instance = null;
+			//instance = null;
 		}
 	}
 	

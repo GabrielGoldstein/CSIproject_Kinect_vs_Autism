@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 public class GrabDropScript : MonoBehaviour 
 {
@@ -16,7 +17,7 @@ public class GrabDropScript : MonoBehaviour
 	public GUIText infoGuiText;
 
 	// interaction manager reference
-	private InteractionManager manager;
+	//private InteractionManager manager;
 	private bool isLeftHandDrag;
 
 	// currently dragged object and its parameters
@@ -31,11 +32,19 @@ public class GrabDropScript : MonoBehaviour
 
 	private float draggedX, draggedY;
 
-	public bool isGrabbed 
-	{
+    public bool isGrabbed
+    {
 		get {
-			return manager.GetLastLeftHandEvent() == InteractionManager.HandEventType.Grip || 
-				manager.GetLastRightHandEvent() == InteractionManager.HandEventType.Grip;
+            
+            var manager = (from m in InteractionManager.Managers where m.GetLastLeftHandEvent() == InteractionManager.HandEventType.Grip
+                 || 
+                 m.GetRightHandEvent() == InteractionManager.HandEventType.Grip select m).FirstOrDefault();
+            if(manager!=null)
+                return true;
+            else
+                return false;
+            //return manager.GetLastLeftHandEvent() == InteractionManager.HandEventType.Grip || 
+            //    manager.GetLastRightHandEvent() == InteractionManager.HandEventType.Grip;
 		}
 	}
 
@@ -63,113 +72,117 @@ public class GrabDropScript : MonoBehaviour
 		}
 
 		// get the interaction manager instance
-		if(manager == null)
+        //if(manager == null)
+        //{
+        //    manager = InteractionManager.Instance;
+        //}
+
+
+        foreach(var manager in InteractionManager.Managers)            
 		{
-			manager = InteractionManager.Instance;
-		}
+            if (manager != null && manager.IsInteractionInited())
+            {
+                Vector3 screenNormalPos = Vector3.zero;
+                Vector3 screenPixelPos = Vector3.zero;
 
-		if(manager != null && manager.IsInteractionInited())
-		{
-			Vector3 screenNormalPos = Vector3.zero;
-			Vector3 screenPixelPos = Vector3.zero;
-			
-			if(draggedObject == null)
-			{
-				// if there is a hand grip, select the underlying object and start dragging it.
-				if(manager.IsLeftHandPrimary())
-				{
-					// if the left hand is primary, check for left hand grip
-					if(manager.GetLastLeftHandEvent() == InteractionManager.HandEventType.Grip)
-					{
-						isLeftHandDrag = true;
-						screenNormalPos = manager.GetLeftHandScreenPos();
-					}
-				}
-				else if(manager.IsRightHandPrimary())
-				{
-					// if the right hand is primary, check for right hand grip
-					if(manager.GetLastRightHandEvent() == InteractionManager.HandEventType.Grip)
-					{
-						isLeftHandDrag = false;
-						screenNormalPos = manager.GetRightHandScreenPos();
-					}
-				}
-				
-				// check if there is an underlying object to be selected
-				if(screenNormalPos != Vector3.zero)
-				{
-					// convert the normalized screen pos to pixel pos
-					screenPixelPos.x = (int)(screenNormalPos.x * Camera.main.pixelWidth);
-					screenPixelPos.y = (int)(screenNormalPos.y * Camera.main.pixelHeight);
-					Ray ray = Camera.main.ScreenPointToRay(screenPixelPos);
-					
-					// check if there is an underlying objects
-					RaycastHit hit;
-					if(Physics.Raycast(ray, out hit))
-					{
-						foreach(GameObject obj in draggableObjects)
-						{
-							if(hit.collider.gameObject == obj)
-							{
-								// an object was hit by the ray. select it and start drgging
-								draggedObject = obj;
-								//draggedObjectDepth = draggedObject.transform.position.z - Camera.main.transform.position.z;
-								//---------------------------------------------------------------------------------
-								//---------------------------------------------------------------------------------
-								//Original LINE of code above, the below code is trying to restrict the dragged object's Z-axis
-								draggedX = draggedObject.transform.position.x;
-								draggedY = draggedObject.transform.position.y;
-								draggedObject.transform.position.Set(draggedX, draggedY, 0);
-								draggedObjectDepth = 0 - Camera.main.transform.position.z;
-								draggedObjectOffset = hit.point - draggedObject.transform.position;
-								Debug.Log("Dragged Object Depth: " + draggedObjectDepth);
-								Debug.Log("Dragged Object Z: " + draggedObject.transform.position.z);
-								//----------------------------------------------------------------------------------
-								//---------------------------------------------------------------------------------
-								// set selection material
-								draggedObjectMaterial = draggedObject.GetComponent<Renderer>().material;
-								draggedObject.GetComponent<Renderer>().material = selectedObjectMaterial;
+                if (draggedObject == null)
+                {
+                    // if there is a hand grip, select the underlying object and start dragging it.
+                    if (manager.IsLeftHandPrimary())
+                    {
+                        // if the left hand is primary, check for left hand grip
+                        if (manager.GetLastLeftHandEvent() == InteractionManager.HandEventType.Grip)
+                        {
+                            isLeftHandDrag = true;
+                            screenNormalPos = manager.GetLeftHandScreenPos();
+                        }
+                    }
+                    else if (manager.IsRightHandPrimary())
+                    {
+                        // if the right hand is primary, check for right hand grip
+                        if (manager.GetLastRightHandEvent() == InteractionManager.HandEventType.Grip)
+                        {
+                            isLeftHandDrag = false;
+                            screenNormalPos = manager.GetRightHandScreenPos();
+                        }
+                    }
 
-								// stop using gravity while dragging object
-								draggedObject.GetComponent<Rigidbody>().useGravity = false;
-								break;
-							}
-						}
-					}
-				}
-				
-			}
-			else
-			{
-				// continue dragging the object
-				screenNormalPos = isLeftHandDrag ? manager.GetLeftHandScreenPos() : manager.GetRightHandScreenPos();
-				
-				// convert the normalized screen pos to 3D-world pos
-				screenPixelPos.x = (int)(screenNormalPos.x * Camera.main.pixelWidth);
-				screenPixelPos.y = (int)(screenNormalPos.y * Camera.main.pixelHeight);
-				screenPixelPos.z = screenNormalPos.z + draggedObjectDepth;
-				
-				Vector3 newObjectPos = Camera.main.ScreenToWorldPoint(screenPixelPos) - draggedObjectOffset;
-				draggedObject.transform.position = Vector3.Lerp(draggedObject.transform.position, newObjectPos, dragSpeed * Time.deltaTime);
-				
-				// check if the object (hand grip) was released
-				bool isReleased = isLeftHandDrag ? (manager.GetLastLeftHandEvent() == InteractionManager.HandEventType.Release) :
-					(manager.GetLastRightHandEvent() == InteractionManager.HandEventType.Release);
-				
-				if(isReleased)
-				{
-					// restore the object's material and stop dragging the object
-					draggedObject.GetComponent<Renderer>().material = draggedObjectMaterial;
+                    // check if there is an underlying object to be selected
+                    if (screenNormalPos != Vector3.zero)
+                    {
+                        // convert the normalized screen pos to pixel pos
+                        screenPixelPos.x = (int)(screenNormalPos.x * Camera.main.pixelWidth);
+                        screenPixelPos.y = (int)(screenNormalPos.y * Camera.main.pixelHeight);
+                        Ray ray = Camera.main.ScreenPointToRay(screenPixelPos);
 
-					if(useGravity)
-					{
-						// add gravity to the object
-						draggedObject.GetComponent<Rigidbody>().useGravity = true;
-					}
+                        // check if there is an underlying objects
+                        RaycastHit hit;
+                        if (Physics.Raycast(ray, out hit))
+                        {
+                            foreach (GameObject obj in draggableObjects)
+                            {
+                                if (hit.collider.gameObject == obj)
+                                {
+                                    // an object was hit by the ray. select it and start drgging
+                                    draggedObject = obj;
+                                    //draggedObjectDepth = draggedObject.transform.position.z - Camera.main.transform.position.z;
+                                    //---------------------------------------------------------------------------------
+                                    //---------------------------------------------------------------------------------
+                                    //Original LINE of code above, the below code is trying to restrict the dragged object's Z-axis
+                                    draggedX = draggedObject.transform.position.x;
+                                    draggedY = draggedObject.transform.position.y;
+                                    draggedObject.transform.position.Set(draggedX, draggedY, 0);
+                                    draggedObjectDepth = 0 - Camera.main.transform.position.z;
+                                    draggedObjectOffset = hit.point - draggedObject.transform.position;
+                                    Debug.Log("Dragged Object Depth: " + draggedObjectDepth);
+                                    Debug.Log("Dragged Object Z: " + draggedObject.transform.position.z);
+                                    //----------------------------------------------------------------------------------
+                                    //---------------------------------------------------------------------------------
+                                    // set selection material
+                                    draggedObjectMaterial = draggedObject.GetComponent<Renderer>().material;
+                                    draggedObject.GetComponent<Renderer>().material = selectedObjectMaterial;
 
-					draggedObject = null;
-				}
-			}
+                                    // stop using gravity while dragging object
+                                    draggedObject.GetComponent<Rigidbody>().useGravity = false;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                }
+                else
+                {
+                    // continue dragging the object
+                    screenNormalPos = isLeftHandDrag ? manager.GetLeftHandScreenPos() : manager.GetRightHandScreenPos();
+
+                    // convert the normalized screen pos to 3D-world pos
+                    screenPixelPos.x = (int)(screenNormalPos.x * Camera.main.pixelWidth);
+                    screenPixelPos.y = (int)(screenNormalPos.y * Camera.main.pixelHeight);
+                    screenPixelPos.z = screenNormalPos.z + draggedObjectDepth;
+
+                    Vector3 newObjectPos = Camera.main.ScreenToWorldPoint(screenPixelPos) - draggedObjectOffset;
+                    draggedObject.transform.position = Vector3.Lerp(draggedObject.transform.position, newObjectPos, dragSpeed * Time.deltaTime);
+
+                    // check if the object (hand grip) was released
+                    bool isReleased = isLeftHandDrag ? (manager.GetLastLeftHandEvent() == InteractionManager.HandEventType.Release) :
+                        (manager.GetLastRightHandEvent() == InteractionManager.HandEventType.Release);
+
+                    if (isReleased)
+                    {
+                        // restore the object's material and stop dragging the object
+                        draggedObject.GetComponent<Renderer>().material = draggedObjectMaterial;
+
+                        if (useGravity)
+                        {
+                            // add gravity to the object
+                            draggedObject.GetComponent<Rigidbody>().useGravity = true;
+                        }
+
+                        draggedObject = null;
+                    }
+                }
+            }
 		}
 	}
 
@@ -188,35 +201,40 @@ public class GrabDropScript : MonoBehaviour
 	
 	void OnGUI()
 	{
-		if(infoGuiText != null && manager != null && manager.IsInteractionInited())
-		{
-			string sInfo = string.Empty;
-			
-			long userID = manager.GetUserID();
-			if(userID != 0)
-			{
-				if(draggedObject != null)
-					sInfo = "Dragging the " + draggedObject.name + " around.";
-				else
-					sInfo = "Please grab and drag an object around.";
-			}
-			else
-			{
-				KinectManager kinectManager = KinectManager.Instance;
+        var gui = infoGuiText.GetComponent<GUIText>();
+        gui.text = "";
+        foreach (var manager in InteractionManager.Managers)
+        {
+            if (infoGuiText != null && manager != null && manager.IsInteractionInited())
+            {
+                string sInfo = string.Empty;
 
-				if(kinectManager && kinectManager.IsInitialized())
-				{
-					sInfo = "Waiting for Users...";
-				}
-				else
-				{
-					sInfo = "Kinect is not initialized. Check the log for details.";
-				}
-			}
-			infoGuiText.GetComponent<GUIText>().text = (manager.GetLastLeftHandEvent() == InteractionManager.HandEventType.Grip || 
-			                                            manager.GetLastRightHandEvent() == InteractionManager.HandEventType.Grip) + " isGrabbed";
+                long userID = manager.GetUserID();
+                if (userID != 0)
+                {
+                    if (draggedObject != null)
+                        sInfo = "Dragging the " + draggedObject.name + " around.";
+                    else
+                        sInfo = "Please grab and drag an object around.";
+                }
+                else
+                {
+                    KinectManager kinectManager = KinectManager.Instance;
 
-			//infoGuiText.GetComponent<GUIText>().text = draggedObject.transform.position.z.ToString();
-		}
+                    if (kinectManager && kinectManager.IsInitialized())
+                    {
+                        sInfo = "Waiting for Users...";
+                    }
+                    else
+                    {
+                        sInfo = "Kinect is not initialized. Check the log for details.";
+                    }
+                }
+                gui.text += (manager.GetLastLeftHandEvent() == InteractionManager.HandEventType.Grip ||
+                                                            manager.GetLastRightHandEvent() == InteractionManager.HandEventType.Grip) + " isGrabbed";
+
+                //infoGuiText.GetComponent<GUIText>().text = draggedObject.transform.position.z.ToString();
+            }
+        }
 	}
 }

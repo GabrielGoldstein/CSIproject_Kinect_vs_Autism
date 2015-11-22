@@ -108,15 +108,18 @@ public class GuiWindowScript : MonoBehaviour
 	// turn off or on mouse-cursor control
 	private void SetMouseControl(bool controlMouseOn)
 	{
-		InteractionManager manager = InteractionManager.Instance;
+        if (InteractionManager.Managers.Count > 0)
+        {
+            InteractionManager manager = InteractionManager.Managers[0];
 
-		if(manager && manager.IsInteractionInited())
-		{
-			if(manager.controlMouseCursor != controlMouseOn)
-			{
-				manager.controlMouseCursor = controlMouseOn;
-			}
-		}
+            if (manager && manager.IsInteractionInited())
+            {
+                if (manager.controlMouseCursor != controlMouseOn)
+                {
+                    manager.controlMouseCursor = controlMouseOn;
+                }
+            }
+        }
 	}
 
 	// reset objects if needed
