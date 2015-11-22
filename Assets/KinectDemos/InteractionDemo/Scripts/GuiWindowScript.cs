@@ -127,13 +127,16 @@ public class GuiWindowScript : MonoBehaviour
 	{
         if (InteractionManager.Managers.Count > 0)
         {
-            InteractionManager manager = InteractionManager.Managers[0];
-
-            if (manager && manager.IsInteractionInited())
+            foreach (var m in InteractionManager.Managers)
             {
-                if (manager.controlMouseCursor != controlMouseOn)
+               // InteractionManager manager = InteractionManager.Managers[0];
+
+                if (m.IsInteractionInited())
                 {
-                    manager.controlMouseCursor = controlMouseOn;
+                    if (m.controlMouseCursor != controlMouseOn)
+                    {
+                        m.controlMouseCursor = controlMouseOn;
+                    }
                 }
             }
         }
