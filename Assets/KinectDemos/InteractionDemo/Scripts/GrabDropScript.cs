@@ -21,7 +21,8 @@ public class GrabDropScript : MonoBehaviour
 	private bool isLeftHandDrag;
 
 	// currently dragged object and its parameters
-	private GameObject draggedObject;
+	private GameObject draggedObject1 = null;
+    private GameObject draggedObject2 = null;
 	private float draggedObjectDepth;
 	private Vector3 draggedObjectOffset;
 	private Material draggedObjectMaterial;
@@ -50,6 +51,7 @@ public class GrabDropScript : MonoBehaviour
 
 	void Start()
 	{
+        
 		// save the initial positions and rotations of the objects
 		initialObjPos = new Vector3[draggableObjects.Length];
 		initialObjRot = new Quaternion[draggableObjects.Length];
@@ -64,7 +66,7 @@ public class GrabDropScript : MonoBehaviour
 
 	void Update() 
 	{
-		if(resetObjects && draggedObject == null)
+        if (resetObjects && draggedObject1 == null && draggedObject2 == null) 
 		{
 			// reset the objects as needed
 			resetObjects = false;
@@ -84,7 +86,7 @@ public class GrabDropScript : MonoBehaviour
             {
                 Vector3 screenNormalPos = Vector3.zero;
                 Vector3 screenPixelPos = Vector3.zero;
-
+                var draggedObject = manager.playerIndex == 0 ? draggedObject1 : draggedObject2;
                 if (draggedObject == null)
                 {
                     // if there is a hand grip, select the underlying object and start dragging it.
@@ -124,6 +126,20 @@ public class GrabDropScript : MonoBehaviour
                                 if (hit.collider.gameObject == obj)
                                 {
                                     // an object was hit by the ray. select it and start drgging
+                                    
+                                    if (manager.playerIndex == 0 && obj!=draggedObject2)
+                                    {
+                                        draggedObject1 = obj;
+                                    }
+                                    else
+                                        if (manager.playerIndex == 1 && obj != draggedObject1)
+                                        {
+                                            draggedObject2 = obj;
+                                        }
+                                        else
+                                        {
+                                            continue;
+                                        }
                                     draggedObject = obj;
                                     //draggedObjectDepth = draggedObject.transform.position.z - Camera.main.transform.position.z;
                                     //---------------------------------------------------------------------------------
@@ -180,6 +196,12 @@ public class GrabDropScript : MonoBehaviour
                         }
 
                         draggedObject = null;
+                        if (manager.playerIndex == 0)
+                        {
+                            draggedObject1 = null;
+                        }
+                        else
+                            draggedObject2 = null;
                     }
                 }
             }
@@ -212,10 +234,14 @@ public class GrabDropScript : MonoBehaviour
                 long userID = manager.GetUserID();
                 if (userID != 0)
                 {
-                    if (draggedObject != null)
-                        sInfo = "Dragging the " + draggedObject.name + " around.";
+                    if (draggedObject1 != null)
+                        sInfo = "Dragging the " + draggedObject1.name + " around.";
                     else
                         sInfo = "Please grab and drag an object around.";
+                    if (draggedObject2 != null)
+                        sInfo += "Dragging the " + draggedObject2.name + " around.";
+                    else
+                        sInfo += "Please grab and drag an object around.";
                 }
                 else
                 {
@@ -230,7 +256,7 @@ public class GrabDropScript : MonoBehaviour
                         sInfo = "Kinect is not initialized. Check the log for details.";
                     }
                 }
-                gui.text += "Player "+ manager.playerIndex.ToString() + (manager.GetLastLeftHandEvent() == InteractionManager.HandEventType.Grip ||
+                gui.text += string.Format("Player {0} ", manager.playerIndex) + (manager.GetLastLeftHandEvent() == InteractionManager.HandEventType.Grip ||
                                                             manager.GetLastRightHandEvent() == InteractionManager.HandEventType.Grip) + " isGrabbed\r\n";
 
                 //infoGuiText.GetComponent<GUIText>().text = draggedObject.transform.position.z.ToString();
