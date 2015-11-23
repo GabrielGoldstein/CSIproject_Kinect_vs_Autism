@@ -17,6 +17,12 @@ public class BodyPart : MonoBehaviour {
 	public PecCard pec;
 	public AudioSource source;
 
+	public int player1Index;
+	public int player2Index;
+
+	public InteractionManager player1;
+	public InteractionManager player2;
+
 	bool isSnapped = false;
 	
 	// Use this for initialization
@@ -25,6 +31,12 @@ public class BodyPart : MonoBehaviour {
 		grabScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<GrabDropScript>();
 		source = GetComponent<AudioSource>();
 		pec = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PecCard>();
+
+		player1 = (GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>()[0].playerIndex == 0) ? 
+				GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>()[0] : 
+				GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>()[1];
+
+		player2 = GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>()[1];
 	}
 	
 	// Update is called once per frame
@@ -33,6 +45,11 @@ public class BodyPart : MonoBehaviour {
 		pos = transform.position;
 		pos.z = 0;
 		transform.position = pos;
+
+		Debug.Log ("Player 1 Status: " + player1.GetRightHandEvent ().ToString());
+		Debug.Log ("Player 2 Status: " + player2.GetRightHandEvent ().ToString());
+		Debug.Log ("Player 2 Status: " + player2.GetLastRightHandEvent ().ToString());
+
 
 	}
 	
@@ -53,16 +70,17 @@ public class BodyPart : MonoBehaviour {
 
 	void OnTriggerStay(Collider other) {
 
-		if (grabScript.isGrabbed == false)
-		{
+		//TODO: Diferentiate between player 1/2
+		if ((player1.GetRightHandEvent() == InteractionManager.HandEventType.Release) ||
+		    (player2.GetRightHandEvent() == InteractionManager.HandEventType.Release))
+			{
+	
 			if(other.gameObject.tag == gameObject.tag) { //if the body part matches
 				other.GetComponent<Zzero>().isSnapped = true;
 				pec.snapCounter ++;
-				//other.isSnapped = true;
 				rend.material.color = color;
 				Vector3 position = gameObject.transform.position;
 				other.gameObject.transform.position = position;
-				Debug.Log ("Match");
 
 				Debug.Log("game mode: " + GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PecCard>().bodyMatchMode);
 				if(other.GetComponent<Zzero>().isSnapped && GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PecCard>().bodyMatchMode){
@@ -76,7 +94,9 @@ public class BodyPart : MonoBehaviour {
 				//The line below delays a check for an incorrect piece
 				//prevents multiple correct/incorrect piece placement
 
-			} else if (other.GetComponent<Zzero>().isSnapped == false){
+			} 
+
+			else if (other.GetComponent<Zzero>().isSnapped == false){
 				//StartCoroutine(delayReset(other));
 				other.gameObject.transform.position = other.GetComponent<Zzero>().origin;
 				other.GetComponent<AudioSource>().PlayOneShot (boing);

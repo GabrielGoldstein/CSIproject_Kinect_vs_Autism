@@ -238,6 +238,7 @@ public class InteractionManager : MonoBehaviour
 	{
 		return cursorScreenPos;
 	}
+
 	
 	//----------------------------------- end of public functions --------------------------------------//
 
