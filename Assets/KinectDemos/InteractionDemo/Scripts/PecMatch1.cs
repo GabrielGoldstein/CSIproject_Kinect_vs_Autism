@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PecMatch : MonoBehaviour {
+public class PecMatch1 : MonoBehaviour {
 
 	GrabDropScript grabScript;
 	PecCard pecScript;
@@ -13,6 +13,9 @@ public class PecMatch : MonoBehaviour {
 	Vector3 position;
 
 	public AudioClip snap;
+
+	public InteractionManager player1;
+	public InteractionManager player2;
 
 
 
@@ -31,6 +34,12 @@ public class PecMatch : MonoBehaviour {
 		partOrigin = gameObject.transform.position;
 		color = rend.material.color;
 
+		player1 = (GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>()[0].playerIndex == 0) ? 
+			GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>()[0] : 
+				GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>()[1];
+		
+		player2 = GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>()[1];
+
 	}
 	
 	// Update is called once per frame
@@ -47,8 +56,14 @@ public class PecMatch : MonoBehaviour {
 
 	void OnTriggerStay(Collider other) {
 		//if a piece is let go
-		rend.material.color = Color.green;
-		if (grabScript.isGrabbed == false)
+		if (other.gameObject.tag == gameObject.tag)
+		{
+			rend.material.color = Color.green;
+		}
+		else
+			rend.material.color = Color.red;
+
+		if (player1.GetRightHandEvent() == InteractionManager.HandEventType.Release)
 		{
 			//PEC matches placeholder TAG
 			if(other.gameObject.tag == gameObject.tag) {

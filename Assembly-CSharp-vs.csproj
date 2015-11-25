@@ -57,12 +57,14 @@
      <Compile Include="Assets\KinectDemos\GesturesDemo\Scripts\GestureListener.cs" />
      <Compile Include="Assets\KinectDemos\GesturesDemo\Scripts\PresentationScript.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\ButtonController.cs" />
-     <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\BodyPart.cs" />
+     <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\BodyPart1.cs" />
+     <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\BodyPart2.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\GrabDropScript.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\GuiWindowScript.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\MatchingModel.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\PecCard.cs" />
-     <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\PecMatch.cs" />
+     <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\PecMatch1.cs" />
+     <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\PecMatch2.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\PlaySound.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\Zero.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\Zzero.cs" />

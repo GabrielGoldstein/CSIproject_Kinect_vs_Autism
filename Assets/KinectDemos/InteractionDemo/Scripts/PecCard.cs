@@ -68,8 +68,15 @@ public class PecCard : MonoBehaviour {
 				match[1].gameObject.transform.position = match[1].gameObject.GetComponent<Zzero>().origin;
 
 				//Sets the Array set fucntion to true so function can repeate multiple times.
-				placeHolders[0].gameObject.GetComponent<PecMatch>().arraySet = true;
-				placeHolders[1].gameObject.GetComponent<PecMatch>().arraySet = true;
+				if (placeHolders[0].gameObject.tag == "P1")
+					placeHolders[0].gameObject.GetComponent<PecMatch1>().arraySet = true;
+				else if (placeHolders[0].gameObject.tag == "P2")
+					placeHolders[0].gameObject.GetComponent<PecMatch2>().arraySet = true;
+
+				if (placeHolders[1].gameObject.tag == "P1")
+					placeHolders[1].gameObject.GetComponent<PecMatch1>().arraySet = true;
+				else if (placeHolders[1].gameObject.tag == "P2")
+					placeHolders[1].gameObject.GetComponent<PecMatch2>().arraySet = true;
 
 
 				for(int i = 0; i < grabScript.draggableObjects.Length; i++){

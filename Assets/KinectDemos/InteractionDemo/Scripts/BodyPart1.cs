@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
-public class BodyPart : MonoBehaviour {
+public class BodyPart1 : MonoBehaviour {
 
 	Vector3 pos;
 	GrabDropScript grabScript;
@@ -17,9 +17,6 @@ public class BodyPart : MonoBehaviour {
 	public PecCard pec;
 	public AudioSource source;
 
-	public int player1Index;
-	public int player2Index;
-
 	public InteractionManager player1;
 	public InteractionManager player2;
 
@@ -32,10 +29,7 @@ public class BodyPart : MonoBehaviour {
 		source = GetComponent<AudioSource>();
 		pec = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PecCard>();
 
-		player1 = (GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>()[0].playerIndex == 0) ? 
-				GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>()[0] : 
-				GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>()[1];
-
+		player1 = GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>()[0];
 		player2 = GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>()[1];
 	}
 	
@@ -46,9 +40,7 @@ public class BodyPart : MonoBehaviour {
 		pos.z = 0;
 		transform.position = pos;
 
-		Debug.Log ("Player 1 Status: " + player1.GetRightHandEvent ().ToString());
-		Debug.Log ("Player 2 Status: " + player2.GetRightHandEvent ().ToString());
-		Debug.Log ("Player 2 Status: " + player2.GetLastRightHandEvent ().ToString());
+
 
 
 	}
@@ -71,8 +63,9 @@ public class BodyPart : MonoBehaviour {
 	void OnTriggerStay(Collider other) {
 
 		//TODO: Diferentiate between player 1/2
-		if ((player1.GetRightHandEvent() == InteractionManager.HandEventType.Release) ||
-		    (player2.GetRightHandEvent() == InteractionManager.HandEventType.Release))
+		
+		Debug.Log("Player1 Grab: " + player1.GetRightHandEvent());
+		if (player1.GetRightHandEvent() == InteractionManager.HandEventType.Release)
 			{
 	
 			if(other.gameObject.tag == gameObject.tag) { //if the body part matches
@@ -94,28 +87,28 @@ public class BodyPart : MonoBehaviour {
 				//The line below delays a check for an incorrect piece
 				//prevents multiple correct/incorrect piece placement
 
-			} 
+			}
 
 			else if (other.GetComponent<Zzero>().isSnapped == false){
-				//StartCoroutine(delayReset(other));
-				other.gameObject.transform.position = other.GetComponent<Zzero>().origin;
-				other.GetComponent<AudioSource>().PlayOneShot (boing);
-				Debug.Log("incorrect");
+				if(player2.GetRightHandEvent () != InteractionManager.HandEventType.Grip || 
+				   player2.GetRightHandEvent () == InteractionManager.HandEventType.Release)
+				{
+					other.gameObject.transform.position = other.GetComponent<Zzero>().origin;
+					other.GetComponent<AudioSource>().PlayOneShot (boing);
+					Debug.Log("incorrect");
+				}
 			}
-		}
-	}
 
-	//Explanation
-	//http://forum.unity3d.com/threads/how-can-i-make-a-c-method-wait-a-number-of-seconds.61011/
-	IEnumerator delayReset(Collider other){
-		yield return new WaitForSeconds(0.5f);
-		if (other.GetComponent<Zzero>().isSnapped == false){
-
-//			other.gameObject.transform.position = other.GetComponent<Zzero>().origin;
-//			other.GetComponent<AudioSource>().PlayOneShot (boing);
-			Debug.Log ("Both");
 		}
+		/*else if (player2.GetRightHandEvent () == InteractionManager.HandEventType.Release  &&
+		         player1.GetRightHandEvent () == InteractionManager.HandEventType.Release)
+		{
+			other.gameObject.transform.position = other.GetComponent<Zzero>().origin;
+			other.GetComponent<AudioSource>().PlayOneShot (boing);
+		}*/
+
 	}
+	
 
 	void OnTriggerExit(Collider other){
 		rend.material.color = color; //revert color to original

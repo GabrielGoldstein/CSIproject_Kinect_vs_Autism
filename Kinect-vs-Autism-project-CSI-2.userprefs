@@ -1,11 +1,14 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\KinectDemos\InteractionDemo\Scripts\MatchingModel.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\KinectDemos\InteractionDemo\Scripts\BodyPart2.cs">
     <Files>
-      <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\GrabDropScript.cs" Line="42" Column="90" />
-      <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\BodyPart.cs" Line="74" Column="24" />
-      <File FileName="Assets\KinectScripts\InteractionManager.cs" Line="241" Column="1" />
-      <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\MatchingModel.cs" Line="9" Column="3" />
+      <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\PecCard.cs" Line="79" Column="75" />
+      <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\PecMatch1.cs" Line="76" Column="7" />
+      <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\PecMatch2.cs" Line="92" Column="5" />
+      <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\BodyPart1.cs" Line="108" Column="6" />
+      <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\BodyPart2.cs" Line="74" Column="24" />
+      <File FileName="Assets\KinectScripts\InteractionManager.cs" Line="421" Column="28" />
+      <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\GrabDropScript.cs" Line="59" Column="51" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
