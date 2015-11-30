@@ -90,22 +90,24 @@ public class BodyPart1 : MonoBehaviour {
 			}
 
 			else if (other.GetComponent<Zzero>().isSnapped == false){
-				if(player2.GetRightHandEvent () != InteractionManager.HandEventType.Grip || 
-				   player2.GetRightHandEvent () == InteractionManager.HandEventType.Release)
-				{
+				//if(player2.GetRightHandEvent () != InteractionManager.HandEventType.Grip)
+				//{
 					other.gameObject.transform.position = other.GetComponent<Zzero>().origin;
 					other.GetComponent<AudioSource>().PlayOneShot (boing);
 					Debug.Log("incorrect");
-				}
+				//}
 			}
 
 		}
-		/*else if (player2.GetRightHandEvent () == InteractionManager.HandEventType.Release  &&
-		         player1.GetRightHandEvent () == InteractionManager.HandEventType.Release)
+		// player1 = grip, player2 = releae
+		else if (player2.GetRightHandEvent () == InteractionManager.HandEventType.Release)
 		{
-			other.gameObject.transform.position = other.GetComponent<Zzero>().origin;
-			other.GetComponent<AudioSource>().PlayOneShot (boing);
-		}*/
+			if (other.gameObject.tag != tag)
+			{
+				other.gameObject.transform.position = other.GetComponent<Zzero>().origin;
+				other.GetComponent<AudioSource>().PlayOneShot (boing);
+			}
+		}
 
 	}
 	

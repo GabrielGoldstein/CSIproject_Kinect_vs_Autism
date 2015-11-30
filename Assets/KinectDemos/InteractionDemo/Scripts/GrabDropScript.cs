@@ -125,7 +125,7 @@ public class GrabDropScript : MonoBehaviour
                             {
                                 if (hit.collider.gameObject == obj)
                                 {
-                                    // an object was hit by the ray. select it and start drgging
+                                    // an object was hit by the ray. select it and start dragging
                                     
                                     if (manager.playerIndex == 0 && obj!=draggedObject2)
                                     {

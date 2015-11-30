@@ -64,7 +64,7 @@ public class BodyPart2 : MonoBehaviour {
 		//TODO: Diferentiate between player 1/2
 		Debug.Log("Player2 Grab: " + player2.GetRightHandEvent());
 
-	
+			
 
 		if (player2.GetRightHandEvent() == InteractionManager.HandEventType.Release)
 		{
@@ -91,20 +91,23 @@ public class BodyPart2 : MonoBehaviour {
 			} 
 			
 			else if (other.GetComponent<Zzero>().isSnapped == false){
-				if(player1.GetRightHandEvent () != InteractionManager.HandEventType.Grip)
-				{
+				//if(player1.GetRightHandEvent () != InteractionManager.HandEventType.Grip)
+				//{
 					other.gameObject.transform.position = other.GetComponent<Zzero>().origin;
 					other.GetComponent<AudioSource>().PlayOneShot (boing);
 					Debug.Log("incorrect");
-				}
+				//}
 			}
 
 		}
-		/*else if (player1.GetRightHandEvent () == InteractionManager.HandEventType.Release)
+		else if (player1.GetRightHandEvent () == InteractionManager.HandEventType.Release)
 		{
-			other.gameObject.transform.position = other.GetComponent<Zzero>().origin;
-			other.GetComponent<AudioSource>().PlayOneShot (boing);
-		}*/
+			if (other.gameObject.tag != tag)
+			{
+				other.gameObject.transform.position = other.GetComponent<Zzero>().origin;
+				other.GetComponent<AudioSource>().PlayOneShot (boing);
+			}
+		}
 
 	}
 	
