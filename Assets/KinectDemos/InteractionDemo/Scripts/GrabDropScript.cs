@@ -140,7 +140,10 @@ public class GrabDropScript : MonoBehaviour
                                         {
                                             continue;
                                         }
+                                    
                                     draggedObject = obj;
+                                    var objState = draggedObject.GetComponent<Zzero>();
+                                    objState.IsReleased = false;
                                     //draggedObjectDepth = draggedObject.transform.position.z - Camera.main.transform.position.z;
                                     //---------------------------------------------------------------------------------
                                     //---------------------------------------------------------------------------------
@@ -165,21 +168,11 @@ public class GrabDropScript : MonoBehaviour
                             }
                         }
                     }
-
                 }
                 else
                 {
                     // continue dragging the object
-                    screenNormalPos = isLeftHandDrag ? manager.GetLeftHandScreenPos() : manager.GetRightHandScreenPos();
-
-                    // convert the normalized screen pos to 3D-world pos
-                    screenPixelPos.x = (int)(screenNormalPos.x * Camera.main.pixelWidth);
-                    screenPixelPos.y = (int)(screenNormalPos.y * Camera.main.pixelHeight);
-                    screenPixelPos.z = screenNormalPos.z + draggedObjectDepth;
-
-                    Vector3 newObjectPos = Camera.main.ScreenToWorldPoint(screenPixelPos) - draggedObjectOffset;
-                    draggedObject.transform.position = Vector3.Lerp(draggedObject.transform.position, newObjectPos, dragSpeed * Time.deltaTime);
-
+                    
                     // check if the object (hand grip) was released
                     bool isReleased = isLeftHandDrag ? (manager.GetLastLeftHandEvent() == InteractionManager.HandEventType.Release) :
                         (manager.GetLastRightHandEvent() == InteractionManager.HandEventType.Release);
@@ -188,7 +181,9 @@ public class GrabDropScript : MonoBehaviour
                     {
                         // restore the object's material and stop dragging the object
                         draggedObject.GetComponent<Renderer>().material = draggedObjectMaterial;
-
+                        var objState = draggedObject.GetComponent<Zzero>();
+                        objState.IsReleased = true;
+                        
                         if (useGravity)
                         {
                             // add gravity to the object
@@ -202,6 +197,19 @@ public class GrabDropScript : MonoBehaviour
                         }
                         else
                             draggedObject2 = null;
+                    }
+                    else
+                    {
+                        screenNormalPos = isLeftHandDrag ? manager.GetLeftHandScreenPos() : manager.GetRightHandScreenPos();
+
+                        // convert the normalized screen pos to 3D-world pos
+                        screenPixelPos.x = (int)(screenNormalPos.x * Camera.main.pixelWidth);
+                        screenPixelPos.y = (int)(screenNormalPos.y * Camera.main.pixelHeight);
+                        screenPixelPos.z = screenNormalPos.z + draggedObjectDepth;
+
+                        Vector3 newObjectPos = Camera.main.ScreenToWorldPoint(screenPixelPos) - draggedObjectOffset;
+                        draggedObject.transform.position = Vector3.Lerp(draggedObject.transform.position, newObjectPos, dragSpeed * Time.deltaTime);
+
                     }
                 }
             }

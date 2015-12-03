@@ -44,7 +44,9 @@ public class BodyPart : MonoBehaviour {
 			{
 				rend.material.color = Color.green;
 			}
-		} else {
+		} 
+        else 
+        {
 			rend.material.color = Color.red;
 		}
 	}
@@ -53,7 +55,8 @@ public class BodyPart : MonoBehaviour {
 
 		if (grabScript.isGrabbed == false)
 		{
-			if(other.gameObject.tag == gameObject.tag) { //if the body part matches
+			if(other.gameObject.tag == gameObject.tag)
+            { //if the body part matches
 				other.GetComponent<Zzero>().isSnapped = true;
 				pec.snapCounter ++;
 				//other.isSnapped = true;
@@ -73,9 +76,11 @@ public class BodyPart : MonoBehaviour {
 				//The line below delays a check for an incorrect piece
 				//prevents multiple correct/incorrect piece placement
 
-			} else if (other.GetComponent<Zzero>().isSnapped == false){
+			} 
+            else if (other.GetComponent<Zzero>().isSnapped == false)
+            {
 				//StartCoroutine(delayReset(other));
-				other.gameObject.transform.position = other.GetComponent<Zzero>().origin;
+				//other.gameObject.transform.position = Vector3.Lerp(other.gameObject.transform.position,other.GetComponent<Zzero>().origin,Time.deltaTime*30);
 				other.GetComponent<AudioSource>().PlayOneShot (boing);
 				Debug.Log("incorrect");
 			}

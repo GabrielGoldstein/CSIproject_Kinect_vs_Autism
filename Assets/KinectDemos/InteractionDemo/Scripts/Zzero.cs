@@ -17,18 +17,24 @@ public class Zzero : MonoBehaviour {
 	public AudioClip snap;
 	public AudioClip boing;
 	public AudioSource source;
+    public bool IsReleased = true;
 
 	// Use this for initialization
 	void Start () {
 		rend = GetComponent<Renderer>();
 		grabScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<GrabDropScript>();
 		source = GetComponent<AudioSource>();
-		origin = this.transform.position;
+		origin = transform.position;
 		isSnapped = false;
 	}
 
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+    {
+        if (!isSnapped && IsReleased && transform.position != origin)
+        {
+            transform.position = Vector3.Lerp(transform.position, origin, 5 * Time.deltaTime);
+        }
 		isGrabbed = grabScript.isGrabbed;
 		//if(!isGrabbed)
 		//	transform.position = new Vector3(-4, 1, 0);
