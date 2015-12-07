@@ -100,6 +100,7 @@ public class BodyPart1 : MonoBehaviour {
 
 		}
 		// player1 = grip, player2 = releae
+		/*
 		else if (player2.GetRightHandEvent () == InteractionManager.HandEventType.Release)
 		{
 			if (other.gameObject.tag != tag)
@@ -108,7 +109,7 @@ public class BodyPart1 : MonoBehaviour {
 				other.GetComponent<AudioSource>().PlayOneShot (boing);
 			}
 		}
-
+		*/
 	}
 	
 
