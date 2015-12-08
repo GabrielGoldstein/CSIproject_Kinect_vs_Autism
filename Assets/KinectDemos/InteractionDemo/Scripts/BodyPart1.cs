@@ -16,22 +16,16 @@ public class BodyPart1 : MonoBehaviour {
 
 	public PecCard pec;
 	public AudioSource source;
-
-	public InteractionManager player1;
-	public InteractionManager player2;
-
 	bool isSnapped = false;
 	
 	// Use this for initialization
-	void Start () {
-		rend = GetComponent<Renderer>();
-		grabScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<GrabDropScript>();
-		source = GetComponent<AudioSource>();
-		pec = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PecCard>();
-
-		player1 = GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>()[0];
-		player2 = GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>()[1];
-	}
+    void Start()
+    {
+        rend = GetComponent<Renderer>();
+        grabScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<GrabDropScript>();
+        source = GetComponent<AudioSource>();
+        pec = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PecCard>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -48,56 +42,54 @@ public class BodyPart1 : MonoBehaviour {
 	void OnTriggerEnter(Collider other) {
 		
 		color = rend.material.color;
-
-		if(this.gameObject.tag == other.gameObject.tag)
-		{
-			if (grabScript.isGrabbed == true)
-			{
-				rend.material.color = Color.green;
-			}
-		} else {
-			rend.material.color = Color.red;
-		}
+        
+        var obj = other.GetComponent<Zzero>();
+        obj.triggeredObjects.Add(this.gameObject);
+        if (this.gameObject.tag == other.gameObject.tag)
+        {
+            rend.material.color = Color.green;
+        }
+        else
+        {
+            rend.material.color = Color.red;
+        }
 	}
 
 	void OnTriggerStay(Collider other) {
 
 		//TODO: Diferentiate between player 1/2
-		
-		Debug.Log("Player1 Grab: " + player1.GetRightHandEvent());
-		if (player1.GetRightHandEvent() == InteractionManager.HandEventType.Release)
-			{
-	
-			if(other.gameObject.tag == gameObject.tag) { //if the body part matches
-				other.GetComponent<Zzero>().isSnapped = true;
-				pec.snapCounter ++;
-				rend.material.color = color;
-				Vector3 position = gameObject.transform.position;
-				other.gameObject.transform.position = position;
+        var obj = other.GetComponent<Zzero>();
+        Debug.Log(string.Format("is grabbing {0}, player {1}", grabScript.isGrabbed1,obj.PlayerIndex));
+		if ((!grabScript.isGrabbed1 && obj.PlayerIndex == 0) || (!grabScript.isGrabbed2 && obj.PlayerIndex==1))
+	    {            
+            if (other.gameObject.tag == gameObject.tag)
+            {
+                //if the body part matches
+                
+                pec.snapCounter++;
+                rend.material.color = color;
+                Vector3 position = gameObject.transform.position;
+                other.gameObject.transform.position = position;
 
-				Debug.Log("game mode: " + GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PecCard>().bodyMatchMode);
-				if(other.GetComponent<Zzero>().isSnapped && GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PecCard>().bodyMatchMode){
-					gameObject.SetActive(false);
-					other.GetComponent<AudioSource>().PlayOneShot(snap);
-					Debug.Log("Snapped " + other.gameObject.tag);
-					keepInPlace(other);
-					//MatchingModel.setSnapped()
-				}
-				Debug.Log("Position " + position);
-				//The line below delays a check for an incorrect piece
-				//prevents multiple correct/incorrect piece placement
-
-			}
-
-			else if (other.GetComponent<Zzero>().isSnapped == false){
-				//if(player2.GetRightHandEvent () != InteractionManager.HandEventType.Grip)
-				//{
-					other.gameObject.transform.position = other.GetComponent<Zzero>().origin;
-					other.GetComponent<AudioSource>().PlayOneShot (boing);
-					Debug.Log("incorrect");
-				//}
-			}
-
+                Debug.Log("game mode: " + GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PecCard>().bodyMatchMode);
+                if (GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PecCard>().bodyMatchMode)
+                {
+                    gameObject.SetActive(false);
+                    other.GetComponent<AudioSource>().PlayOneShot(snap);
+                    Debug.Log("Snapped " + other.gameObject.tag);
+                    keepInPlace(other);
+                    //MatchingModel.setSnapped()
+                }
+                Debug.Log("Position " + position);
+                //The line below delays a check for an incorrect piece
+                //prevents multiple correct/incorrect piece placement
+            }
+            else 
+            {
+                other.GetComponent<Zzero>().PlayerIndex = -1;
+                other.GetComponent<AudioSource>().PlayOneShot(boing);
+                Debug.Log("incorrect");
+            }
 		}
 		// player1 = grip, player2 = releae
 		/*
@@ -113,7 +105,10 @@ public class BodyPart1 : MonoBehaviour {
 	}
 	
 
-	void OnTriggerExit(Collider other){
+	void OnTriggerExit(Collider other)
+    {        
+        var obj = other.GetComponent<Zzero>();
+        obj.triggeredObjects.Remove(this.gameObject);
 		rend.material.color = color; //revert color to original
 	}
 

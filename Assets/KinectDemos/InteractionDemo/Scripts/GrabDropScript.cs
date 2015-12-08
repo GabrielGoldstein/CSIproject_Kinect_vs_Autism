@@ -33,14 +33,19 @@ public class GrabDropScript : MonoBehaviour
 
 	private float draggedX, draggedY;
 
-    public bool isGrabbed
+    public bool isGrabbed1
     {
 		get {
-            
-            var manager = (from m in InteractionManager.Managers where m.GetLastLeftHandEvent() == InteractionManager.HandEventType.Grip
-                 || 
-                 m.GetRightHandEvent() == InteractionManager.HandEventType.Grip select m).FirstOrDefault();
-            if(manager!=null)
+
+            var manager = (from m in InteractionManager.Managers
+                           where
+                               (m.GetLastLeftHandEvent() == InteractionManager.HandEventType.Grip && m.UseLeftHand
+                               ||
+                               m.GetRightHandEvent() == InteractionManager.HandEventType.Grip && !m.UseLeftHand
+                               )
+                               && m.playerIndex == 0
+                           select m).FirstOrDefault();
+            if (manager != null && draggedObject1!=null)
                 return true;
             else
                 return false;
@@ -49,20 +54,40 @@ public class GrabDropScript : MonoBehaviour
 		}
 	}
 
-	void Start()
-	{
-        
-		// save the initial positions and rotations of the objects
-		initialObjPos = new Vector3[draggableObjects.Length];
-		initialObjRot = new Quaternion[draggableObjects.Length];
+    public bool isGrabbed2
+    {
+        get
+        {
+            var manager = (from m in InteractionManager.Managers
+                           where
+                               (m.GetLastLeftHandEvent() == InteractionManager.HandEventType.Grip && m.UseLeftHand
+                               ||
+                               m.GetRightHandEvent() == InteractionManager.HandEventType.Grip && !m.UseLeftHand
+                               )
+                           && m.playerIndex == 1
 
-		for(int i = 0; i < draggableObjects.Length; i++)
-		{
-			initialObjPos[i] = draggableObjects[i].transform.position;
-			initialObjRot[i] = draggableObjects[i].transform.rotation;
-		}
+                           select m).FirstOrDefault();
+            if (manager != null && draggedObject2!=null)
+                return true;
+            else
+                return false;
+            //return manager.GetLastLeftHandEvent() == InteractionManager.HandEventType.Grip || 
+            //    manager.GetLastRightHandEvent() == InteractionManager.HandEventType.Grip;
+        }
+    }
 
-	}
+    void Start()
+    {
+        // save the initial positions and rotations of the objects
+        initialObjPos = new Vector3[draggableObjects.Length];
+        initialObjRot = new Quaternion[draggableObjects.Length];
+
+        for (int i = 0; i < draggableObjects.Length; i++)
+        {
+            initialObjPos[i] = draggableObjects[i].transform.position;
+            initialObjRot[i] = draggableObjects[i].transform.rotation;
+        }
+    }
 
 	void Update() 
 	{
@@ -126,24 +151,21 @@ public class GrabDropScript : MonoBehaviour
                                 if (hit.collider.gameObject == obj)
                                 {
                                     // an object was hit by the ray. select it and start dragging
-                                    
-                                    if (manager.playerIndex == 0 && obj!=draggedObject2)
+
+                                    obj.GetComponent<Zzero>().PlayerIndex = manager.playerIndex;
+                                    draggedObject = obj;
+
+                                    if (manager.playerIndex == 0 && draggedObject2 != obj)
                                     {
                                         draggedObject1 = obj;
                                     }
                                     else
-                                        if (manager.playerIndex == 1 && obj != draggedObject1)
+                                        if (manager.playerIndex == 1 && draggedObject1 != obj)
                                         {
                                             draggedObject2 = obj;
                                         }
                                         else
-                                        {
                                             continue;
-                                        }
-                                    
-                                    draggedObject = obj;
-                                    var objState = draggedObject.GetComponent<Zzero>();
-                                    objState.IsReleased = false;
                                     //draggedObjectDepth = draggedObject.transform.position.z - Camera.main.transform.position.z;
                                     //---------------------------------------------------------------------------------
                                     //---------------------------------------------------------------------------------
@@ -182,7 +204,8 @@ public class GrabDropScript : MonoBehaviour
                         // restore the object's material and stop dragging the object
                         draggedObject.GetComponent<Renderer>().material = draggedObjectMaterial;
                         var objState = draggedObject.GetComponent<Zzero>();
-                        objState.IsReleased = true;
+                        if (objState.triggeredObjects.Count == 0)
+                            objState.PlayerIndex = -1;
                         
                         if (useGravity)
                         {
@@ -200,6 +223,7 @@ public class GrabDropScript : MonoBehaviour
                     }
                     else
                     {
+                        Debug.Log("translate position");
                         screenNormalPos = isLeftHandDrag ? manager.GetLeftHandScreenPos() : manager.GetRightHandScreenPos();
 
                         // convert the normalized screen pos to 3D-world pos
@@ -208,7 +232,8 @@ public class GrabDropScript : MonoBehaviour
                         screenPixelPos.z = screenNormalPos.z + draggedObjectDepth;
 
                         Vector3 newObjectPos = Camera.main.ScreenToWorldPoint(screenPixelPos) - draggedObjectOffset;
-                        draggedObject.transform.position = Vector3.Lerp(draggedObject.transform.position, newObjectPos, dragSpeed * Time.deltaTime);
+                        draggedObject.transform.position = Vector3.Lerp(draggedObject.transform.position, 
+                            new Vector3(newObjectPos.x,newObjectPos.y,draggedObject.transform.position.z), dragSpeed * Time.deltaTime);
 
                     }
                 }
