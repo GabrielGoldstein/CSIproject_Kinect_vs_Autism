@@ -51,26 +51,26 @@ public class GrabDropScript : MonoBehaviour
                            select m).FirstOrDefault();
             if (manager != null && draggedObject1!=null){
 				//look through array for draggedObject1
-				for(int i = 0; i < draggableObjects.Length; i++){
+				/*for(int i = 0; i < draggableObjects.Length; i++){
 					if(draggedObject1.tag == draggableObjects[i].tag && draggedObject1.name == draggableObjects[i].name)
 					{
 						//Replace with Junk GameObject
 						draggableObjects[i] = emptyObject;
 						tempDraggedObject1 = draggableObjects[i];
 					}
-				}
+				}*/
                 return true;
 			}
             else {
 				//Look through array for junk
-				for(int i = 0; i < draggableObjects.Length; i++) {
+				/*for(int i = 0; i < draggableObjects.Length; i++) {
 				//replace junk with original draggedObject1
 					if(draggableObjects[i].tag == "Junk")
 					{
 						draggableObjects[i] = tempDraggedObject1;
 					}
 				}
-				//Send to origin
+				//Send to origin*/
                 return false;
 			}
             //return manager.GetLastLeftHandEvent() == InteractionManager.HandEventType.Grip || 
@@ -93,26 +93,26 @@ public class GrabDropScript : MonoBehaviour
                            select m).FirstOrDefault();
             if (manager != null && draggedObject2!=null){
 				//look through array for draggedObject1
-				for(int i = 0; i < draggableObjects.Length; i++){
+				/*for(int i = 0; i < draggableObjects.Length; i++){
 					if(draggedObject2.tag == draggableObjects[i].tag && draggedObject2.name == draggableObjects[i].name)
 					{
 						//Replace with Junk GameObject
 						draggableObjects[i] = emptyObject;
 						tempDraggedObject2 = draggableObjects[i];
 					}
-				}
+				}*/
                 return true;
 			}
 
             else{
 				//Look through array for junk
-				for(int i = 0; i < draggableObjects.Length; i++) {
+				/*for(int i = 0; i < draggableObjects.Length; i++) {
 					//replace junk with original draggedObject1
 					if(draggableObjects[i].tag == "Junk")
 					{
 						draggableObjects[i] = tempDraggedObject2;
 					}
-				}
+				}*/
                 return false;
 			}
             
