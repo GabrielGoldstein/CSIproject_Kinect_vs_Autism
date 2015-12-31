@@ -19,6 +19,11 @@ public class PecCard : MonoBehaviour {
 	public AudioClip boing;
 	public AudioClip clapping;
 
+	public GameObject smokeEffect;
+	public GameObject avatar;
+	public GameObject bodyParts;
+	public GameObject pecCards;
+
 	bool temp = true;
 
 	// Use this for initialization
@@ -54,6 +59,14 @@ public class PecCard : MonoBehaviour {
 				if (temp)
 				{
 					source.PlayOneShot(clapping);
+					smokeEffect.SetActive(true);
+					pecCards.SetActive(false);
+					//Wait 3 Secs to activate model and deactivate Parts,PEC Card;
+					StartCoroutine(wait());
+
+//					avatar.SetActive (true);
+//					bodyParts.SetActive(false);
+//					pecCards.SetActive(false);
 					temp = false;
 				}
 			}
@@ -101,5 +114,13 @@ public class PecCard : MonoBehaviour {
 		}
 
 	}
+
+	IEnumerator wait() {
+		yield return new WaitForSeconds(4);
+		avatar.SetActive (true);
+		bodyParts.SetActive(false);
+
+	}
+
 
 }
