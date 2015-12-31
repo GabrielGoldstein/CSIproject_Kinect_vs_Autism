@@ -21,6 +21,8 @@ public class Zzero : MonoBehaviour {
 	public AudioClip snap;
 	public AudioClip boing;
 	public AudioSource source;
+    public bool CorrectPlaced
+    { get; set; }
     /// <summary>
     /// Kinect playe index, set if the object is grabbed
     /// </summary>

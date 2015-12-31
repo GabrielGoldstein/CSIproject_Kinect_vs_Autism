@@ -152,40 +152,44 @@ public class GrabDropScript : MonoBehaviour
                                 {
                                     // an object was hit by the ray. select it and start dragging
 
-                                    obj.GetComponent<Zzero>().PlayerIndex = manager.playerIndex;
-                                    draggedObject = obj;
-
-                                    if (manager.playerIndex == 0 && draggedObject2 != obj)
+                                    var objState = obj.GetComponent<Zzero>();
+                                    if (objState.PlayerIndex == -1)
                                     {
-                                        draggedObject1 = obj;
-                                    }
-                                    else
-                                        if (manager.playerIndex == 1 && draggedObject1 != obj)
+                                        objState.PlayerIndex = manager.playerIndex;
+                                        draggedObject = obj;
+
+                                        if (manager.playerIndex == 0 && draggedObject2 != obj)
                                         {
-                                            draggedObject2 = obj;
+                                            draggedObject1 = obj;
                                         }
                                         else
-                                            continue;
-                                    //draggedObjectDepth = draggedObject.transform.position.z - Camera.main.transform.position.z;
-                                    //---------------------------------------------------------------------------------
-                                    //---------------------------------------------------------------------------------
-                                    //Original LINE of code above, the below code is trying to restrict the dragged object's Z-axis
-                                    draggedX = draggedObject.transform.position.x;
-                                    draggedY = draggedObject.transform.position.y;
-                                    draggedObject.transform.position.Set(draggedX, draggedY, 0);
-                                    draggedObjectDepth = 0 - Camera.main.transform.position.z;
-                                    draggedObjectOffset = hit.point - draggedObject.transform.position;
-                                    Debug.Log("Dragged Object Depth: " + draggedObjectDepth);
-                                    Debug.Log("Dragged Object Z: " + draggedObject.transform.position.z);
-                                    //----------------------------------------------------------------------------------
-                                    //---------------------------------------------------------------------------------
-                                    // set selection material
-                                    draggedObjectMaterial = draggedObject.GetComponent<Renderer>().material;
-                                    draggedObject.GetComponent<Renderer>().material = selectedObjectMaterial;
+                                            if (manager.playerIndex == 1 && draggedObject1 != obj)
+                                            {
+                                                draggedObject2 = obj;
+                                            }
+                                            else
+                                                continue;
+                                        //draggedObjectDepth = draggedObject.transform.position.z - Camera.main.transform.position.z;
+                                        //---------------------------------------------------------------------------------
+                                        //---------------------------------------------------------------------------------
+                                        //Original LINE of code above, the below code is trying to restrict the dragged object's Z-axis
+                                        draggedX = draggedObject.transform.position.x;
+                                        draggedY = draggedObject.transform.position.y;
+                                        draggedObject.transform.position.Set(draggedX, draggedY, 0);
+                                        draggedObjectDepth = 0 - Camera.main.transform.position.z;
+                                        draggedObjectOffset = hit.point - draggedObject.transform.position;
+                                        Debug.Log("Dragged Object Depth: " + draggedObjectDepth);
+                                        Debug.Log("Dragged Object Z: " + draggedObject.transform.position.z);
+                                        //----------------------------------------------------------------------------------
+                                        //---------------------------------------------------------------------------------
+                                        // set selection material
+                                        draggedObjectMaterial = draggedObject.GetComponent<Renderer>().material;
+                                        draggedObject.GetComponent<Renderer>().material = selectedObjectMaterial;
 
-                                    // stop using gravity while dragging object
-                                    draggedObject.GetComponent<Rigidbody>().useGravity = false;
-                                    break;
+                                        // stop using gravity while dragging object
+                                        draggedObject.GetComponent<Rigidbody>().useGravity = false;
+                                        break;
+                                    }
                                 }
                             }
                         }

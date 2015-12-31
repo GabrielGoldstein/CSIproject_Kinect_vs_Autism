@@ -38,34 +38,34 @@ public class BodyPart1 : MonoBehaviour {
 
 
 	}
-	
-	void OnTriggerEnter(Collider other) {
-		
-		color = rend.material.color;
-        
+
+    void OnTriggerEnter(Collider other)
+    {
+        color = rend.material.color;
         var obj = other.GetComponent<Zzero>();
         obj.triggeredObjects.Add(this.gameObject);
         if (this.gameObject.tag == other.gameObject.tag)
         {
+            obj.CorrectPlaced = true;
             rend.material.color = Color.green;
         }
         else
         {
             rend.material.color = Color.red;
         }
-	}
+    }
 
 	void OnTriggerStay(Collider other) {
 
 		//TODO: Diferentiate between player 1/2
         var obj = other.GetComponent<Zzero>();
         Debug.Log(string.Format("is grabbing {0}, player {1}", grabScript.isGrabbed1,obj.PlayerIndex));
-		if ((!grabScript.isGrabbed1 && obj.PlayerIndex == 0) || (!grabScript.isGrabbed2 && obj.PlayerIndex==1))
-	    {            
+        if ((!grabScript.isGrabbed1 && obj.PlayerIndex == 0) || (!grabScript.isGrabbed2 && obj.PlayerIndex == 1))
+        {
             if (other.gameObject.tag == gameObject.tag)
             {
                 //if the body part matches
-                
+
                 pec.snapCounter++;
                 rend.material.color = color;
                 Vector3 position = gameObject.transform.position;
@@ -84,13 +84,34 @@ public class BodyPart1 : MonoBehaviour {
                 //The line below delays a check for an incorrect piece
                 //prevents multiple correct/incorrect piece placement
             }
-            else 
+            else
+                if (!obj.CorrectPlaced)
+                {
+                    other.GetComponent<Zzero>().PlayerIndex = -1;
+                    other.GetComponent<AudioSource>().PlayOneShot(boing);
+                    Debug.Log("incorrect");
+                }
+        }
+        else
+            if ((grabScript.isGrabbed1 && obj.PlayerIndex == 0) || (grabScript.isGrabbed2 && obj.PlayerIndex == 1))
             {
-                other.GetComponent<Zzero>().PlayerIndex = -1;
-                other.GetComponent<AudioSource>().PlayOneShot(boing);
-                Debug.Log("incorrect");
+                if (obj.CorrectPlaced && other.gameObject.tag != gameObject.tag)
+                {
+                    rend.material.color = color;
+                }
+                else if (!obj.CorrectPlaced)
+                {
+                    if (other.gameObject.tag == gameObject.tag)
+                    {
+                        rend.material.color = Color.green;
+                    }
+                    else
+                    {
+                        rend.material.color = Color.red;
+                    }
+
+                }
             }
-		}
 		// player1 = grip, player2 = releae
 		/*
 		else if (player2.GetRightHandEvent () == InteractionManager.HandEventType.Release)
@@ -108,6 +129,10 @@ public class BodyPart1 : MonoBehaviour {
 	void OnTriggerExit(Collider other)
     {        
         var obj = other.GetComponent<Zzero>();
+        if (this.gameObject.tag == other.gameObject.tag)
+        {
+            obj.CorrectPlaced = false;
+        }
         obj.triggeredObjects.Remove(this.gameObject);
 		rend.material.color = color; //revert color to original
 	}
