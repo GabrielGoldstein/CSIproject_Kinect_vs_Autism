@@ -262,6 +262,9 @@ public class InteractionManager : MonoBehaviour
 	void Update () 
 	{
 		KinectManager kinectManager = KinectManager.Instance;
+
+		//Debug.Log ("Player: "+ playerIndex + " Hand Position: " + rightHandScreenPos);
+		Debug.Log ("Player: "+ playerIndex + " Hand Position: " + leftHandScreenPos);
 		
 		// update Kinect interaction
 		if(kinectManager && kinectManager.IsInitialized())
@@ -555,7 +558,9 @@ public class InteractionManager : MonoBehaviour
 				}
 			}
 		}
-		
+
+		//Debug.Log ("Player: "+ playerIndex + " Hand Position: " + rightHandPos);
+
 	}
 	
 	
