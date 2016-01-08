@@ -46,7 +46,6 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\HandPosDetection.cs" />
      <Compile Include="Assets\KinectDemos\DepthColliderDemo\Scripts\DepthImageViewer.cs" />
      <Compile Include="Assets\KinectDemos\DepthColliderDemo\Scripts\EggMover.cs" />
      <Compile Include="Assets\KinectDemos\DepthColliderDemo\Scripts\EggSpawner.cs" />
@@ -62,11 +61,13 @@
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\BodyPart1.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\GrabDropScript.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\GuiWindowScript.cs" />
+     <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\HandPosDetection.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\MatchingModel.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\PecCard.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\PecMatch1.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\PecMatch2.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\PlaySound.cs" />
+     <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\Scene2Placeholder.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\Zero.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\Zzero.cs" />
      <Compile Include="Assets\KinectDemos\MultiSceneDemo\Scripts\LoadFirstLevel.cs" />
