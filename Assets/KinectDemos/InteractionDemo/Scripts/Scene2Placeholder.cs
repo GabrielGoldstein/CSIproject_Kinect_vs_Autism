@@ -42,6 +42,7 @@ public class Scene2Placeholder : MonoBehaviour {
 		color = rend.material.color;
 		var obj = other.GetComponent<Zzero>();
 		obj.triggeredObjects.Add(this.gameObject);
+
 		if (this.gameObject.tag == other.gameObject.tag)
 		{
 			obj.CorrectPlaced = true;
@@ -54,9 +55,11 @@ public class Scene2Placeholder : MonoBehaviour {
 	}
 	
 	void OnTriggerStay(Collider other) {
-		if(other.gameObject.tag == gameObject.tag)
+	if ((this.gameObject.tag == other.gameObject.tag) && (!grabScript.isGrabbed1))
+
 		{
 			other.gameObject.transform.position = gameObject.transform.position;
+			gameObject.SetActive(false);
 		}
 
 			
@@ -66,7 +69,7 @@ public class Scene2Placeholder : MonoBehaviour {
 	void OnTriggerExit(Collider other)
 	{        
 		var obj = other.GetComponent<Zzero>();
-		if (this.gameObject.tag == other.gameObject.tag)
+		if (this.gameObject.tag == other.gameObject.tag )
 		{
 			obj.CorrectPlaced = false;
 		}
