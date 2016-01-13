@@ -57,8 +57,8 @@
      <Compile Include="Assets\KinectDemos\GesturesDemo\Scripts\GestureListener.cs" />
      <Compile Include="Assets\KinectDemos\GesturesDemo\Scripts\PresentationScript.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Assets\wire.cs" />
-     <Compile Include="Assets\KinectDemos\InteractionDemo\ButtonController.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\BodyPart1.cs" />
+     <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\ButtonController.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\GrabDropScript.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\GuiWindowScript.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\HandPosDetection.cs" />
@@ -106,6 +106,8 @@
      <Compile Include="Assets\KinectScripts\SpeechErrorHandler.cs" />
      <Compile Include="Assets\KinectScripts\SpeechManager.cs" />
      <Compile Include="Assets\KinectScripts\VisualGestureManager.cs" />
+     <Compile Include="Assets\Scene1Controller.cs" />
+     <Compile Include="Assets\Scene3PlaceHolder.cs" />
      <None Include="Assets\Resources\BlurShader.shader" />
      <None Include="Assets\Resources\SpeechGrammar.grxml.txt" />
      <None Include="Assets\Resources\Color2DepthShader.shader" />

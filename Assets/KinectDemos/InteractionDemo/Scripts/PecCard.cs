@@ -23,6 +23,7 @@ public class PecCard : MonoBehaviour {
 	public GameObject avatar;
 	public GameObject bodyParts;
 	public GameObject pecCards;
+	public GameObject PECCards;
 
 	bool temp = true;
 
@@ -41,12 +42,14 @@ public class PecCard : MonoBehaviour {
 		if(snapCounter == numPieces){
 			Debug.Log("BEGIN PEC MODE");
 			bodyMatchMode = false;
+			PECCards.SetActive (true);
 			//p2Holder.SetActive(true);
-			for (int i = 0; i < pec.Length; i++) {
+
+			/*for (int i = 0; i < pec.Length; i++) {
 				//pec.GetLength(arraySize)
 				pec[i].SetActive(true);
 
-			}
+			}*/
 
 		}
 
@@ -116,7 +119,7 @@ public class PecCard : MonoBehaviour {
 	}
 
 	IEnumerator wait() {
-		yield return new WaitForSeconds(4);
+		yield return new WaitForSeconds(2);
 		avatar.SetActive (true);
 		bodyParts.SetActive(false);
 

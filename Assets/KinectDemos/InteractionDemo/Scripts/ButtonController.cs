@@ -20,4 +20,9 @@ public class ButtonController : MonoBehaviour {
 	public void optionButton(){
 
 	}
+
+	public void startTutorialButton() {
+		Application.LoadLevel ("Scene 1");
+	}
+
 }

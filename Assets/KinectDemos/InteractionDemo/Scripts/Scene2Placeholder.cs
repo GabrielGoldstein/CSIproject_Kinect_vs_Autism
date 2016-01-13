@@ -31,13 +31,12 @@ public class Scene2Placeholder : MonoBehaviour {
 		pos = transform.position;
 		pos.z = 0;
 		transform.position = pos;
-		
-		
-		
+
+
 		
 	}
 	
-	void OnTriggerEnter(Collider other)
+	/*void OnTriggerEnter(Collider other)
 	{
 		color = rend.material.color;
 		var obj = other.GetComponent<Zzero>();
@@ -52,21 +51,26 @@ public class Scene2Placeholder : MonoBehaviour {
 		{
 			rend.material.color = Color.red;
 		}
-	}
+	}*/
 	
 	void OnTriggerStay(Collider other) {
-	if ((this.gameObject.tag == other.gameObject.tag) && (!grabScript.isGrabbed1))
+		if ((this.gameObject.tag == other.gameObject.tag) && (!grabScript.isGrabbed1))
+			{
+				other.gameObject.transform.position = gameObject.transform.position;
+				other.gameObject.GetComponent<Zzero>().isSnapped = true;
+				gameObject.GetComponent<MeshRenderer>().material.color = new Color (1.0f, 1.0f, 1.0f, 0.0f); 
+				StartCoroutine(Wait ());
 
-		{
-			other.gameObject.transform.position = gameObject.transform.position;
-			gameObject.SetActive(false);
-		}
 
-			
-		}
+			//gameObject.renderer.material.color.a = 1
+				
+				
+				
+			}
+	}
 		
 	
-	void OnTriggerExit(Collider other)
+	/*void OnTriggerExit(Collider other)
 	{        
 		var obj = other.GetComponent<Zzero>();
 		if (this.gameObject.tag == other.gameObject.tag )
@@ -75,9 +79,9 @@ public class Scene2Placeholder : MonoBehaviour {
 		}
 		obj.triggeredObjects.Remove(this.gameObject);
 		rend.material.color = color; //revert color to original
-	}
+	}*/
 	
-	public void keepInPlace(Collider other)
+	/*public void keepInPlace(Collider other)
 	{
 		int i = 0;
 		
@@ -96,8 +100,23 @@ public class Scene2Placeholder : MonoBehaviour {
 			
 			//else Debug.Log ("Current GameObject outside " + grabScript.draggableObjects[i].tag);
 		}
-		
-		
-		
+
+	}*/
+	IEnumerator Wait() {
+		yield return new WaitForSeconds(2);
+		Application.LoadLevel("Scene 3");
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

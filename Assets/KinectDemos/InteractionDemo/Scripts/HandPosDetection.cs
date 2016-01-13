@@ -28,8 +28,8 @@ public class HandPosDetection : MonoBehaviour {
 
 		//Checks if hand is within the center of the screen
 		//Right Hand Detection
-		if (interaction1.GetRightHandScreenPos().x >= .4375 && interaction1.GetRightHandScreenPos().x <= .5625){
-			if (interaction1.GetRightHandScreenPos().y >= .4375 && interaction1.GetRightHandScreenPos().y <= .5625){
+		if (interaction1.GetRightHandScreenPos().x >= .46875 && interaction1.GetRightHandScreenPos().x <= .53125){
+			if (interaction1.GetRightHandScreenPos().y >= .46875 && interaction1.GetRightHandScreenPos().y <= .53125){
 				Debug.Log ("Hand is in the middle 1!!");
 				if(active == false)
 				{
@@ -55,7 +55,7 @@ public class HandPosDetection : MonoBehaviour {
 				}
 			}
 		}
-
+		/*
 		//Detect if Player grabbed headpiece to start gameover
 		if(grabScript.draggedObject1 == obj1)
 		{
@@ -71,7 +71,7 @@ public class HandPosDetection : MonoBehaviour {
 		}
 		
 
-	}
+	*/}
 
 	IEnumerator Wait() {
 		yield return new WaitForSeconds(2);

@@ -1,16 +1,17 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\KinectDemos\InteractionDemo\Scripts\BodyPart1.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\KinectDemos\InteractionDemo\Scripts\PecCard.cs">
     <Files>
-      <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\HandPosDetection.cs" Line="23" Column="8" />
-      <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\BodyPart1.cs" Line="69" Column="17" />
+      <File FileName="Assets\Scene3PlaceHolder.cs" Line="40" Column="60" />
+      <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\HandPosDetection.cs" Line="74" Column="5" />
+      <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\BodyPart1.cs" Line="1" Column="1" />
       <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\GrabDropScript.cs" Line="1" Column="1" />
       <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\Zzero.cs" Line="1" Column="1" />
-      <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\PecCard.cs" Line="1" Column="1" />
-      <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\PecMatch1.cs" Line="1" Column="1" />
-      <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\PecMatch2.cs" Line="1" Column="1" />
-      <File FileName="Assets\KinectScripts\InteractionManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\Scene2Placeholder.cs" Line="54" Column="4" />
+      <File FileName="Assets\KinectScripts\InteractionManager.cs" Line="5" Column="38" />
+      <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\Scene2Placeholder.cs" Line="107" Column="35" />
+      <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\ButtonController.cs" Line="25" Column="37" />
+      <File FileName="Assets\Scene1Controller.cs" Line="31" Column="37" />
+      <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\PecCard.cs" Line="65" Column="34" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
