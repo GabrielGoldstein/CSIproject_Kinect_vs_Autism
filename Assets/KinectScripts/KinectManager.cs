@@ -108,9 +108,9 @@ public class KinectManager : MonoBehaviour
 	private static KinectManager instance = null;
 
 	// available sensor interfaces
-	private List<DepthSensorInterface> sensorInterfaces = null;
+    private static List<DepthSensorInterface> sensorInterfaces = null;
 	// primary SensorData structure
-	private KinectInterop.SensorData sensorData = null;
+	private static KinectInterop.SensorData sensorData = null;
 
 	// Depth and user maps
 //	private KinectInterop.DepthBuffer depthImage;
@@ -1261,6 +1261,7 @@ public class KinectManager : MonoBehaviour
 
 			// init the available sensor interfaces
 			bool bNeedRestart = false;
+            if (sensorInterfaces == null)
 			sensorInterfaces = KinectInterop.InitSensorInterfaces(bOnceRestarted, ref bNeedRestart);
 
 			if(bNeedRestart)
@@ -1304,6 +1305,7 @@ public class KinectManager : MonoBehaviour
 //				dwFlags |= KinectInterop.FrameSource.TypeAudio;
 
 			// open the default sensor
+            if(sensorData == null)
 			sensorData = KinectInterop.OpenDefaultSensor(sensorInterfaces, dwFlags, sensorAngle, useMultiSourceReader);
 			if (sensorData == null)
 			{
@@ -1447,7 +1449,7 @@ public class KinectManager : MonoBehaviour
         dictUserIdToIndex = new Dictionary<Int64, int>();
 	
 		kinectInitialized = true;
-		DontDestroyOnLoad(gameObject);
+		//DontDestroyOnLoad(gameObject);
 		
 		// GUI Text.
 		if(calibrationText != null)
@@ -1466,11 +1468,11 @@ public class KinectManager : MonoBehaviour
 		// shut down the Kinect on quitting.
 		if(kinectInitialized)
 		{
-			KinectInterop.CloseSensor(sensorData);
+			//KinectInterop.CloseSensor(sensorData);
 			
 //			KinectInterop.ShutdownKinectSensor();
 
-			instance = null;
+			//instance = null;
 		}
 	}
 
