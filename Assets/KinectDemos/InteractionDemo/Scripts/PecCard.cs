@@ -22,10 +22,11 @@ public class PecCard : MonoBehaviour {
 	public GameObject smokeEffect;
 	public GameObject avatar;
 	public GameObject bodyParts;
-	public GameObject pecCards;
 	public GameObject PECCards;
 
 	bool temp = true;
+
+	bool temp2; //Makes sure the if statement only happens once
 
 	// Use this for initialization
 	void Start () {
@@ -38,11 +39,12 @@ public class PecCard : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
-
-		if(snapCounter == numPieces){
+//Checks if all body parts are snapped in
+		if((snapCounter == numPieces)&&(temp2 == false)){
 			Debug.Log("BEGIN PEC MODE");
 			bodyMatchMode = false;
 			PECCards.SetActive (true);
+			temp2 = true;
 			//p2Holder.SetActive(true);
 
 			/*for (int i = 0; i < pec.Length; i++) {
@@ -63,14 +65,14 @@ public class PecCard : MonoBehaviour {
 				{
 					source.PlayOneShot(clapping);
 					smokeEffect.SetActive(true);
-					pecCards.SetActive(false);
+					PECCards.SetActive(false);
+					temp = false;
+
 					//Wait 3 Secs to activate model and deactivate Parts,PEC Card;
 					StartCoroutine(wait());
 
-//					avatar.SetActive (true);
-//					bodyParts.SetActive(false);
-//					pecCards.SetActive(false);
-					temp = false;
+
+
 				}
 			}
 			else {
@@ -119,7 +121,7 @@ public class PecCard : MonoBehaviour {
 	}
 
 	IEnumerator wait() {
-		yield return new WaitForSeconds(2);
+		yield return new WaitForSeconds(3);
 		avatar.SetActive (true);
 		bodyParts.SetActive(false);
 

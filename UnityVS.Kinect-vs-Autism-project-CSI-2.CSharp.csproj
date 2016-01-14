@@ -7,16 +7,14 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{698E92C7-E6AC-9A6E-F84E-041649588EC9}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <AssemblyName>Assembly-CSharp</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.0.2f1</UnityVersion>
@@ -86,15 +84,18 @@
     <Compile Include="Assets\KinectDemos\FittingRoomDemo\Scripts\OverlayController.cs" />
     <Compile Include="Assets\KinectDemos\GesturesDemo\Scripts\GestureListener.cs" />
     <Compile Include="Assets\KinectDemos\GesturesDemo\Scripts\PresentationScript.cs" />
-    <Compile Include="Assets\KinectDemos\InteractionDemo\ButtonController.cs" />
+    <Compile Include="Assets\KinectDemos\InteractionDemo\Assets\wire.cs" />
     <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\BodyPart1.cs" />
+    <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\ButtonController.cs" />
     <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\GrabDropScript.cs" />
     <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\GuiWindowScript.cs" />
+    <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\HandPosDetection.cs" />
     <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\MatchingModel.cs" />
     <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\PecCard.cs" />
     <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\PecMatch1.cs" />
     <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\PecMatch2.cs" />
     <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\PlaySound.cs" />
+    <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\Scene2Placeholder.cs" />
     <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\Zero.cs" />
     <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\Zzero.cs" />
     <Compile Include="Assets\KinectDemos\MultiSceneDemo\Scripts\LoadFirstLevel.cs" />
@@ -133,6 +134,8 @@
     <Compile Include="Assets\KinectScripts\SpeechErrorHandler.cs" />
     <Compile Include="Assets\KinectScripts\SpeechManager.cs" />
     <Compile Include="Assets\KinectScripts\VisualGestureManager.cs" />
+    <Compile Include="Assets\Scene1Controller.cs" />
+    <Compile Include="Assets\Scene3PlaceHolder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\BlurShader.shader" />
