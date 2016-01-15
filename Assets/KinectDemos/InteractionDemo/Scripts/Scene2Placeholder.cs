@@ -33,6 +33,7 @@ public class Scene2Placeholder : MonoBehaviour {
 		transform.position = pos;
 
 
+
 		
 	}
 	
@@ -59,6 +60,7 @@ public class Scene2Placeholder : MonoBehaviour {
 				other.gameObject.transform.position = gameObject.transform.position;
 				other.gameObject.GetComponent<Zzero>().isSnapped = true;
 				gameObject.GetComponent<MeshRenderer>().material.color = new Color (1.0f, 1.0f, 1.0f, 0.0f); 
+				GameObject.FindGameObjectWithTag("ScenePeices").GetComponent<Animator>().SetTrigger ("GameOver");
 				StartCoroutine(Wait ());
 
 
