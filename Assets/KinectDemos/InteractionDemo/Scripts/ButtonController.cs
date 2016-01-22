@@ -13,7 +13,7 @@ public class ButtonController : MonoBehaviour {
 	
 	}
 
-	public void startButton(){
+	public void startGameButton(){
 		Application.LoadLevel ("KinectInteractionDemo");
 	}
 

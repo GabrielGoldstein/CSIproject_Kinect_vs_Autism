@@ -106,7 +106,7 @@ public class Scene3PlaceHolder : MonoBehaviour {
 	}*/
 	IEnumerator Wait() {
 		yield return new WaitForSeconds(2);
-		Application.LoadLevel("Scene 3");
+		Application.LoadLevel("Scene 4");
 	}
 }
 
