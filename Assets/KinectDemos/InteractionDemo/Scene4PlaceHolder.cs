@@ -38,6 +38,7 @@ public class Scene4PlaceHolder : MonoBehaviour {
 		{
 			other.gameObject.transform.position = gameObject.transform.position;
 			other.gameObject.GetComponent<Zzero>().isSnapped = true;
+				//Animation
 			gameObject.SetActive(false);
 			keepInPlace(other);
 

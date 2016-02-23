@@ -1,13 +1,16 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\KinectDemos\InteractionDemo\Scene4PlaceHolder.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\KinectDemos\InteractionDemo\Scripts\BodyPart1.cs">
     <Files>
-      <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\ButtonController.cs" Line="20" Column="29" />
-      <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\Scene2Placeholder.cs" Line="31" Column="28" />
+      <File FileName="Assets\KinectDemos\InteractionDemo\Scene3PlaceHolder.cs" Line="109" Column="36" />
+      <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\ButtonController.cs" Line="1" Column="1" />
+      <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\Scene2Placeholder.cs" Line="1" Column="1" />
       <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\HandPosDetection.cs" Line="1" Column="1" />
-      <File FileName="Assets\KinectDemos\InteractionDemo\Scene3PlaceHolder.cs" Line="109" Column="33" />
-      <File FileName="Assets\KinectDemos\InteractionDemo\Scene4PlaceHolder.cs" Line="10" Column="21" />
+      <File FileName="Assets\KinectDemos\InteractionDemo\Scene4PlaceHolder.cs" Line="1" Column="1" />
       <File FileName="Assets\KinectDemos\InteractionDemo\Scene1Controller.cs" Line="1" Column="1" />
+      <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\BodyPart1.cs" Line="143" Column="38" />
+      <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\Zzero.cs" Line="31" Column="6" />
+      <File FileName="Assets\socket.cs" Line="22" Column="7" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

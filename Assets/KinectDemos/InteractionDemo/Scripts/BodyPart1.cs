@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System;
 public class BodyPart1 : MonoBehaviour {
@@ -16,8 +16,10 @@ public class BodyPart1 : MonoBehaviour {
 
 	public PecCard pec;
 	public AudioSource source;
+	public socket scoreKeep;
 	bool isSnapped = false;
-	
+
+
 	// Use this for initialization
     void Start()
     {
@@ -25,6 +27,8 @@ public class BodyPart1 : MonoBehaviour {
         grabScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<GrabDropScript>();
         source = GetComponent<AudioSource>();
         pec = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PecCard>();
+
+		scoreKeep =  GameObject.FindGameObjectWithTag("MainCamera").GetComponent<socket>(); 
     }
 	
 	// Update is called once per frame
@@ -60,16 +64,23 @@ public class BodyPart1 : MonoBehaviour {
 		//TODO: Diferentiate between player 1/2
         var obj = other.GetComponent<Zzero>();
         Debug.Log(string.Format("is grabbing {0}, player {1}", grabScript.isGrabbed1,obj.PlayerIndex));
+
+		int pvalue = obj.PlayerIndex;
+		//calcScore(obj.PlayerIndex);
         if ((!grabScript.isGrabbed1 && obj.PlayerIndex == 0) || (!grabScript.isGrabbed2 && obj.PlayerIndex == 1))
         {
+				
+
             if (other.gameObject.tag == gameObject.tag)
             {
                 //if the body part matches
 
+				calcScore(gameObject.transform.position, other.gameObject.transform.position, pvalue);
                 pec.snapCounter++;
                 rend.material.color = color;
                 Vector3 position = gameObject.transform.position;
                 other.gameObject.transform.position = position;
+
 
                 Debug.Log("game mode: " + GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PecCard>().bodyMatchMode);
                 if (GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PecCard>().bodyMatchMode)
@@ -124,7 +135,27 @@ public class BodyPart1 : MonoBehaviour {
 		}
 		*/
 	}
-	
+
+	public void calcScore( Vector3 holderPos, Vector3 partPos, int player){
+		
+		float score = Math.Abs( holderPos.x - partPos.x) + Math.Abs(holderPos.y - partPos.y);
+
+		Debug.Log("DEBUG score: " + score);
+
+		if(score <= 0.5)
+			score = 100;
+		else if(score <= 1.0)
+			score = 75;
+		else if( score <= 1.5)
+			score = 50;
+		else 
+			score = 25;
+
+		scoreKeep.updateScore(score,player);
+
+
+		
+	}
 
 	void OnTriggerExit(Collider other)
     {        
