@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System;
 public class BodyPart1 : MonoBehaviour {
@@ -10,6 +11,7 @@ public class BodyPart1 : MonoBehaviour {
 	Renderer rend;
 	Vector3 partOrigin;
 	public GameObject emptyObject;
+	public GameObject scorePrefab;
 
 	public AudioClip snap;
 	public AudioClip boing;
@@ -140,7 +142,7 @@ public class BodyPart1 : MonoBehaviour {
 		
 		float score = Math.Abs( holderPos.x - partPos.x) + Math.Abs(holderPos.y - partPos.y);
 
-		Debug.Log("DEBUG score: " + score);
+
 
 		if(score <= 0.5)
 			score = 100;
@@ -151,10 +153,27 @@ public class BodyPart1 : MonoBehaviour {
 		else 
 			score = 25;
 
+		Debug.Log("DEBUG score: " + score);
+
+		initScorePrefab();
 		scoreKeep.updateScore(score,player);
 
 
+
 		
+	}
+
+	public void initScorePrefab(){
+	
+
+		GameObject tmp = Instantiate(scorePrefab)as GameObject;
+		RectTransform tmpRect = tmp.GetComponent<RectTransform>();
+		tmp.transform.SetParent(transform.FindChild("Canvas"));
+		Debug.Log("sadad");
+		tmpRect.transform.localPosition = scorePrefab.transform.localPosition;
+		tmpRect.transform.localScale = scorePrefab.transform.localScale;
+
+
 	}
 
 	void OnTriggerExit(Collider other)
