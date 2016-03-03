@@ -11,7 +11,9 @@ public class BodyPart1 : MonoBehaviour {
 	Renderer rend;
 	Vector3 partOrigin;
 	public GameObject emptyObject;
+
 	public GameObject scorePrefab;
+	public Vector3 scoreVector;
 
 	public AudioClip snap;
 	public AudioClip boing;
@@ -29,8 +31,8 @@ public class BodyPart1 : MonoBehaviour {
         grabScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<GrabDropScript>();
         source = GetComponent<AudioSource>();
         pec = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PecCard>();
-
-		scoreKeep =  GameObject.FindGameObjectWithTag("MainCamera").GetComponent<socket>(); 
+		scoreKeep =  GameObject.FindGameObjectWithTag("MainCamera").GetComponent<socket>();
+		scoreVector = new Vector3 (0,25,0);
     }
 	
 	// Update is called once per frame
@@ -142,8 +144,6 @@ public class BodyPart1 : MonoBehaviour {
 		
 		float score = Math.Abs( holderPos.x - partPos.x) + Math.Abs(holderPos.y - partPos.y);
 
-
-
 		if(score <= 0.5)
 			score = 100;
 		else if(score <= 1.0)
@@ -157,24 +157,29 @@ public class BodyPart1 : MonoBehaviour {
 
 		initScorePrefab();
 		scoreKeep.updateScore(score,player);
-
-
-
-		
 	}
+
 
 	public void initScorePrefab(){
 	
 
 		GameObject tmp = Instantiate(scorePrefab)as GameObject;
 		RectTransform tmpRect = tmp.GetComponent<RectTransform>();
-		tmp.transform.SetParent(transform.FindChild("Canvas"));
-		Debug.Log("sadad");
-		tmpRect.transform.localPosition = scorePrefab.transform.localPosition;
+		tmp.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").GetComponent<Transform>());
+		//tmpRect.transform.position = (gameObject.transform.position + scoreVector);
+
+		Debug.Log ("GameObject.transform.position: " + gameObject.transform.position);
+		Debug.Log ("ScoreVector: " + scoreVector);
+		Debug.Log ("VECTOR ADDITION: " + (gameObject.transform.position + scoreVector));
+
+		tmpRect.transform.localPosition = new Vector3 (gameObject.transform.localPosition.x * 40, 
+		                                               gameObject.transform.localPosition.y + 25, 
+		                                               gameObject.transform.localPosition.z);
 		tmpRect.transform.localScale = scorePrefab.transform.localScale;
 
 
 	}
+
 
 	void OnTriggerExit(Collider other)
     {        
@@ -186,6 +191,7 @@ public class BodyPart1 : MonoBehaviour {
         obj.triggeredObjects.Remove(this.gameObject);
 		rend.material.color = color; //revert color to original
 	}
+
 
 	public void keepInPlace(Collider other)
 	{

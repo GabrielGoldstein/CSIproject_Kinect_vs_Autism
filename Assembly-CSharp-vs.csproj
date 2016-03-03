@@ -111,6 +111,7 @@
      <Compile Include="Assets\KinectScripts\SpeechManager.cs" />
      <Compile Include="Assets\KinectScripts\VisualGestureManager.cs" />
      <Compile Include="Assets\Movie.cs" />
+     <Compile Include="Assets\Timer.cs" />
      <Compile Include="Assets\socket.cs" />
      <None Include="Assets\Resources\BlurShader.shader" />
      <None Include="Assets\Resources\SpeechGrammar.grxml.txt" />
