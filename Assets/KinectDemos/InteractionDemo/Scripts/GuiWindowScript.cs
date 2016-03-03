@@ -20,6 +20,8 @@ public class GuiWindowScript : MonoBehaviour
     private bool UseLeftHandPlayer0 = false;
     private bool UseLeftHandPlayer1 = false;
 
+	public GameObject optionsButton;
+
 	private string label1Text = string.Empty;
 	private string label2Text = string.Empty;
 
@@ -27,6 +29,12 @@ public class GuiWindowScript : MonoBehaviour
 	void Start()
 	{
 		planeObj = GameObject.Find("Plane");
+	}
+
+	public void openOptions()
+	{
+		hiddenWindow = false;
+		optionsButton.SetActive (false);
 	}
 
 
@@ -162,6 +170,7 @@ public class GuiWindowScript : MonoBehaviour
 		if(hideWin)
 		{
 			hiddenWindow = true;
+			optionsButton.SetActive (true);
 		}
 	}
 	
