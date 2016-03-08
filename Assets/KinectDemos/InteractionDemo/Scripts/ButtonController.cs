@@ -21,23 +21,8 @@ public class ButtonController : MonoBehaviour {
 	public void startGameButton(){
 		Application.LoadLevel ("KinectInteractionDemo");
 	}
-	public void optionButton(){
-	}
 	public void startTutorialButton() {
 		Application.LoadLevel ("Scene 1");
-	}
-
-
-	public void levelSelectButton() {
-		//Disable Main Menu Panel
-		gameObject.SetActive (false);
-		//Activate LevelSelectPanel
-		levelSelectPanel.SetActive(true);
-	}
-	public void leveltoMain(){
-		//Level Select window to Main Menu
-		levelSelectPanel.SetActive (false);
-		gameObject.SetActive(true);
 	}
 
 
@@ -53,6 +38,30 @@ public class ButtonController : MonoBehaviour {
 	public void level4Button(){
 		Application.LoadLevel ("Scene 4");
 	}
+
+
+	public void miniGameButton(){
+		Application.LoadLevel ("Mini Game DEMO");
+	}
+	public void videoButton(){
+		//Load Video
+		//Play Level
+		//Go to next level
+	}
+	public void levelSelectButton() {
+		//Disable Main Menu Panel
+		gameObject.SetActive (false);
+		//Activate LevelSelectPanel
+		levelSelectPanel.SetActive(true);
+	}
+	public void leveltoMain(){
+		//Level Select window to Main Menu
+		levelSelectPanel.SetActive (false);
+		gameObject.SetActive(true);
+	}
+
+
+
 
 
 	public void hitNumber() {
