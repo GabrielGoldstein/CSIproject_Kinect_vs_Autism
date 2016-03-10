@@ -6,6 +6,8 @@ public class Scene1Controller : MonoBehaviour {
 	public bool gameOver;
 
 	public GameObject obj1;
+	public GameObject resultPanel;
+	public GameObject scenePieces;
 
 	GrabDropScript grabScript;
 
@@ -26,12 +28,17 @@ public class Scene1Controller : MonoBehaviour {
 		if(gameOver == true) 
 		{
 			gameObject.GetComponent<Animator>().SetTrigger ("GameOver");
+			//Turn Result Panel On
 			StartCoroutine(Wait());
 		}
 	}
 
-	IEnumerator Wait() {
-	yield return new WaitForSeconds(2);
-	Application.LoadLevel("Scene 2");
+	IEnumerator Wait()
+	{
+		yield return new WaitForSeconds(2);
+		gameObject.GetComponent<Animator>().ResetTrigger("GameOver");
+		scenePieces.SetActive(false);
+		resultPanel.SetActive(true);
+		//Application.LoadLevel("Scene 2");
 	}
 }

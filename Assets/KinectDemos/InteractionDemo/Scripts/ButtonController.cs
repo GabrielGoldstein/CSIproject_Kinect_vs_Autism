@@ -26,16 +26,16 @@ public class ButtonController : MonoBehaviour {
 	}
 
 
-	public void level1Button(){
+	public void toLevel1(){
 		Application.LoadLevel ("Scene 1");
 	}
-	public void level2Button() {
+	public void toLevel2() {
 		Application.LoadLevel ("Scene 2");
 	}
-	public void level3Button(){
+	public void toLevel3(){
 		Application.LoadLevel ("Scene 3");
 	}
-	public void level4Button(){
+	public void toLevel4(){
 		Application.LoadLevel ("Scene 4");
 	}
 
@@ -43,11 +43,8 @@ public class ButtonController : MonoBehaviour {
 	public void miniGameButton(){
 		Application.LoadLevel ("Mini Game DEMO");
 	}
-	public void videoButton(){
-		//Load Video
-		//Play Level
-		//Go to next level
-	}
+
+
 	public void levelSelectButton() {
 		//Disable Main Menu Panel
 		gameObject.SetActive (false);
