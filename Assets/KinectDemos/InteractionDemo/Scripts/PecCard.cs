@@ -5,9 +5,9 @@ public class PecCard : MonoBehaviour {
 
 	GrabDropScript grabScript;
 
-	public int snapCounter = 0;
-	public int numPieces = 0;
-	public int arraySize = 0;
+	public int snapCounter;
+	public int numPieces;
+	public int arraySize;
 	public bool bodyMatchMode = true;
 
 	public GameObject[] match;
@@ -26,7 +26,7 @@ public class PecCard : MonoBehaviour {
 
 	bool temp = true;
 
-	bool temp2; //Makes sure the if statement only happens once
+	public bool temp2 = false; //Makes sure the if statement only happens once
 
 	// Use this for initialization
 	void Start () {

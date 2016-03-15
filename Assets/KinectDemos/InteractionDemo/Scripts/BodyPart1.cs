@@ -23,6 +23,8 @@ public class BodyPart1 : MonoBehaviour {
 	public socket scoreKeep;
 	bool isSnapped = false;
 
+	public bool isFade;
+	public GameObject tmp;
 
 	// Use this for initialization
     void Start()
@@ -33,16 +35,22 @@ public class BodyPart1 : MonoBehaviour {
         pec = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PecCard>();
 		scoreKeep =  GameObject.FindGameObjectWithTag("MainCamera").GetComponent<socket>();
 		scoreVector = new Vector3 (0,25,0);
+
     }
 	
 	// Update is called once per frame
 	void Update () {
 
+
 		pos = transform.position;
 		pos.z = 0;
 		transform.position = pos;
+		Debug.Log("sdasda"+isFade);
+		//if(isFade == true){
 
-
+			// tmp.transform.Translate(Vector3.up * Time.deltaTime * 50);
+			// isFade = false;
+		//}
 
 
 	}
@@ -155,7 +163,7 @@ public class BodyPart1 : MonoBehaviour {
 
 		Debug.Log("DEBUG score: " + score);
 
-		initScorePrefab();
+		//initScorePrefab();
 		scoreKeep.updateScore(score,player);
 	}
 
@@ -163,7 +171,7 @@ public class BodyPart1 : MonoBehaviour {
 	public void initScorePrefab(){
 	
 
-		GameObject tmp = Instantiate(scorePrefab)as GameObject;
+		tmp = Instantiate(scorePrefab)as GameObject;
 		RectTransform tmpRect = tmp.GetComponent<RectTransform>();
 		tmp.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").GetComponent<Transform>());
 		//tmpRect.transform.position = (gameObject.transform.position + scoreVector);
@@ -172,13 +180,42 @@ public class BodyPart1 : MonoBehaviour {
 		Debug.Log ("ScoreVector: " + scoreVector);
 		Debug.Log ("VECTOR ADDITION: " + (gameObject.transform.position + scoreVector));
 
+		if(gameObject.tag == "leftArm" || gameObject.tag == "rightArm"){
 		tmpRect.transform.localPosition = new Vector3 (gameObject.transform.localPosition.x * 40, 
-		                                               gameObject.transform.localPosition.y + 25, 
+		                                               gameObject.transform.localPosition.y + 50, 
 		                                               gameObject.transform.localPosition.z);
+		}
+		else if (gameObject.tag == "leftLeg"){
+		 tmpRect.transform.localPosition = new Vector3 (gameObject.transform.localPosition.x - 40, 
+			                                               gameObject.transform.localPosition.y - 50 , 
+			                                               gameObject.transform.localPosition.z);
+
+		
+
+		}
+		else if (gameObject.tag == "rightLeg"){
+			tmpRect.transform.localPosition = new Vector3 (gameObject.transform.localPosition.x + 40, 
+			                                               gameObject.transform.localPosition.y -50 , 
+			                                               gameObject.transform.localPosition.z);
+			
+			
+			
+		}
+		else{
+			tmpRect.transform.localPosition = new Vector3 (gameObject.transform.localPosition.x , 
+			                                               gameObject.transform.localPosition.y, 
+			                                               gameObject.transform.localPosition.z - 10);
+
+		}
+
 		tmpRect.transform.localScale = scorePrefab.transform.localScale;
+
+		isFade = true;
 
 
 	}
+
+
 
 
 	void OnTriggerExit(Collider other)
