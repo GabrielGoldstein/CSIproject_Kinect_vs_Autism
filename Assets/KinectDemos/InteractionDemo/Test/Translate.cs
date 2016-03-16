@@ -13,7 +13,7 @@ public class Translate : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		gameObject.transform.Translate(Vector3.up * Time.deltaTime * 50);
-		gameObject.GetComponent<Animator>().SetTrigger("Fadeout");
+		gameObject.GetComponent<Animator>().SetBool("Fadeout", true);
 		//gameObject.GetComponent<AnimationClip>().;
 		//gameObject.GetComponent<Animator>().ResetTrigger ("Fadeout");
 

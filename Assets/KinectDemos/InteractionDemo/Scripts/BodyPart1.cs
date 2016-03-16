@@ -23,8 +23,8 @@ public class BodyPart1 : MonoBehaviour {
 	public socket scoreKeep;
 	bool isSnapped = false;
 
-	public bool isFade;
-	public GameObject tmp;
+
+
 
 	// Use this for initialization
     void Start()
@@ -45,12 +45,8 @@ public class BodyPart1 : MonoBehaviour {
 		pos = transform.position;
 		pos.z = 0;
 		transform.position = pos;
-		Debug.Log("sdasda"+isFade);
-		//if(isFade == true){
 
-			// tmp.transform.Translate(Vector3.up * Time.deltaTime * 50);
-			// isFade = false;
-		//}
+
 
 
 	}
@@ -163,19 +159,27 @@ public class BodyPart1 : MonoBehaviour {
 
 		Debug.Log("DEBUG score: " + score);
 
-		//initScorePrefab();
+		initScorePrefab(score,player);
 		scoreKeep.updateScore(score,player);
 	}
 
 
-	public void initScorePrefab(){
-	
+	public void initScorePrefab(float score, float player){
 
-		tmp = Instantiate(scorePrefab)as GameObject;
+
+		GameObject tmp = Instantiate(scorePrefab)as GameObject;
 		RectTransform tmpRect = tmp.GetComponent<RectTransform>();
+
 		tmp.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").GetComponent<Transform>());
 		//tmpRect.transform.position = (gameObject.transform.position + scoreVector);
 
+		if(player == 0)
+			tmp.GetComponent<Text>().color = Color.green;
+		else
+			tmp.GetComponent<Text>().color = Color.blue;
+
+
+		tmp.GetComponent<Text>().text = score.ToString();
 		Debug.Log ("GameObject.transform.position: " + gameObject.transform.position);
 		Debug.Log ("ScoreVector: " + scoreVector);
 		Debug.Log ("VECTOR ADDITION: " + (gameObject.transform.position + scoreVector));
@@ -210,7 +214,7 @@ public class BodyPart1 : MonoBehaviour {
 
 		tmpRect.transform.localScale = scorePrefab.transform.localScale;
 
-		isFade = true;
+
 
 
 	}

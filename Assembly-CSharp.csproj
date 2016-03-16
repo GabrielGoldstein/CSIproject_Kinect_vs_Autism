@@ -46,7 +46,6 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Eraser.cs" />
      <Compile Include="Assets\KinectDemos\DepthColliderDemo\Scripts\DepthImageViewer.cs" />
      <Compile Include="Assets\KinectDemos\DepthColliderDemo\Scripts\EggMover.cs" />
      <Compile Include="Assets\KinectDemos\DepthColliderDemo\Scripts\EggSpawner.cs" />
@@ -58,11 +57,13 @@
      <Compile Include="Assets\KinectDemos\GesturesDemo\Scripts\GestureListener.cs" />
      <Compile Include="Assets\KinectDemos\GesturesDemo\Scripts\PresentationScript.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Assets\wire.cs" />
+     <Compile Include="Assets\KinectDemos\InteractionDemo\Movie.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scene1Controller.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scene3PlaceHolder.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scene4PlaceHolder.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\BodyPart1.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\ButtonController.cs" />
+     <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\Eraser.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\GrabDropScript.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\GuiWindowScript.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\HandPosDetection.cs" />
@@ -77,6 +78,9 @@
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\Zero.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\Zzero.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Test\Translate.cs" />
+     <Compile Include="Assets\KinectDemos\InteractionDemo\Timer.cs" />
+     <Compile Include="Assets\KinectDemos\InteractionDemo\displayScore.cs" />
+     <Compile Include="Assets\KinectDemos\InteractionDemo\socket.cs" />
      <Compile Include="Assets\KinectDemos\MultiSceneDemo\Scripts\LoadFirstLevel.cs" />
      <Compile Include="Assets\KinectDemos\MultiSceneDemo\Scripts\LoadLevelWithDelay.cs" />
      <Compile Include="Assets\KinectDemos\MultiSceneDemo\Scripts\LocateAvatarsAndGestureListeners.cs" />
@@ -113,10 +117,6 @@
      <Compile Include="Assets\KinectScripts\SpeechErrorHandler.cs" />
      <Compile Include="Assets\KinectScripts\SpeechManager.cs" />
      <Compile Include="Assets\KinectScripts\VisualGestureManager.cs" />
-     <Compile Include="Assets\Movie.cs" />
-     <Compile Include="Assets\Timer.cs" />
-     <Compile Include="Assets\displayScore.cs" />
-     <Compile Include="Assets\socket.cs" />
      <None Include="Assets\Resources\BlurShader.shader" />
      <None Include="Assets\Resources\SpeechGrammar.grxml.txt" />
      <None Include="Assets\Resources\Color2DepthShader.shader" />

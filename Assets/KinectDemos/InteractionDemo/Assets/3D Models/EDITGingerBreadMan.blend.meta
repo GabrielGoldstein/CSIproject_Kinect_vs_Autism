@@ -34,6 +34,8 @@ ModelImporter:
     100052: Right_eyeb
     100054: Top_Body_b
     100056: www_4Dgrap
+    100058: Top_Body_b_001
+    100060: Top_Body_b_002
     400000: _---------
     400002: Alexander_
     400004: Body
@@ -63,6 +65,8 @@ ModelImporter:
     400052: Right_eyeb
     400054: Top_Body_b
     400056: www_4Dgrap
+    400058: Top_Body_b_001
+    400060: Top_Body_b_002
     2300000: _---------
     2300002: Alexander_
     2300004: Body
@@ -91,6 +95,8 @@ ModelImporter:
     2300050: Right_eyeb
     2300052: Top_Body_b
     2300054: www_4Dgrap
+    2300056: Top_Body_b_001
+    2300058: Top_Body_b_002
     3300000: _---------
     3300002: Alexander_
     3300004: Body
@@ -119,6 +125,8 @@ ModelImporter:
     3300050: Right_eyeb
     3300052: Top_Body_b
     3300054: www_4Dgrap
+    3300056: Top_Body_b_001
+    3300058: Top_Body_b_002
     4300000: Gingerbrea
     4300002: Left_Eye
     4300004: Right_Eye
@@ -147,6 +155,8 @@ ModelImporter:
     4300050: _---------
     4300052: Alexander_
     4300054: www_4Dgrap
+    4300056: Top_Body_b_002
+    4300058: Top_Body_b_001
     7400000: Default Take
     9500000: //RootNode
   materials:
