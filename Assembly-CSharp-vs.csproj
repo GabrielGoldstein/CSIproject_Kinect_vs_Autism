@@ -56,6 +56,10 @@
      <Compile Include="Assets\KinectDemos\FittingRoomDemo\Scripts\OverlayController.cs" />
      <Compile Include="Assets\KinectDemos\GesturesDemo\Scripts\GestureListener.cs" />
      <Compile Include="Assets\KinectDemos\GesturesDemo\Scripts\PresentationScript.cs" />
+     <Compile Include="Assets\KinectDemos\InteractionDemo\Assets\CoverBlocks.cs" />
+     <Compile Include="Assets\KinectDemos\InteractionDemo\Assets\Erasera.cs" />
+     <Compile Include="Assets\KinectDemos\InteractionDemo\Assets\GameControl.cs" />
+     <Compile Include="Assets\KinectDemos\InteractionDemo\Assets\SpriteChanging.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Assets\wire.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Movie.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scene1Controller.cs" />

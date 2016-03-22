@@ -56,7 +56,15 @@ public class PecMatch2 : MonoBehaviour {
 	
 	void OnTriggerStay(Collider other) {
 		//if a piece is let go
-		rend.material.color = Color.green;
+
+		if (other.gameObject.tag == gameObject.tag)
+		{
+			rend.material.color = Color.green;
+		}
+		else
+			rend.material.color = Color.red;
+
+
 		if (player2.GetRightHandEvent() == InteractionManager.HandEventType.Release)
 		{
 			//PEC matches placeholder TAG
