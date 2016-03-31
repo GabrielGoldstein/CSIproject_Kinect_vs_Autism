@@ -4,10 +4,15 @@ using System.Collections;
 public class CoverBlocks : MonoBehaviour {
     public bool shrinking = false;
     // Use this for initialization
+	public int playerDestroyed;
     void Start () {
-
+		playerDestroyed=(int)(float)(Random.value*10)/5;
         
-        GetComponent<Renderer>().material.color = new Color(GetComponent<Renderer>().material.color.r, GetComponent<Renderer>().material.color.g, GetComponent<Renderer>().material.color.b, .5f);
+        if(playerDestroyed==0)
+			GetComponent<Renderer>().material.color = new Color(1, 1, 1, .5f);
+		else
+			GetComponent<Renderer>().material.color = new Color(1, .2f,1, .5f);
+
 
     }
 

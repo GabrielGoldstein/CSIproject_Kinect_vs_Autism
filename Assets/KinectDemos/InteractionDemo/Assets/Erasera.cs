@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Erasera : MonoBehaviour {
-
+	public int playernum;
 	// Use this for initialization
 	void Start () {
 	
@@ -15,7 +15,8 @@ public class Erasera : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 		//Destroy (other.gameObject);
-        other.gameObject.GetComponent<CoverBlocks>().shrinking = true;
+		if(playernum==other.gameObject.GetComponent<CoverBlocks>().playerDestroyed)
+        	other.gameObject.GetComponent<CoverBlocks>().shrinking = true;
     }
 
 

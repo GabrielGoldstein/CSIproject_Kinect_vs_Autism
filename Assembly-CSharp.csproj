@@ -77,6 +77,7 @@
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\PecMatch1.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\PecMatch2.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\PlaySound.cs" />
+     <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\PlayVideo (old).cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\PlayVideo.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\Scene2Placeholder.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\Zero.cs" />

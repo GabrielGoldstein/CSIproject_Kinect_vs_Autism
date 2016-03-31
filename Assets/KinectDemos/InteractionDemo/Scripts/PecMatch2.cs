@@ -56,7 +56,7 @@ public class PecMatch2 : MonoBehaviour {
 	
 	void OnTriggerStay(Collider other) {
 		//if a piece is let go
-
+		Debug.Log("ANIMATION COLLIDE");
 		if (other.gameObject.tag == gameObject.tag)
 		{
 			rend.material.color = Color.green;

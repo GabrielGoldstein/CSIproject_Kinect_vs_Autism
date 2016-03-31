@@ -1,53 +1,43 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+
 
 [RequireComponent (typeof(AudioSource))]
 
 public class PlayVideo : MonoBehaviour {
 
-    public MovieTexture movie;
     private AudioSource audio;
     public GameObject video;
     public GameObject button;
+    public MovieTexture[] movies;
+    
 
-	public GameObject canv;
-	public GameObject scenePeices;
-
+    int n;
 
     // Use this for initialization
     void Start () {
-
+      
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.Space) && movie.isPlaying)
+
+        //Hitting Space will stop the video
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            movie.Pause();
+			movies[n].Stop();
+
+            Disable_Video();
+            Enable_Button();
         }
-
-        else if (Input.GetKeyDown(KeyCode.Space) && !movie.isPlaying)
-        {
-            movie.Play();
-        }
-
-
-        if (!movie.isPlaying)
+        
+        //If the video ends, then hide the video and show the play button
+        if (!movies[n].isPlaying)
         {
             Disable_Video();
-            Enable_Objects();
-
-            //OR
-            
-            //Disable_Button(); since you
-            //want player to play game again
-
-            //Then here would be some code
-            //that would return to playing
-            //the game
+            Enable_Button();
         }
-
     }
 
     //To hide the video
@@ -63,31 +53,34 @@ public class PlayVideo : MonoBehaviour {
     }
 
     //To hide the UI button
-    public void Disable_Objects()
+    public void Disable_Button()
     {
         button.SetActive(false);
-		//canv.SetActive(false);
-		scenePeices.SetActive(false);
     }
 
     //To reveal the UI button
-    public void Enable_Objects()
+    public void Enable_Button()
     {
         button.SetActive(true);
-		canv.SetActive(true);
-		scenePeices.SetActive(true);
     }
 
     //When clicked on the UI button do this:
     public void Button_Click()
     {
-        //Set up the video
-        GetComponent<RawImage>().texture = movie as MovieTexture;
-        audio = GetComponent<AudioSource>();
-        audio.clip = movie.audioClip;
+        //Assign n to a random number from 0-2
+        n = Random.Range(0, movies.Length);
 
-        //To play the video
-        movie.Play();
+        //Display that number on the console (so we know what video gets played)
+        print(n);
+        
+        GetComponent<RawImage>().texture = movies[n] as MovieTexture;
+        audio = GetComponent<AudioSource>();
+        audio.clip = movies[n].audioClip;
+
+        movies[n].Play();
         audio.Play();
+                
+               
+        
     }
 }
