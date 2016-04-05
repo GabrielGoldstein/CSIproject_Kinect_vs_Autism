@@ -11,13 +11,14 @@ public class PlayVideo : MonoBehaviour {
     public GameObject video;
     public GameObject button;
     public MovieTexture[] movies;
+
     
 
     int n;
 
     // Use this for initialization
     void Start () {
-      
+
     }
 	
 	// Update is called once per frame
@@ -79,8 +80,7 @@ public class PlayVideo : MonoBehaviour {
 
         movies[n].Play();
         audio.Play();
-                
-               
-        
     }
+
+
 }
