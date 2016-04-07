@@ -41,7 +41,10 @@ public class ButtonController : MonoBehaviour {
 
 
 	public void miniGameButton(){
-		Application.LoadLevel ("Mini Game DEMO");
+		Debug.Log ("Last Loaded Level: " + Application.loadedLevel);
+
+		PlayerPrefs.SetInt("Level", Application.loadedLevel );
+		Application.LoadLevel ("Eraser Mini Game");
 	}
 
 

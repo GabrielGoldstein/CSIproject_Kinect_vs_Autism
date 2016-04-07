@@ -56,9 +56,6 @@
      <Compile Include="Assets\KinectDemos\FittingRoomDemo\Scripts\OverlayController.cs" />
      <Compile Include="Assets\KinectDemos\GesturesDemo\Scripts\GestureListener.cs" />
      <Compile Include="Assets\KinectDemos\GesturesDemo\Scripts\PresentationScript.cs" />
-     <Compile Include="Assets\KinectDemos\InteractionDemo\Assets\CoverBlocks.cs" />
-     <Compile Include="Assets\KinectDemos\InteractionDemo\Assets\Erasera.cs" />
-     <Compile Include="Assets\KinectDemos\InteractionDemo\Assets\GameControl.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Assets\SpriteChanging.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Assets\wire.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Movie.cs" />
@@ -67,7 +64,10 @@
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scene4PlaceHolder.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\BodyPart1.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\ButtonController.cs" />
+     <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\CoverBlocks.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\Eraser.cs" />
+     <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\Erasera.cs" />
+     <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\GameControl.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\GrabDropScript.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\GuiWindowScript.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\HandPosDetection.cs" />
@@ -122,6 +122,7 @@
      <Compile Include="Assets\KinectScripts\SpeechErrorHandler.cs" />
      <Compile Include="Assets\KinectScripts\SpeechManager.cs" />
      <Compile Include="Assets\KinectScripts\VisualGestureManager.cs" />
+     <Compile Include="Assets\SkinTest.cs" />
      <None Include="Assets\Resources\BlurShader.shader" />
      <None Include="Assets\Resources\SpeechGrammar.grxml.txt" />
      <None Include="Assets\Resources\Color2DepthShader.shader" />

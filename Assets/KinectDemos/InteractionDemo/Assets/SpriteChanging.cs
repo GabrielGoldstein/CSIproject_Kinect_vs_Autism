@@ -9,6 +9,7 @@ public class SpriteChanging : MonoBehaviour {
     void Start () {
 
         sr = GetComponent<SpriteRenderer>();
+		//Loads all from the Resources folder - images folder
         textures = Resources.LoadAll<Sprite>("images");
         Debug.Log(textures.Length);
         int choice = Random.Range(0, textures.Length);
@@ -18,8 +19,5 @@ public class SpriteChanging : MonoBehaviour {
         gameObject.GetComponent<SpriteRenderer>().sprite = textures[choice] as Sprite;
     }
 	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
 }
