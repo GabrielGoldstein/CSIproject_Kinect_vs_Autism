@@ -4,6 +4,9 @@ using System.Collections;
 public class socket : MonoBehaviour {
 
 	public float p1Score,p2Score = 0;
+	public int p1snapCount = 0;
+	public int p2snapCount = 0;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -17,13 +20,16 @@ public class socket : MonoBehaviour {
 
 	public void updateScore(float score, int pIndex){
 
-		if(pIndex == 0)
+		if(pIndex == 0){
+			p1snapCount ++;
 			p1Score += score;
-		else
+		}
+		else{
+			p2snapCount ++;
 			p2Score += score;
 
 
-
+		}
 	}
 
 

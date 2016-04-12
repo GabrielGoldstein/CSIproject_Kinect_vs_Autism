@@ -24,6 +24,10 @@ public class PecCard : MonoBehaviour {
 	public GameObject bodyParts;
 	public GameObject PECCards;
 
+	public GameObject resultPanel;
+
+	public Timer result;
+
 	bool temp = true;
 
 	public bool temp2 = false; //Makes sure the if statement only happens once
@@ -33,6 +37,9 @@ public class PecCard : MonoBehaviour {
 		//pec = new GameObject[arraySize];
 		grabScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<GrabDropScript>();
 		source = GetComponent<AudioSource>();
+
+		result = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Timer>();
+
 			
 	}
 	
@@ -121,9 +128,17 @@ public class PecCard : MonoBehaviour {
 	}
 
 	IEnumerator wait() {
+		result.finish();
 		yield return new WaitForSeconds(3);
 		avatar.SetActive (true);
 		bodyParts.SetActive(false);
+		yield return new WaitForSeconds(7);
+		//Disable Avitar
+		avatar.SetActive (false);
+		//Enable Results page
+		resultPanel.SetActive(true);
+
+
 
 	}
 
