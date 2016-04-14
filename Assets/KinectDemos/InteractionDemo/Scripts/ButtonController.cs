@@ -25,7 +25,12 @@ public class ButtonController : MonoBehaviour {
 		Application.LoadLevel ("Scene 1");
 	}
 
+	//Goes to the Next Level
+	public void nextLevel () {
+		Application.LoadLevel (Application.loadedLevel + 1);
+	}
 
+	//Level Switch between 
 	public void toLevel1(){
 		Application.LoadLevel ("Scene 1");
 	}
@@ -42,7 +47,6 @@ public class ButtonController : MonoBehaviour {
 
 	public void miniGameButton(){
 		Debug.Log ("Last Loaded Level: " + Application.loadedLevel);
-
 		PlayerPrefs.SetInt("Level", Application.loadedLevel );
 		Application.LoadLevel ("Eraser Mini Game");
 	}

@@ -10,6 +10,9 @@ public class DisplayResults : MonoBehaviour {
 	public GameObject p2Snapped;
 	public GameObject score_p1;
 	public GameObject score_p2;
+	public GameObject combineScore;
+
+	float total;
 
 	// Use this for initialization
 	void Start () {
@@ -26,7 +29,9 @@ public class DisplayResults : MonoBehaviour {
 
 		score_p1.GetComponent<Text>().text = "Score: " + displayResult.p1Score.ToString();
 		score_p2.GetComponent<Text>().text = "Score:  " + displayResult.p2Score.ToString();
-	
+		total = displayResult.p1Score + displayResult.p2Score;
+
+		combineScore.GetComponent<Text>().text = "Total score: " + total.ToString();
 
 //		snap1.GetComponent<Text>().text =  "Snapped: "+displayResult.p1snapCount.ToString();
 		//snap2.GetComponent<Text>().text = "Snapped: "+displayResult.p2snapCount.ToString();

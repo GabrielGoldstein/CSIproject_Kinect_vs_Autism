@@ -18,6 +18,11 @@ public class SpriteChanging : MonoBehaviour {
         sr = GetComponent<SpriteRenderer>();
         gameObject.GetComponent<SpriteRenderer>().sprite = textures[choice] as Sprite;
     }
+
+	public void changeBackground() {
+		int choice = Random.Range (0, textures.Length);
+		gameObject.GetComponent<SpriteRenderer>().sprite = textures[choice] as Sprite;
+	}
 	
 
 }

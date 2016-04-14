@@ -18,6 +18,7 @@ public class PlayVideo : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+		movies = Resources.LoadAll<MovieTexture>("Videos");
 
     }
 	
@@ -40,6 +41,15 @@ public class PlayVideo : MonoBehaviour {
             Enable_Button();
         }
     }
+
+	//Button Function to Play Videos
+	public void playVideo()
+	{
+		Button_Click();
+		Enable_Video();
+		Disable_Button();
+	
+	}
 
     //To hide the video
     public void Disable_Video()

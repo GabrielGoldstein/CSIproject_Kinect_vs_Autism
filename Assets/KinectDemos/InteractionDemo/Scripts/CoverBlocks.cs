@@ -4,17 +4,20 @@ using System.Collections;
 public class CoverBlocks : MonoBehaviour {
     public bool shrinking = false;
 	public int playerDestroyed;
+
+	public Color color;
     void Start () {
 
 		//Randomizes the number
 		playerDestroyed = (int)(float)(Random.value*10)/5;
-        
-		//If it belongs to player 1 then color it Green
+		//new Color(8,.5f,.5f, .5f);
+
+		//If it belongs to player 1 then color it Green/ RED
         if(playerDestroyed==0)
-			GetComponent<Renderer>().material.color = new Color(1, 1, 1, .5f);
-		//Else it belongs to player 2 then color it Blue
+			GetComponent<Renderer>().material.color = new Color(5,0,0, .5f);
+		//Else it belongs to player 2 then color it Blue new Color(1, .3f, 1, .5f);
 		else
-			GetComponent<Renderer>().material.color = new Color(1, .2f,1, .5f);
+			GetComponent<Renderer>().material.color = new Color(0, 0, 1, .5f);
 
 
     }
