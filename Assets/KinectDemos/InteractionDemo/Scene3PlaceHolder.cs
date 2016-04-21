@@ -27,17 +27,12 @@ public class Scene3PlaceHolder : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
 		pos = transform.position;
 		pos.z = 0;
 		transform.position = pos;
-		
-		
-		
-		
 	}
 	
-	/*void OnTriggerEnter(Collider other)
+	void OnTriggerEnter(Collider other)
 	{
 		color = rend.material.color;
 		var obj = other.GetComponent<Zzero>();
@@ -52,7 +47,7 @@ public class Scene3PlaceHolder : MonoBehaviour {
 		{
 			rend.material.color = Color.red;
 		}
-	}*/
+	}
 	
 	void OnTriggerStay(Collider other) {
 		if ((this.gameObject.tag == other.gameObject.tag) && (!grabScript.isGrabbed1))

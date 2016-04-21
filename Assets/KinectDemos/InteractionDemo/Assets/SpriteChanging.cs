@@ -11,6 +11,8 @@ public class SpriteChanging : MonoBehaviour {
         sr = GetComponent<SpriteRenderer>();
 		//Loads all from the Resources folder - images folder
         textures = Resources.LoadAll<Sprite>("images");
+
+
         Debug.Log(textures.Length);
         int choice = Random.Range(0, textures.Length);
 

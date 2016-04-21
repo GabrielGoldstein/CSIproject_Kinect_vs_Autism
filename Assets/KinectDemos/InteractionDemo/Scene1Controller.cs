@@ -38,7 +38,7 @@ public class Scene1Controller : MonoBehaviour {
 		yield return new WaitForSeconds(2);
 		gameObject.GetComponent<Animator>().ResetTrigger("GameOver");
 		scenePieces.SetActive(false);
-		resultPanel.SetActive(true);
-		//Application.LoadLevel("Scene 2");
+		//resultPanel.SetActive(true);
+		Application.LoadLevel("Scene 2");
 	}
 }
