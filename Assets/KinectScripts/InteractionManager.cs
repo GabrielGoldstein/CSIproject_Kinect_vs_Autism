@@ -98,7 +98,7 @@ public class InteractionManager : MonoBehaviour
 	
 	// The single instance of FacetrackingManager
 	//private static InteractionManager instance;
-    private static System.Collections.Generic.List<InteractionManager> _Managers = new System.Collections.Generic.List<InteractionManager>();
+    
 	
 	// returns the single InteractionManager instance
     //public static InteractionManager Instance
@@ -109,13 +109,7 @@ public class InteractionManager : MonoBehaviour
     //    }
     //}
 
-    public static System.Collections.Generic.List<InteractionManager> Managers
-    {
-        get
-        {
-            return _Managers;
-        }
-    }
+   
 	
 	// returns true if the InteractionLibrary is initialized, otherwise returns false
 	public bool IsInteractionInited()
@@ -245,7 +239,7 @@ public class InteractionManager : MonoBehaviour
     void Start()
     {
         //instance = this;
-        _Managers.Add(this);
+        
         interactionInited = true;
     }
 	
@@ -264,7 +258,7 @@ public class InteractionManager : MonoBehaviour
 		KinectManager kinectManager = KinectManager.Instance;
 
 		//Debug.Log ("Player: "+ playerIndex + " Hand Position: " + rightHandScreenPos);
-		Debug.Log ("Player: "+ playerIndex + " Hand Position: " + leftHandScreenPos);
+
 		
 		// update Kinect interaction
 		if(kinectManager && kinectManager.IsInitialized())
@@ -512,6 +506,7 @@ public class InteractionManager : MonoBehaviour
 				if(isRightHandInteracting)
 				{
 					isRightHandPrimary = true;
+                    
 					
 					if((rightHandClickProgress < 0.8f) /**&& !isRightHandPress*/)
 					{
@@ -672,32 +667,32 @@ public class InteractionManager : MonoBehaviour
 				else if(lastRightHandEvent == HandEventType.Release)
 					texture = releaseHandTexture;
 			}
-			
-			if(texture == null)
-			{
-				texture = normalHandTexture;
-			}
-			
-			if(useHandCursor)
-			{
-				//				if(handCursor.guiTexture && texture)
-				//				{
-				//					handCursor.guiTexture.texture = texture;
-				//				}
-				
-				if((texture != null) && (isLeftHandPrimary || isRightHandPrimary))
-				{
-					//handCursor.transform.position = cursorScreenPos; // Vector3.Lerp(handCursor.transform.position, cursorScreenPos, 3 * Time.deltaTime);
-					Rect rectTexture = new Rect(cursorScreenPos.x * Screen.width - texture.width / 2, (1f - cursorScreenPos.y) * Screen.height - texture.height / 2, 
-					                            texture.width, texture.height);
-					GUI.DrawTexture(rectTexture, texture);
-					
-					if(controlMouseCursor)
-					{
-						MouseControl.MouseMove(cursorScreenPos, debugText);
-					}
-				}
-			}
+
+            if (texture == null)
+                texture = normalHandTexture;
+
+            if (useHandCursor)
+            {
+                //				if(handCursor.guiTexture && texture)
+                //				{
+                //					handCursor.guiTexture.texture = texture;
+                //				}
+
+                if (isLeftHandPrimary || isRightHandPrimary)
+                {
+                    if (texture != null)
+                    {
+                        //handCursor.transform.position = cursorScreenPos; // Vector3.Lerp(handCursor.transform.position, cursorScreenPos, 3 * Time.deltaTime);
+                        Rect rectTexture = new Rect(cursorScreenPos.x * Screen.width - texture.width / 2, (1f - cursorScreenPos.y) * Screen.height - texture.height / 2,
+                                                    texture.width, texture.height);
+                        GUI.DrawTexture(rectTexture, texture);
+                    }
+                    if (controlMouseCursor)
+                    {
+                        MouseControl.MouseMove(cursorScreenPos, debugText);
+                    }
+                }
+            }
 		}
 	}
 	

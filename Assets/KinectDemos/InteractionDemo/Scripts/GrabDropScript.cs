@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
 
@@ -36,12 +37,12 @@ public class GrabDropScript : MonoBehaviour
 	public GameObject emptyObject;
 	private GameObject tempDraggedObject1;
 	private GameObject tempDraggedObject2;
-
+    List<InteractionManager> Managers = new List<InteractionManager>();
     public bool isGrabbed1
     {
 		get {
 
-            var manager = (from m in InteractionManager.Managers
+            var manager = (from m in Managers
                            where
                                (m.GetLastLeftHandEvent() == InteractionManager.HandEventType.Grip && m.UseLeftHand
                                ||
@@ -82,7 +83,7 @@ public class GrabDropScript : MonoBehaviour
     {
         get
         {
-            var manager = (from m in InteractionManager.Managers
+            var manager = (from m in Managers
                            where
                                (m.GetLastLeftHandEvent() == InteractionManager.HandEventType.Grip && m.UseLeftHand
                                ||
@@ -121,6 +122,10 @@ public class GrabDropScript : MonoBehaviour
 
     void Start()
     {
+        foreach (var m in GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>())
+        {
+            Managers.Add(m);
+        }
         // save the initial positions and rotations of the objects
         initialObjPos = new Vector3[draggableObjects.Length];
         initialObjRot = new Quaternion[draggableObjects.Length];
@@ -148,7 +153,7 @@ public class GrabDropScript : MonoBehaviour
         //}
 
 
-        foreach(var manager in InteractionManager.Managers)            
+        foreach (var manager in Managers)            
 		{
             if (manager != null && manager.IsInteractionInited())
             {
@@ -305,7 +310,7 @@ public class GrabDropScript : MonoBehaviour
 	{
         var gui = infoGuiText.GetComponent<GUIText>();
         gui.text = "";
-        foreach (var manager in InteractionManager.Managers)
+        foreach (var manager in Managers)
         {
             if (infoGuiText != null && manager != null && manager.IsInteractionInited())
             {

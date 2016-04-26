@@ -30,7 +30,7 @@ public class GuiWindowScript : MonoBehaviour
 	{
 		planeObj = GameObject.Find("Plane");
 	}
-
+    InteractionManager[] Managers;
 	public void openOptions()
 	{
 		hiddenWindow = false;
@@ -125,7 +125,7 @@ public class GuiWindowScript : MonoBehaviour
 	}
     private void SetPlayerPreferHand(int playerIndex, bool uselefthand)
     {
-        var manager = (from m in InteractionManager.Managers where m.playerIndex == playerIndex select m).FirstOrDefault();
+        var manager = (from m in Managers where m.playerIndex == playerIndex select m).FirstOrDefault();
         if (manager != null)
             manager.UseLeftHand = uselefthand;
     }
@@ -133,9 +133,9 @@ public class GuiWindowScript : MonoBehaviour
 	// turn off or on mouse-cursor control
 	private void SetMouseControl(bool controlMouseOn)
 	{
-        if (InteractionManager.Managers.Count > 0)
+        if (Managers.Length > 0)
         {
-            foreach (var m in InteractionManager.Managers)
+            foreach (var m in Managers)
             {
                // InteractionManager manager = InteractionManager.Managers[0];
 

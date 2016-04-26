@@ -22,7 +22,7 @@ public class ButtonController : MonoBehaviour {
 		Application.LoadLevel ("KinectInteractionDemo");
 	}
 	public void startTutorialButton() {
-		Application.LoadLevel ("Scene 1");
+		Application.LoadLevel ("Paint");
 	}
 
 	//Goes to the Next Level

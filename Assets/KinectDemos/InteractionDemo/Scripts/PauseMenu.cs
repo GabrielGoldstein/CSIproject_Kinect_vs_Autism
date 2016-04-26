@@ -11,7 +11,7 @@ public class PauseMenu : MonoBehaviour
 	private int littleButtonHeight;
 	private int buttonWidth;
 	private int buttonHeight;
-
+    
 	
 	private int fontSize;
 
@@ -40,7 +40,9 @@ public class PauseMenu : MonoBehaviour
 	{
 		if( Input.GetKeyDown(KeyCode.Escape) )
 		{
+           
 			PauseGame();
+
 		}
 	}
 	
@@ -110,6 +112,7 @@ public class PauseMenu : MonoBehaviour
 	// toggle pause state
 	public void PauseGame()
 	{
+        
 		paused = !paused;
 		Time.timeScale = 1.0f - Time.timeScale;
 		
