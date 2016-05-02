@@ -38,6 +38,7 @@ public class Scene4PlaceHolder : MonoBehaviour {
 		{
 			other.gameObject.transform.position = gameObject.transform.position;
 			other.gameObject.GetComponent<Zzero>().isSnapped = true;
+			//StartCoroutine(Wait ());
 				//Animation
 			gameObject.SetActive(false);
 			keepInPlace(other);
@@ -47,6 +48,7 @@ public class Scene4PlaceHolder : MonoBehaviour {
 		{
 			//Note: Should change to Lerp
 			other.gameObject.transform.position = other.gameObject.GetComponent<Zzero>().origin;
+
 		}
 	}
 	
@@ -69,6 +71,10 @@ public class Scene4PlaceHolder : MonoBehaviour {
 			
 			//else Debug.Log ("Current GameObject outside " + grabScript.draggableObjects[i].tag);
 		}
+	}
+	IEnumerator Wait() {
+		yield return new WaitForSeconds(2);
+		Application.LoadLevel(0);
 	}
 
 	/*void OnTriggerEnter(Collider other)
