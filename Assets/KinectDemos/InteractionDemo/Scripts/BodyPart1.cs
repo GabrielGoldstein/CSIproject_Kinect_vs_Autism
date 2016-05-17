@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEditor;
 using UnityEngine.UI;
 using System.Collections;
 using System;
@@ -6,6 +7,7 @@ public class BodyPart1 : MonoBehaviour {
 
 	Vector3 pos;
 	GrabDropScript grabScript;
+	log logScript;
 	bool isGrabbed;
 	Color color;
 	Renderer rend;
@@ -26,18 +28,24 @@ public class BodyPart1 : MonoBehaviour {
 
 
 
+
 	// Use this for initialization
     void Start()
     {
         rend = GetComponent<Renderer>();
         grabScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<GrabDropScript>();
-        source = GetComponent<AudioSource>();
+
+		logScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<log>();
+		source = GetComponent<AudioSource>();
         pec = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PecCard>();
 		scoreKeep =  GameObject.FindGameObjectWithTag("MainCamera").GetComponent<socket>();
 		scoreVector = new Vector3 (0,25,0);
 
-    }
+
+
+
 	
+	}
 	// Update is called once per frame
 	void Update () {
 
@@ -55,6 +63,8 @@ public class BodyPart1 : MonoBehaviour {
     {
         color = rend.material.color;
         var obj = other.GetComponent<Zzero>();
+
+
         obj.triggeredObjects.Add(this.gameObject);
         if (this.gameObject.tag == other.gameObject.tag)
         {
@@ -106,8 +116,12 @@ public class BodyPart1 : MonoBehaviour {
             else
                 if (!obj.CorrectPlaced)
                 {
+				logScript.file.WriteLine(System.DateTime.Now.ToString("hh:mm:ss")+"  player "+obj.PlayerIndex+" releases "+obj.tag
+				                         +", incorrect, into slot: "+this.tag);
                     other.GetComponent<Zzero>().PlayerIndex = -1;
                     other.GetComponent<AudioSource>().PlayOneShot(boing);
+
+
                     Debug.Log("incorrect");
                 }
         }
@@ -159,6 +173,8 @@ public class BodyPart1 : MonoBehaviour {
 
 		Debug.Log("DEBUG score: " + score);
 
+		logScript.file.WriteLine(System.DateTime.Now.ToString("hh:mm:ss")+"  player "+player+" releases "+this.tag
+		                         + ", correct, score: "+score);
 		initScorePrefab(score,player);
 		scoreKeep.updateScore(score,player);
 	}

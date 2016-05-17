@@ -27,6 +27,9 @@ public class ButtonController : MonoBehaviour {
 	public void startPaintButton() {
 		Application.LoadLevel ("Paint");
 	}
+	public void startFindItButton() {
+		Application.LoadLevel ("Find_It");
+	}
 
 	//Goes to the Next Level
 	public void nextLevel () {

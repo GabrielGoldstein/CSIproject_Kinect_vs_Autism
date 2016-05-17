@@ -11,13 +11,18 @@ public class DisplayResults : MonoBehaviour {
 	public GameObject score_p1;
 	public GameObject score_p2;
 	public GameObject combineScore;
-
+	public log logScript;
+	
 	float total;
 
 	// Use this for initialization
 	void Start () {
 
 		displayResult = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<socket>();
+
+		logScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<log>();
+
+		logScript.file.Close();
 	}
 	
 	// Update is called once per frame

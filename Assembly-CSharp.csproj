@@ -66,12 +66,14 @@
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\BodyPart1.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\ButtonController.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\CoverBlocks.cs" />
+     <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\Detection.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\Eraser.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\Erasera.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\GameControl.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\GrabDropScript.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\GuiWindowScript.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\HandPosDetection.cs" />
+     <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\Lantern.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\MatchingModel.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\PauseMenu.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\PecCard.cs" />
@@ -83,6 +85,7 @@
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\Scene2Placeholder.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\Zero.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\Zzero.cs" />
+     <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\objectMaker.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Test\Translate.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Timer.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\displayScore.cs" />
@@ -137,6 +140,7 @@
      <Compile Include="Assets\Paint\Scripts\Painter.cs" />
      <Compile Include="Assets\Paint\Scripts\Samples.cs" />
      <Compile Include="Assets\SkinTest.cs" />
+     <Compile Include="Assets\log.cs" />
      <None Include="Assets\Resources\BlurShader.shader" />
      <None Include="Assets\Resources\SpeechGrammar.grxml.txt" />
      <None Include="Assets\Resources\Color2DepthShader.shader" />
