@@ -25,13 +25,14 @@ public class PecCard : MonoBehaviour {
 	public GameObject PECCards;
 
 	public GameObject resultPanel;
-
+	public log scriptLog;
 	public Timer result;
-
+	public bool pecStarted = false;
 	bool temp = true;
 
 	public bool temp2 = false; //Makes sure the if statement only happens once
 
+	int attempt = 1;
 	// Use this for initialization
 	void Start () {
 		//pec = new GameObject[arraySize];
@@ -39,6 +40,8 @@ public class PecCard : MonoBehaviour {
 		source = GetComponent<AudioSource>();
 
 		result = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Timer>();
+
+		scriptLog = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<log>();
 
 			
 	}
@@ -49,11 +52,12 @@ public class PecCard : MonoBehaviour {
 //Checks if all body parts are snapped in
 		if((snapCounter == numPieces)&&(temp2 == false)){
 			Debug.Log("BEGIN PEC MODE");
+			scriptLog.file.WriteLine("\n"+System.DateTime.Now.ToString("hh:mm:ss")+"  Pec Mode starts");
 			bodyMatchMode = false;
 			PECCards.SetActive (true);
 			temp2 = true;
 			//p2Holder.SetActive(true);
-
+			pecStarted = true;
 			/*for (int i = 0; i < pec.Length; i++) {
 				//pec.GetLength(arraySize)
 				pec[i].SetActive(true);
@@ -86,6 +90,8 @@ public class PecCard : MonoBehaviour {
 
 				Debug.Log ("RESTART");
 
+				attempt++;
+				scriptLog.file.WriteLine(System.DateTime.Now.ToString("hh:mm:ss")+"  Incorret PEC restarts, attempts: "+attempt); 
 				source.PlayOneShot (boing);
 
 				//Sets PEC cards back to there original positions

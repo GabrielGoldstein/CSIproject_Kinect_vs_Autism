@@ -23,7 +23,7 @@ public class PecMatch2 : MonoBehaviour {
 	
 	MatchingModel matchTransaction;
 	
-	
+	public log logScript;
 	
 	
 	// Use this for initialization
@@ -39,7 +39,8 @@ public class PecMatch2 : MonoBehaviour {
 				GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>()[1];
 		
 		player2 = GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>()[1];
-		
+
+		logScript = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<log>();
 	}
 	
 	// Update is called once per frame
@@ -68,7 +69,9 @@ public class PecMatch2 : MonoBehaviour {
 		if (player2.GetRightHandEvent() == InteractionManager.HandEventType.Release)
 		{
 			//PEC matches placeholder TAG
-			if(other.gameObject.tag == gameObject.tag) {
+			if(other.gameObject.tag == gameObject.tag &&(other.GetComponent<Zzero>().isSnapped == false) ) {
+				logScript.file.WriteLine(System.DateTime.Now.ToString("hh:mm:ss")+"  player 1 releases "+ other.gameObject.name+" in a slot");
+
 				other.GetComponent<Zzero>().isSnapped = true;
 				position = gameObject.transform.position; //set to placeholder's position
 				other.gameObject.transform.position = position;
@@ -99,6 +102,7 @@ public class PecMatch2 : MonoBehaviour {
 				//prevents multiple correct/incorrect piece placement
 				
 			}
+
 			//			else if (other.GetComponent<Zzero>().isSnapped == false){
 			//				//StartCoroutine(delayReset(other));
 			//				other.gameObject.transform.position = other.GetComponent<Zzero>().origin;

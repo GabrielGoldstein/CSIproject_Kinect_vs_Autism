@@ -145,7 +145,7 @@ public class BodyPart1 : MonoBehaviour {
 
                 }
             }
-		// player1 = grip, player2 = releae
+		// player1 = grip, player2 = releaes
 		/*
 		else if (player2.GetRightHandEvent () == InteractionManager.HandEventType.Release)
 		{

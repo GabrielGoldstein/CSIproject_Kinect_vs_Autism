@@ -39,7 +39,7 @@ public class Zzero : MonoBehaviour {
     /// collection of triggered objects
     /// </summary>
     public List<GameObject> triggeredObjects = new List<GameObject>();
-
+	public PecCard pcard;
 	// Use this for initialization
 	void Start () {
 		rend = GetComponent<Renderer>();
@@ -48,6 +48,7 @@ public class Zzero : MonoBehaviour {
 		source = GetComponent<AudioSource>();
 		origin = transform.position;
 		isSnapped = false;
+		pcard = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PecCard>();
 	}
 
 	// Update is called once per frame
@@ -59,7 +60,7 @@ public class Zzero : MonoBehaviour {
 			// p store current player holding the body part
 			p = PlayerIndex;
 
-			logScript.file.WriteLine(System.DateTime.Now.ToString("hh:mm:ss")+" player "+p+" grabs "
+			logScript.file.WriteLine(System.DateTime.Now.ToString("hh:mm:ss")+"  player "+p+" grabs "
 			                         + this.name); 
 
 
@@ -73,18 +74,31 @@ public class Zzero : MonoBehaviour {
             Debug.Log("IsReleased");
 
 			if(stillReleased == false){
-			logScript.file.WriteLine(System.DateTime.Now.ToString("hh:mm:ss")+" player "+p+" releases "
-			                         + this.name+" out side");
-				stillReleased = true;
 
+				if(pcard.pecStarted == false){
+					logScript.file.WriteLine(System.DateTime.Now.ToString("hh:mm:ss")+"  player "+p+" releases "
+			                         + this.name+" out side");
+				}
+				else{
+					
+					logScript.file.WriteLine(System.DateTime.Now.ToString("hh:mm:ss")+"  player "+p+" releases "+ this.name+" out side");
+				}
+
+
+
+
+				stillReleased = true;
 			}
+
+
+
             transform.position = Vector3.Lerp(transform.position, origin, 5 * Time.deltaTime);
 			stillGrabbed = false;
 
 
         }
 
-
+	}
 
 
 		//if(!isGrabbed)
@@ -93,7 +107,7 @@ public class Zzero : MonoBehaviour {
         //pos = transform.position;
         //pos.z = 0;
         //transform.position = pos;
-	}
+
 
     void OnTriggerEnter(Collider other)
     {

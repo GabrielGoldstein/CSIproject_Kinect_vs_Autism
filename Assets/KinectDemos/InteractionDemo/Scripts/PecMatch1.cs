@@ -17,7 +17,7 @@ public class PecMatch1 : MonoBehaviour {
 	public InteractionManager player1;
 	public InteractionManager player2;
 
-
+	public log logScript;
 
 	public bool arraySet = true;
 
@@ -40,6 +40,7 @@ public class PecMatch1 : MonoBehaviour {
 		
 		player2 = GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>()[1];
 
+		logScript = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<log>();
 	}
 	
 	// Update is called once per frame
@@ -63,10 +64,13 @@ public class PecMatch1 : MonoBehaviour {
 		else
 			rend.material.color = Color.red;
 
-		if (player1.GetRightHandEvent() == InteractionManager.HandEventType.Release)
+		if (player1.GetRightHandEvent() == InteractionManager.HandEventType.Release )
 		{
 			//PEC matches placeholder TAG
-			if(other.gameObject.tag == gameObject.tag) {
+		    
+			if(other.gameObject.tag == gameObject.tag && (other.GetComponent<Zzero>().isSnapped == false) ) {
+
+				logScript.file.WriteLine(System.DateTime.Now.ToString("hh:mm:ss")+"  player 0 releases "+ other.gameObject.name+" in a slot");
 				other.GetComponent<Zzero>().isSnapped = true;
 				position = gameObject.transform.position; //set to placeholder's position
 				other.gameObject.transform.position = position;
@@ -84,7 +88,8 @@ public class PecMatch1 : MonoBehaviour {
 					}
 
 					for(int i = 0; i < grabScript.draggableObjects.Length; i++){
-						if(other.gameObject.tag == grabScript.draggableObjects[i].tag && other.gameObject.name == grabScript.draggableObjects[i].name)
+						if(other.gameObject.tag == grabScript.draggableObjects[i].tag 
+					   && other.gameObject.name == grabScript.draggableObjects[i].name)
 						{
 							grabScript.draggableObjects[i] = emptyObject;
 							//matchTransaction.setSnapped(other.gameObject, i);
@@ -97,6 +102,7 @@ public class PecMatch1 : MonoBehaviour {
 				//prevents multiple correct/incorrect piece placement
 				
 			}
+
 //			else if (other.GetComponent<Zzero>().isSnapped == false){
 //				//StartCoroutine(delayReset(other));
 //				other.gameObject.transform.position = other.GetComponent<Zzero>().origin;
