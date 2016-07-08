@@ -60,8 +60,8 @@ public class Zzero : MonoBehaviour {
 			// p store current player holding the body part
 			p = PlayerIndex;
 
-			logScript.file.WriteLine(System.DateTime.Now.ToString("hh:mm:ss")+"  player "+p+" grabs "
-			                         + this.name); 
+            logScript.file.WriteLine(System.DateTime.Now.ToString("hh:mm:ss")+"  player "+p+" grabs "
+                                     + this.name); 
 
 
 			stillGrabbed = true;

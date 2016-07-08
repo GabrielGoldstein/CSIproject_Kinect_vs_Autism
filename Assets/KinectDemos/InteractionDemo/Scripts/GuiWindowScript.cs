@@ -26,11 +26,11 @@ public class GuiWindowScript : MonoBehaviour
 	private string label2Text = string.Empty;
 
 
-	void Start()
+	void Start()    
 	{
 		planeObj = GameObject.Find("Plane");
 	}
-    InteractionManager[] Managers;
+    public InteractionManager[] Managers;
 	public void openOptions()
 	{
 		hiddenWindow = false;
@@ -54,13 +54,13 @@ public class GuiWindowScript : MonoBehaviour
 		isControlMouseOn = GUILayout.Toggle(isControlMouseOn, "Control Mouse");
 		SetMouseControl(isControlMouseOn);
 
-        GUILayout.Space(30);
-        UseLeftHandPlayer0 = GUILayout.Toggle(UseLeftHandPlayer0, "Use left hand for player 0");
-        SetPlayerPreferHand(0, UseLeftHandPlayer0);
-        GUILayout.Space(30);
+        //GUILayout.Space(30);
+        //UseLeftHandPlayer0 = GUILayout.Toggle(UseLeftHandPlayer0, "Use left hand for player 0");
+        //SetPlayerPreferHand(0, UseLeftHandPlayer0);
+        //GUILayout.Space(30);
 
-        UseLeftHandPlayer1 = GUILayout.Toggle(UseLeftHandPlayer1, "Use left hand for player 1");
-        SetPlayerPreferHand(1, UseLeftHandPlayer1);
+        //UseLeftHandPlayer1 = GUILayout.Toggle(UseLeftHandPlayer1, "Use left hand for player 1");
+        //SetPlayerPreferHand(1, UseLeftHandPlayer1);
 		
 		GUILayout.FlexibleSpace();
 		
@@ -126,14 +126,14 @@ public class GuiWindowScript : MonoBehaviour
     private void SetPlayerPreferHand(int playerIndex, bool uselefthand)
     {
         var manager = (from m in Managers where m.playerIndex == playerIndex select m).FirstOrDefault();
-        if (manager != null)
-            manager.UseLeftHand = uselefthand;
+        //if (manager != null)
+        //    manager.UseLeftHand = uselefthand;
     }
 
 	// turn off or on mouse-cursor control
 	private void SetMouseControl(bool controlMouseOn)
 	{
-        if (Managers.Length > 0)
+        if (Managers!=null && Managers.Length > 0)
         {
             foreach (var m in Managers)
             {

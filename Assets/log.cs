@@ -7,10 +7,10 @@ public class log : MonoBehaviour {
 
 	public System.IO.StreamWriter file ;
 	void Start () {
-	
-		file = new System.IO.StreamWriter("C:\\Users\\user\\Desktop\\GameLog.txt");
 
-		file.WriteLine(System.DateTime.Now.ToString("hh:mm:ss")+"  level Loaded: "+ Application.loadedLevelName); 
+        file = new System.IO.StreamWriter(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop) + "\\GameLog.txt", true);
+
+        file.WriteLine(System.DateTime.Now.ToString("hh:mm:ss")+"  level Loaded: "+ Application.loadedLevelName); 
 
 
 	}

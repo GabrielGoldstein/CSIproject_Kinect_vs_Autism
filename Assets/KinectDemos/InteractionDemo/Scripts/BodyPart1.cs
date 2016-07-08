@@ -81,7 +81,7 @@ public class BodyPart1 : MonoBehaviour {
 
 		//TODO: Diferentiate between player 1/2
         var obj = other.GetComponent<Zzero>();
-        Debug.Log(string.Format("is grabbing {0}, player {1}", grabScript.isGrabbed1,obj.PlayerIndex));
+        //Debug.Log(string.Format("is grabbing {0}, player {1}", grabScript.isGrabbed1,obj.PlayerIndex));
 
 		int pvalue = obj.PlayerIndex;
 		//calcScore(obj.PlayerIndex);
@@ -171,10 +171,10 @@ public class BodyPart1 : MonoBehaviour {
 		else 
 			score = 25;
 
-		Debug.Log("DEBUG score: " + score);
+		//Debug.Log("DEBUG score: " + score);
 
-		logScript.file.WriteLine(System.DateTime.Now.ToString("hh:mm:ss")+"  player "+player+" releases "+this.tag
-		                         + ", correct, score: "+score);
+        logScript.file.WriteLine(System.DateTime.Now.ToString("hh:mm:ss")+"  player "+player+" releases "+this.tag
+                                 + ", correct, score: "+score);
 		initScorePrefab(score,player);
 		scoreKeep.updateScore(score,player);
 	}

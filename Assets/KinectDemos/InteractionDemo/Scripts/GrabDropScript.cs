@@ -44,9 +44,9 @@ public class GrabDropScript : MonoBehaviour
 
             var manager = (from m in Managers
                            where
-                               (m.GetLastLeftHandEvent() == InteractionManager.HandEventType.Grip && m.UseLeftHand
+                               (m.GetLastLeftHandEvent() == InteractionManager.HandEventType.Grip && m.IsLeftHandPrimary()
                                ||
-                               m.GetRightHandEvent() == InteractionManager.HandEventType.Grip && !m.UseLeftHand
+                               m.GetRightHandEvent() == InteractionManager.HandEventType.Grip && m.IsRightHandPrimary()
                                )
                                && m.playerIndex == 0
                            select m).FirstOrDefault();
@@ -85,9 +85,9 @@ public class GrabDropScript : MonoBehaviour
         {
             var manager = (from m in Managers
                            where
-                               (m.GetLastLeftHandEvent() == InteractionManager.HandEventType.Grip && m.UseLeftHand
+                               (m.GetLastLeftHandEvent() == InteractionManager.HandEventType.Grip && m.IsLeftHandPrimary()
                                ||
-                               m.GetRightHandEvent() == InteractionManager.HandEventType.Grip && !m.UseLeftHand
+                               m.GetRightHandEvent() == InteractionManager.HandEventType.Grip && !m.IsLeftHandPrimary()
                                )
                            && m.playerIndex == 1
 
@@ -275,7 +275,7 @@ public class GrabDropScript : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log("translate position");
+//                        Debug.Log("translate position");
                         screenNormalPos = isLeftHandDrag ? manager.GetLeftHandScreenPos() : manager.GetRightHandScreenPos();
 
                         // convert the normalized screen pos to 3D-world pos

@@ -15,7 +15,7 @@ public class socket : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
-		Debug.Log("p1 score: " + p1Score + "\n p2 score: " + p2Score);
+//		Debug.Log("p1 score: " + p1Score + "\n p2 score: " + p2Score);
 	}
 
 	public void updateScore(float score, int pIndex){
