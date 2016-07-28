@@ -13,5 +13,6 @@ public class displayScore : MonoBehaviour {
 	
 		gameObject.transform.Translate(Vector3.up * Time.deltaTime );
 		gameObject.GetComponent<Animator>().SetBool("Fadeout", true);
+
 	}
 }

@@ -106,6 +106,7 @@ public class BodyPart1 : MonoBehaviour {
                     gameObject.SetActive(false);
                     other.GetComponent<AudioSource>().PlayOneShot(snap);
                     Debug.Log("Snapped " + other.gameObject.tag);
+					other.GetComponent<BoxCollider>().enabled=false;
                     keepInPlace(other);
                     //MatchingModel.setSnapped()
                 }
@@ -184,29 +185,29 @@ public class BodyPart1 : MonoBehaviour {
 
 
 		GameObject tmp = Instantiate(scorePrefab)as GameObject;
-		RectTransform tmpRect = tmp.GetComponent<RectTransform>();
+		//RectTransform tmpRect = tmp.GetComponent<RectTransform>();
 
 		tmp.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").GetComponent<Transform>());
 		//tmpRect.transform.position = (gameObject.transform.position + scoreVector);
 
-		if(player == 0)
-			tmp.GetComponent<Text>().color = Color.green;
-		else
-			tmp.GetComponent<Text>().color = Color.blue;
+		//if(player == 0)
+		//	tmp.GetComponent<Text>().color = Color.green;
+		//else
+		//	tmp.GetComponent<Text>().color = Color.blue;
 
 
-		tmp.GetComponent<Text>().text = score.ToString();
+		//tmp.GetComponent<Text>().text = score.ToString();
 		Debug.Log ("GameObject.transform.position: " + gameObject.transform.position);
 		Debug.Log ("ScoreVector: " + scoreVector);
 		Debug.Log ("VECTOR ADDITION: " + (gameObject.transform.position + scoreVector));
 
 		if(gameObject.tag == "leftArm" || gameObject.tag == "rightArm"){
-		tmpRect.transform.localPosition = new Vector3 (gameObject.transform.localPosition.x * 40, 
+		tmp.transform.localPosition = new Vector3 (gameObject.transform.localPosition.x * 40, 
 		                                               gameObject.transform.localPosition.y + 50, 
 		                                               gameObject.transform.localPosition.z);
 		}
 		else if (gameObject.tag == "leftLeg"){
-		 tmpRect.transform.localPosition = new Vector3 (gameObject.transform.localPosition.x - 40, 
+		 tmp.transform.localPosition = new Vector3 (gameObject.transform.localPosition.x - 40, 
 			                                               gameObject.transform.localPosition.y - 50 , 
 			                                               gameObject.transform.localPosition.z);
 
@@ -214,7 +215,7 @@ public class BodyPart1 : MonoBehaviour {
 
 		}
 		else if (gameObject.tag == "rightLeg"){
-			tmpRect.transform.localPosition = new Vector3 (gameObject.transform.localPosition.x + 40, 
+			tmp.transform.localPosition = new Vector3 (gameObject.transform.localPosition.x + 40, 
 			                                               gameObject.transform.localPosition.y -50 , 
 			                                               gameObject.transform.localPosition.z);
 			
@@ -222,13 +223,13 @@ public class BodyPart1 : MonoBehaviour {
 			
 		}
 		else{
-			tmpRect.transform.localPosition = new Vector3 (gameObject.transform.localPosition.x , 
+			tmp.transform.localPosition = new Vector3 (gameObject.transform.localPosition.x , 
 			                                               gameObject.transform.localPosition.y, 
 			                                               gameObject.transform.localPosition.z - 10);
 
 		}
 
-		tmpRect.transform.localScale = scorePrefab.transform.localScale;
+		//tmpRect.transform.localScale = scorePrefab.transform.localScale;
 
 
 
