@@ -188,6 +188,7 @@ public class BodyPart1 : MonoBehaviour {
 		//RectTransform tmpRect = tmp.GetComponent<RectTransform>();
 
 		tmp.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").GetComponent<Transform>());
+		tmp.SetActive(true);
 		//tmpRect.transform.position = (gameObject.transform.position + scoreVector);
 
 		//if(player == 0)

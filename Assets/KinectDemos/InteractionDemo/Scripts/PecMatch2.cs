@@ -20,6 +20,7 @@ public class PecMatch2 : MonoBehaviour {
 	
 	
 	public bool arraySet = true;
+	public bool occupied = false;
 	
 	MatchingModel matchTransaction;
 	
@@ -69,10 +70,11 @@ public class PecMatch2 : MonoBehaviour {
 		if (player2.GetRightHandEvent() == InteractionManager.HandEventType.Release)
 		{
 			//PEC matches placeholder TAG
-			if(other.gameObject.tag == gameObject.tag &&(other.GetComponent<Zzero>().isSnapped == false) ) {
+			if(other.gameObject.tag == gameObject.tag &&(other.GetComponent<Zzero>().isSnapped == false) && occupied == false) {
 				logScript.file.WriteLine(System.DateTime.Now.ToString("hh:mm:ss")+"  player 1 releases "+ other.gameObject.name+" in a slot");
 
 				other.GetComponent<Zzero>().isSnapped = true;
+				occupied = true;
 				position = gameObject.transform.position; //set to placeholder's position
 				other.gameObject.transform.position = position;
 				
