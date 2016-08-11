@@ -85,16 +85,20 @@ public class BodyPart1 : MonoBehaviour {
 
 		int pvalue = obj.PlayerIndex;
 		//calcScore(obj.PlayerIndex);
+
+		// if player 1(white hand) or player2 (red hand) is in release
         if ((!grabScript.isGrabbed1 && obj.PlayerIndex == 0) || (!grabScript.isGrabbed2 && obj.PlayerIndex == 1))
         {
+			Debug.Log("white hand grab: "+ grabScript.isGrabbed1 +"  red hand grab: "+ grabScript.isGrabbed2);
 				
-
+			//if the body part matches, snap the piece 
             if (other.gameObject.tag == gameObject.tag)
             {
-                //if the body part matches
+                
 
 				calcScore(gameObject.transform.position, other.gameObject.transform.position, pvalue);
                 pec.snapCounter++;
+
                 rend.material.color = color;
                 Vector3 position = gameObject.transform.position;
                 other.gameObject.transform.position = position;
