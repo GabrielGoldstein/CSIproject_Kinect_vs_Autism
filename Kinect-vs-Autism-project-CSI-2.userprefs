@@ -1,16 +1,20 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\KinectDemos\InteractionDemo\Scripts\BodyPart1.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Paint\Scripts\CursorSettings.cs">
     <Files>
+      <File FileName="Assets\Paint\Scripts\CursorSettings.cs" Line="16" Column="20" />
       <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\BodyPart1.cs" Line="109" Column="18" />
       <File FileName="Assets\KinectDemos\InteractionDemo\displayScore.cs" Line="1" Column="1" />
       <File FileName="..\..\..\Desktop\Kinect Research Project\Kinect-vs-Autism-project-CSI-2\Assets\KinectDemos\InteractionDemo\ButtonController.cs" Line="1" Column="1" />
-      <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\Zzero.cs" Line="6" Column="2" />
-      <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\PecCard.cs" Line="116" Column="75" />
+      <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\Zzero.cs" Line="1" Column="1" />
+      <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\PecCard.cs" Line="161" Column="1" />
       <File FileName="Assets\KinectDemos\InteractionDemo\socket.cs" Line="1" Column="1" />
       <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\PecMatch1.cs" Line="1" Column="1" />
       <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\PecMatch2.cs" Line="1" Column="1" />
       <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\GrabDropScript.cs" Line="311" Column="1" />
+      <File FileName="Assets\Paint\Scripts\Drawing.cs" Line="1" Column="1" />
+      <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\Lantern.cs" Line="1" Column="1" />
+      <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\objectMaker.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

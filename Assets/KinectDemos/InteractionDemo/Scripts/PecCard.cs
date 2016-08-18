@@ -4,6 +4,7 @@ using System.Collections;
 public class PecCard : MonoBehaviour {
 
 	GrabDropScript grabScript;
+	InteractionManager[] interactionManager;
 
 	public int snapCounter;
 	public int numPieces;
@@ -37,6 +38,9 @@ public class PecCard : MonoBehaviour {
 	void Start () {
 		//pec = new GameObject[arraySize];
 		grabScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<GrabDropScript>();
+		//interactionManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<InteractionManager>();
+		interactionManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>();
+
 		source = GetComponent<AudioSource>();
 
 		result = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Timer>();
@@ -76,7 +80,6 @@ public class PecCard : MonoBehaviour {
 				{
 					source.PlayOneShot(clapping);
 					smokeEffect.SetActive(true);
-					PECCards.SetActive(false);
 					temp = false;
 
 					//Wait 3 Secs to activate model and deactivate Parts,PEC Card;
@@ -144,13 +147,16 @@ public class PecCard : MonoBehaviour {
 		result.finish();
 		yield return new WaitForSeconds(3);
 		avatar.SetActive (true);
+		PECCards.SetActive(false);
 		bodyParts.SetActive(false);
 		yield return new WaitForSeconds(7);
 		//Disable Avitar
 		avatar.SetActive (false);
 		//Enable Results page
 		resultPanel.SetActive(true);
-
+		//Disable Hands 
+		interactionManager[0].useHandCursor = false;
+		interactionManager[1].useHandCursor = false;
 
 
 	}
