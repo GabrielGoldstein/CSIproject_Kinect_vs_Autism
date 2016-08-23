@@ -2,61 +2,67 @@
 using System.Collections;
 
 public class PecCard : MonoBehaviour {
+	//Programmer: Gabriel Goldstein
 
+
+	//Script Variables
 	GrabDropScript grabScript;
 	InteractionManager[] interactionManager;
 
-	public int snapCounter;
-	public int numPieces;
+	public int snapCounter; //Number of BodyParts currently SnappedIn
+	public int numPieces; 	//Number of total BodyParts that need to be SnappedIn
 	public int arraySize;
-	public bool bodyMatchMode = true;
+	public bool bodyMatchMode = true;	//If the game is currently in Body Matching Mode (First Part of the Level)
 
 	public GameObject[] match;
-	public GameObject[] pec ;
-
+	public GameObject[] pec;
 	public GameObject[] placeHolders;
 
 	public AudioSource source;
-	public AudioClip boing;
-	public AudioClip clapping;
+	public AudioClip boing; //Audio Played when Incorrect
+	public AudioClip clapping; //Audio Played when PecCards are finished
 
-	public GameObject smokeEffect;
-	public GameObject avatar;
-	public GameObject bodyParts;
-	public GameObject PECCards;
+	public GameObject smokeEffect; //Contains SmokeEffect GameObject (Assigned in the UnityEditor)
+	public GameObject avatar; //Contains the 3D Avatar Model (Assigned in the UnityEditor)
+	public GameObject bodyParts; //Parent Object containing all the BodyParts
+	public GameObject PECCards; //Parent Object containing all the PecParts
 
 	public GameObject resultPanel;
 	public log scriptLog;
 	public Timer result;
-	public bool pecStarted = false;
+	public bool pecStarted = false; //If the PecCard portion of the game has started
 	bool temp = true;
 
 	public bool temp2 = false; //Makes sure the if statement only happens once
 
 	int attempt = 1;
-	// Use this for initialization
+
+
 	void Start () {
 		//pec = new GameObject[arraySize];
-		grabScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<GrabDropScript>();
 		//interactionManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<InteractionManager>();
+
+		//Associate the variables with Components in the MainCamera
+		grabScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<GrabDropScript>();
 		interactionManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>();
-
-		source = GetComponent<AudioSource>();
-
 		result = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Timer>();
-
 		scriptLog = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<log>();
+
+		source = GetComponent<AudioSource>(); //Gets AudioSource from 
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 			
 	}
-	
-	// Update is called once per frame
+
+
 	void Update () {
 	
 //Checks if all body parts are snapped in
 		if((snapCounter == numPieces)&&(temp2 == false)){
 			Debug.Log("BEGIN PEC MODE");
 			scriptLog.file.WriteLine("\n"+System.DateTime.Now.ToString("hh:mm:ss")+"  Pec Mode starts");
+
 			bodyMatchMode = false;
 			PECCards.SetActive (true);
 			temp2 = true;
@@ -70,16 +76,17 @@ public class PecCard : MonoBehaviour {
 
 		}
 
-
+		//If both objects in the Match array are filled
 		if (match[0] != null && match[1] != null){ 
+			//If both object in the Match array have the same name
 			if (match[0].name == match[1].name) {
 				//START HEAD PART 
 				Debug.Log ("CONTINUE");
 
 				if (temp)
 				{
-					source.PlayOneShot(clapping);
-					smokeEffect.SetActive(true);
+					source.PlayOneShot(clapping); //Play Clapping Audio
+					smokeEffect.SetActive(true); //Starts the SmokeEffect
 					temp = false;
 
 					//Wait 3 Secs to activate model and deactivate Parts,PEC Card;
