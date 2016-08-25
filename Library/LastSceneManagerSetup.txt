@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/KinectDemos/InteractionDemo/Scenes/Find_It.unity
+  isLoaded: 1
+  isActive: 1
