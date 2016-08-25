@@ -85,8 +85,6 @@
     <Compile Include="Assets\KinectDemos\FittingRoomDemo\Scripts\OverlayController.cs" />
     <Compile Include="Assets\KinectDemos\GesturesDemo\Scripts\GestureListener.cs" />
     <Compile Include="Assets\KinectDemos\GesturesDemo\Scripts\PresentationScript.cs" />
-    <Compile Include="Assets\KinectDemos\InteractionDemo\Assets\SpriteChanging.cs" />
-    <Compile Include="Assets\KinectDemos\InteractionDemo\Assets\wire.cs" />
     <Compile Include="Assets\KinectDemos\InteractionDemo\Movie.cs" />
     <Compile Include="Assets\KinectDemos\InteractionDemo\Scene1Controller.cs" />
     <Compile Include="Assets\KinectDemos\InteractionDemo\Scene3PlaceHolder.cs" />
@@ -111,6 +109,7 @@
     <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\PlayVideo (old).cs" />
     <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\PlayVideo.cs" />
     <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\Scene2Placeholder.cs" />
+    <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\SpriteChanging.cs" />
     <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\Zero.cs" />
     <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\Zzero.cs" />
     <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\objectMaker.cs" />
@@ -118,6 +117,7 @@
     <Compile Include="Assets\KinectDemos\InteractionDemo\Timer.cs" />
     <Compile Include="Assets\KinectDemos\InteractionDemo\displayScore.cs" />
     <Compile Include="Assets\KinectDemos\InteractionDemo\socket.cs" />
+    <Compile Include="Assets\KinectDemos\InteractionDemo\wire.cs" />
     <Compile Include="Assets\KinectDemos\MultiSceneDemo\Scripts\LoadFirstLevel.cs" />
     <Compile Include="Assets\KinectDemos\MultiSceneDemo\Scripts\LoadLevelWithDelay.cs" />
     <Compile Include="Assets\KinectDemos\MultiSceneDemo\Scripts\LocateAvatarsAndGestureListeners.cs" />

@@ -1,15 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//Programmer: Gabriel Goldstein
+
+//NOTE FOR COMMENTS:    PecPlaceHolder refers to Object attacted to this script
+//		                PecPart refers to the Object the player drags over and collides with the PecPlaceHolder
+
+//This Script is attended to be attached to PecCards -> PecPlaceHolders -> P1
+//VARIABLES NEED TO BE ASSIGNED IN EDITOR:  AudioClip snap
+//                                          GameObject emptyObject
+
+/* SUMMARY: Allows the player to snap in their choice of PecPart and adds it to an array to compare with the other players choice.
+
+FUNCTION:   - Turns the PecPlaceHolder green if tags match with the colliding PecPart, otherwise turns the PecPlaceHolder red
+            - When the player releases a PecPart in the BoxCollider of the attached object, 
+                It snaps the PecPart to the PecPlaceHolder & adds the PecPart to an array for error check with other players choice. */
+
 public class PecMatch1 : MonoBehaviour {
-	//Programmer: Gabriel Goldstein
-
-	//NOTE: PecPlaceHolder refers to Object attacted to this script
-	//		PecPart refers to the Object the player drags over and collides with the PecPlaceHolder
-
-
-	//Script Varables
-	GrabDropScript grabScript;
+    
+    //Script Varables (From MainCamera)
+    GrabDropScript grabScript;
 	PecCard pecScript;				
 
 	Color color;					//Color varable to save the color
@@ -20,20 +30,16 @@ public class PecMatch1 : MonoBehaviour {
 
 	public AudioClip snap; //Audio played when PecPart is Snapped into PecPlaceHolder (Assigned in the UnityEditor)
 
-	//Script Varables for Player 1 & 2
+	//Script Varables for Player 1 & 2 (From MainCamera)
 	public InteractionManager player1;
 	public InteractionManager player2; 
 
-	public log logScript;
+	public log logScript; //Contains Log (From MainCamera)
 
-	public bool arraySet = true;
+	public bool arraySet = true; //If the array we assigned a PecPart to the array in the Script PecCards
 	public bool occupied = false; //If current PecPlaceHOlder is Occupied with a PecPart
 
 	MatchingModel matchTransaction;
-
-
-
-
 
 
 	void Start () {
@@ -72,9 +78,8 @@ public class PecMatch1 : MonoBehaviour {
 
 
 		//Player 1 Releases PecPart while colliding with PecPlaceHolder
-		if (player1.GetRightHandEvent() == InteractionManager.HandEventType.Release )//Player 1 Hand is Released
+		if (player1.GetRightHandEvent() == InteractionManager.HandEventType.Release ) //Player 1 Hand is Released
 		{
-			//PEC matches placeholder TAG
 		    //If PecPart and PecPlaceHolder tag match (Both belong to Player1) AND PecPart is not snapped AND PecPlaceHolder is not occupied
 			if(other.gameObject.tag == gameObject.tag && (other.GetComponent<Zzero>().isSnapped == false) && (occupied == false)) {
 				logScript.file.WriteLine(System.DateTime.Now.ToString("hh:mm:ss")+"  player 0 releases "+ other.gameObject.name+" in a slot");
@@ -85,14 +90,14 @@ public class PecMatch1 : MonoBehaviour {
 				other.gameObject.transform.position = position;	//Sets PecPart Position to PecPlaceHolder Position
 					
 
-				//Assigns PecPart to the Match Array in PecScript
+				    //Assigns PecPart to the Match Array in PecScript
 					if (arraySet) {
 					other.GetComponent<AudioSource>().PlayOneShot(snap); //Plays Snap Audio
 
-					//If the first value in PecScript Match array is null then assign PecPart to it
+					    //If the first value in PecScript Match array is null then assign PecPart to it
 						if (pecScript.match[0] == null)
 							pecScript.match[0] = other.gameObject;
-					//If the second value in PecScript Match array is null then assign PecPart to it
+					    //If the second value in PecScript Match array is null then assign PecPart to it
 						else if (pecScript.match[1] == null)
 							pecScript.match[1] = other.gameObject;
 
