@@ -1,28 +1,41 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-//Programmer: Gabriel Goldstein
-
-//NOTE FOR COMMENTS:    PecPlaceHolder refers to Object attacted to this script
-//		                PecPart refers to the Object the player drags over and collides with the PecPlaceHolder
-
-//This Script is attended to be attached to PecCards -> PecPlaceHolders -> P2
-//VARIABLES NEED TO BE ASSIGNED IN EDITOR:  AudioClip snap
-//                                          GameObject emptyObject
-
-/* SUMMARY: Allows the player to snap in their choice of PecPart and adds it to an array to compare with the other players choice.
-
-FUNCTION:   - Turns the PecPlaceHolder green if tags match with the colliding PecPart, otherwise turns the PecPlaceHolder red
-            - When the player releases a PecPart in the BoxCollider of the attached object, 
-                It snaps the PecPart to the PecPlaceHolder & adds the PecPart to an array for error check with other players choice. */
-
 public class PecMatch2 : MonoBehaviour {
+	//Programmer: Gabriel Goldstein
 	
+	//This Script is attended to be attached to PecCards -> PecPlaceHolders -> P2
+	//VARIABLES NEED TO BE ASSIGNED IN EDITOR:  AudioClip snap
+	//                                          GameObject emptyObject
+	
+	// SUMMARY: Allows the player to snap in their choice of PecPart and adds it to an array to compare with the other players choice.
+	// FUNCTION:	- Turns the PecPlaceHolder green if tags match with the colliding PecPart, otherwise turns the PecPlaceHolder red
+	//            	- When the player releases a PecPart in the BoxCollider of the attached object, 
+	//               	It snaps the PecPart to the PecPlaceHolder & adds the PecPart to an array for error check with other players choice. 
+	
+	//NOTE FOR COMMENTS:    
+	//PecPlaceHolder refers to Object attacted to this script
+	//PecPart refers to the Object the player drags over and collides with the PecPlaceHolder
+	//Not using "MatchingModel matchTransaction"
+	//
+	//			else if (other.GetComponent<Zzero>().isSnapped == false){
+	//				//StartCoroutine(delayReset(other));
+	//				other.gameObject.transform.position = other.GetComponent<Zzero>().origin;
+	//				//other.GetComponent<AudioSource>().PlayOneShot (boing);
+	//				Debug.Log("incorrect");
+	//			}
+	
+	/* THINGS TO ADD: */
+	
+	
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+		
     //Script Varables (From MainCamera)
 	GrabDropScript grabScript;
 	PecCard pecScript;
 	
-	Color color;                    //Color varable to save the color  
+	Color color;                    //Color varable to save the color
     Renderer rend;                  //Renderer to change the Color of the object
     public Vector3 partOrigin;      //Origin of the PecPlaceHolder
     public GameObject emptyObject;  //Contains an EmptyObject (Assigned in the UnityEditor)
@@ -114,22 +127,8 @@ public class PecMatch2 : MonoBehaviour {
                         //matchTransaction.setSnapped(other.gameObject, i);
                     }
 				}
-				
-				
-				Debug.Log("Position " + position);
-				//The line below delays a check for an incorrect piece
-				//prevents multiple correct/incorrect piece placement
-				
+				Debug.Log("Position " + position);				
 			}
-
-			//			else if (other.GetComponent<Zzero>().isSnapped == false){
-			//				//StartCoroutine(delayReset(other));
-			//				other.gameObject.transform.position = other.GetComponent<Zzero>().origin;
-			//				//other.GetComponent<AudioSource>().PlayOneShot (boing);
-			//				Debug.Log("incorrect");
-			//			}
-		}
-		
+		}	
 	}
-	
 }
