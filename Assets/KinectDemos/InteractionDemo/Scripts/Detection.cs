@@ -5,19 +5,32 @@ public class Detection : MonoBehaviour
 {
     public int HiddenFor;
     public bool Dissapear=false;
+    public AudioClip reveal;
+    bool played = false;
     // Use this for initialization
     void Start()
     {
         HiddenFor = Random.Range(1, 3);
 
         gameObject.GetComponent<Renderer>().enabled = false;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+
+
+
         if (Dissapear)
+        {
             GoAway();
+            if (played == false)
+            {
+                AudioSource.PlayClipAtPoint(reveal, this.transform.position);
+                played = true;
+            }
+        } 
     }
 
 
