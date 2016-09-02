@@ -1,6 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\KinectDemos\InteractionDemo\Scripts\PecCard.cs">
+    <Files>
+      <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\PecCard.cs" Line="12" Column="27" />
+      <File FileName="Assets\KinectDemos\InteractionDemo\Scripts\Zzero.cs" Line="13" Column="4" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
