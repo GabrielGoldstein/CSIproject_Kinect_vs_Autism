@@ -83,6 +83,7 @@ public class PecCard : MonoBehaviour {
 
 	/*RECENT ADDITION (Await testing for adding)*/
 	public GameObject correctPec; //Contains the Answer for the level (Assigned in the Unity Editor)
+	public GameObject headOutline; //The HeadOutline before the PEC MODE starts
 
 
 	void Start () {
@@ -106,6 +107,7 @@ public class PecCard : MonoBehaviour {
 
 			bodyMatchMode = false;	//Switchs mode
 			PECCards.SetActive (true); //Turns on all PECCards
+			headOutline.SetActive(false);//Turns HeadOutline off to not be in the way of the PECPLACEHOLDER
 			temp2 = true; //To provent loop
 			pecStarted = true; //Log purpose in Zzero
 		}
