@@ -9,14 +9,9 @@ public class ButtonController : MonoBehaviour {
 	public GameObject stuff;
 	public Vector3 stuffVector;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	// Update is called once per frame
-	void Update () {
-	
-	}
+	/// <summary>
+	/// /////////////////////////////
+	/// </summary>
 
 	public void startGameButton(){
 		Application.LoadLevel ("Full Game");
@@ -50,6 +45,13 @@ public class ButtonController : MonoBehaviour {
 		Application.LoadLevel ("Scene 4");
 	}
 
+	//Full Game Level Loads
+	public void fullGameLevel1() {
+		Application.LoadLevel ("Full Game");
+	}
+	public void fullGameLevel2() {
+		Application.LoadLevel ("Full Game_LVL2");
+	}
 
 	public void miniGameButton(){
 		Debug.Log ("Last Loaded Level: " + Application.loadedLevel);

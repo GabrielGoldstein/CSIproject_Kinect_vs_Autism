@@ -76,7 +76,7 @@ public class PecCard : MonoBehaviour {
 
 	public bool bodyMatchMode = true;	//If the game is currently in Body Matching Mode (First Part of the Level)
 	public bool pecStarted = false; //If the PecCard portion of the game has started
-	public bool temp = true;
+	public bool firstTime = true;
 	public bool temp2 = false; //Makes sure the if statement only happens once
 
 	int attempt = 1; //Total # of attempts the Players made to complete the PecCard
@@ -120,10 +120,10 @@ public class PecCard : MonoBehaviour {
 				//Starts PecCard part of the Game
 				Debug.Log ("CONTINUE");
 
-				if (temp){
+				if (firstTime){
 					source.PlayOneShot(clapping); //Play Clapping Audio
 					smokeEffect.SetActive(true); //Starts the SmokeEffect
-					temp = false;
+					firstTime = false;
 					StartCoroutine(wait()); //Wait 3 Secs to activate model and deactivate Parts,PEC Card;
 				}
 			}

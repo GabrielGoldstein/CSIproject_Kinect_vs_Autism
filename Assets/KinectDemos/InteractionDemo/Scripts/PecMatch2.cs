@@ -4,11 +4,11 @@ using System.Collections;
 public class PecMatch2 : MonoBehaviour {
 	//Programmer: Gabriel Goldstein
 	
-	//This Script is attended to be attached to PecCards -> PecPlaceHolders -> P2
+	//This Script is intended to be attached to PecCards -> PecPlaceHolders -> P2
 	//VARIABLES NEED TO BE ASSIGNED IN EDITOR:  AudioClip snap
-	//                                          GameObject emptyObject
+	//                                          GameObject emptyObject (for example: Junk)
 	
-	// SUMMARY: Allows the player to snap in their choice of PecPart and adds it to an array to compare with the other players choice.
+	// SUMMARY: Allows the player to snap in their choice of Pec card and adds it to an array to compare with the other players choice.
 	// FUNCTION:	- Turns the PecPlaceHolder green if tags match with the colliding PecPart, otherwise turns the PecPlaceHolder red
 	//            	- When the player releases a PecPart in the BoxCollider of the attached object, 
 	//               	It snaps the PecPart to the PecPlaceHolder & adds the PecPart to an array for error check with other players choice. 
@@ -52,13 +52,14 @@ public class PecMatch2 : MonoBehaviour {
     public bool arraySet = true; //If the array we assigned a PecPart to the array in the Script PecCards
     public bool occupied = false; //If current PecPlaceHOlder is Occupied with a PecPart
 
-    MatchingModel matchTransaction;
+    //MatchingModel matchTransaction;
 	
 	
 	void Start () {
         //Associates the Components in the MainCamera to these variables
         grabScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<GrabDropScript>();
 		pecScript = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<PecCard>();
+		//assign player 1 and player 2 correctly
         player1 = (GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>()[0].playerIndex == 0) ? 
 	        GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>()[0] : 
 				GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>()[1];
@@ -85,9 +86,9 @@ public class PecMatch2 : MonoBehaviour {
     void OnTriggerStay(Collider other) {
         //If PecPart tag matchs PecPlaceHolder Tag (Both for Player 1)
 		if (other.gameObject.tag == gameObject.tag)
-			rend.material.color = Color.green; //Turns PecPart Green 
+			rend.material.color = Color.green; //Turns PecPart holder Green 
         else
-			rend.material.color = Color.red; //Turns PecPart Red
+			rend.material.color = Color.red; //Turns PecPart holder Red
 
 
         //Player 1 Releases PecPart while colliding with PecPlaceHolder
@@ -100,7 +101,7 @@ public class PecMatch2 : MonoBehaviour {
 				other.GetComponent<Zzero>().isSnapped = true;   //Lets PecPart know its Snapped
                 occupied = true;                                //Lets PecPlaceHolder know its Occupied
                 position = gameObject.transform.position;       //Saves PecPlaceHolder position
-                other.gameObject.transform.position = position; //Sets PecPart Position to PecPlaceHolder Position
+                other.gameObject.transform.position = position; //Sets PecPart Position to PecPlaceHolder Position (move into place)
 
 
                 //Assigns PecPart to the Match Array in PecScript
