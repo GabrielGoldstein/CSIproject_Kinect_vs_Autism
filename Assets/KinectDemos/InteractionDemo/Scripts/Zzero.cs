@@ -93,7 +93,7 @@ public class Zzero : MonoBehaviour {
 
 
 		//
-        if (!isSnapped && IsReleased && transform.position != origin ) {
+		if (!isSnapped && IsReleased && transform.position != origin ) {
             Debug.Log("IsReleased");
 			if(stillReleased == false){
 

@@ -65,12 +65,13 @@ public class objectMaker : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
+    void Update ()
     {
 
         if (transform.childCount == 0)
         {
             WinImage.GetComponent<Renderer>().enabled = true;
+			Debug.Log(transform.childCount);
         }
     }
 }

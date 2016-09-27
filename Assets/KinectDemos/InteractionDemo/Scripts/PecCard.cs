@@ -4,7 +4,7 @@ using System.Collections;
 public class PecCard : MonoBehaviour {
 	//Programmer: Gabriel Goldstein
 
-	//This Script is attended to be attached to Misc -> MainCamera
+	//This Script is intended to be attached to Misc -> MainCamera
 	//VARIABLES NEED TO BE ASSIGNED IN EDITOR:  int snapCounter = 0
 	//											int numPieces = "# of pieces to complete"
 	//											int arraySize = 2
@@ -18,11 +18,11 @@ public class PecCard : MonoBehaviour {
 	//											GameObject resultPanel
 	//											GameObject correctPec
 	
-	//SUMMARY: Handles the error checking for the PecCard Portion of the game. 
+	//SUMMARY: Handles the logic for the PecCard Portion of the game. 
 	//			If Correct, handles winning animations, enabling and disabling associated GameObjects
 	//			If Incorrect, handles reseting PecParts so players can try again
-	//FUNCTIONS:
-	//Checks if all BodyParts are SnappedIn, turns on PecCards & turns off BodyParts
+	//FUNCTIONALITY:
+	//Checks if all BodyParts are SnappedIn, turns on visiblity of PecCards & turns off BodyParts
 	//Checks if both Players SnappedIn their PecCard choice,
 	//	If correct, then both PecPart's name match && Correct PecPart for the level, then handles Winning
 	//	if incorrect, then resets position of the PecPart, resets bool in the PecPlaceHolder, places PecPart back into the draggableObjects array
@@ -34,14 +34,16 @@ public class PecCard : MonoBehaviour {
 	//Variables "Temp" & "Temp2" need to be renamed to something better
 	//PecStarted may not be needed
 	//PecHolders not commented
-	//Resets in PlaceHOlder array can be done in a function to reduce lines of code
+	//Resets in PlaceHolder array can be done in a function to reduce lines of code
 	//Can instead of use GameObjects to reference just reference the item needed. Like use the name or just the variable we need
 	//		Idea only works for CorrectPec where we only check its name
 
+	// bodyMatchMode and PecStarted - should only need one bool
+
 	/*THINGS TO ADD:
 	 	(Done)-You only win when both players select the same face AND its the PEC intended for that level
-	 		Add "Public GameObject CorrectPec"
-			Add to the if statement where it checks if faces match and add
+	 		Added "Public GameObject CorrectPec"
+			Added to the if statement where it checks if faces match and add
 				"(match[0].name==match[1].name&& match[1or2]==CorrectPec)"
 	*/
 
@@ -57,16 +59,16 @@ public class PecCard : MonoBehaviour {
 	public int numPieces; 	//Number of total BodyParts that need to be SnappedIn
 	public int arraySize;
 
-	public GameObject[] match; //Array that holds the players choice of PecPart for error checking
+	public GameObject[] match; //Array that holds each players choice of PecPart for is it correct checking
 	public GameObject[] pec;
-	public GameObject[] placeHolders; //Array that holds the PecPlaceHolders for reseting
+	public GameObject[] placeHolders; //Array that holds the PecPlaceHolders for resetting
 
 	public AudioSource source;
 	public AudioClip boing; //Audio Played when Incorrect
 	public AudioClip clapping; //Audio Played when PecCards are finished
 
 	public GameObject smokeEffect; //Contains SmokeEffect GameObject (Assigned in the UnityEditor)
-	public GameObject avatar; //Contains the 3D Avatar Model (Assigned in the UnityEditor)
+	public GameObject avatar; //Contains the 3D Avatar Model (Assigned in the UnityEditor) - used as a reward feedback
 	public GameObject bodyParts; //Parent Object containing all the BodyParts
 	public GameObject PECCards; //Parent Object containing all the PecParts
 
@@ -74,8 +76,10 @@ public class PecCard : MonoBehaviour {
 	public log scriptLog;
 	public Timer result; //Varable used for the overall Timer
 
-	public bool bodyMatchMode = true;	//If the game is currently in Body Matching Mode (First Part of the Level)
-	public bool pecStarted = false; //If the PecCard portion of the game has started
+	//bodyMatchMode  true when the game is currently in Body Matching Mode (First Part of the Level - noncollaborative)
+	//               false when complete and switched to PEC - collaborative
+	public bool bodyMatchMode = true;	
+	public bool pecStarted = false; //If the PecCard portion of the game has started 
 	public bool firstTime = true;
 	public bool temp2 = false; //Makes sure the if statement only happens once
 
@@ -108,7 +112,7 @@ public class PecCard : MonoBehaviour {
 			bodyMatchMode = false;	//Switchs mode
 			PECCards.SetActive (true); //Turns on all PECCards
 			headOutline.SetActive(false);//Turns HeadOutline off to not be in the way of the PECPLACEHOLDER
-			temp2 = true; //To provent loop
+			temp2 = true; //To prevent loop
 			pecStarted = true; //Log purpose in Zzero
 		}
 
@@ -139,7 +143,10 @@ public class PecCard : MonoBehaviour {
 
 				//Sets PEC cards back to there original positions
 				match[0].gameObject.transform.position = match[0].gameObject.GetComponent<Zzero>().origin;
+				match[0].gameObject.GetComponent<Zzero>().isSnapped = false;
+
 				match[1].gameObject.transform.position = match[1].gameObject.GetComponent<Zzero>().origin;
+				match[1].gameObject.GetComponent<Zzero>().isSnapped = false;
 
 				//Sets the Array set function to true so function can repeate multiple times.
 				//Resets First Element in the PlaceHolders Array
