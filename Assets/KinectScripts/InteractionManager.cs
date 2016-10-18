@@ -15,11 +15,11 @@ public class InteractionManager : MonoBehaviour
 		Release = 2
 	}
 
-    //public bool UseLeftHand
-    //{ get; set; }
-   
-	// The index of the player, whose hands the InteractionManager tracks. Default 0 (first player).
-	public int playerIndex = 0;
+    public bool UseLeftHand
+    { get; set; }
+
+    // The index of the player, whose hands the InteractionManager tracks. Default 0 (first player).
+    public int playerIndex = 0;
 	
 	// Bool to specify whether the GUI hand cursor to be used as on-screen cursor
 	public bool useHandCursor = true;
@@ -277,7 +277,7 @@ public class InteractionManager : MonoBehaviour
 				//bool bLeftHandPrimaryNow = false;
 				
 				if(isleftIboxValid && //bLeftHandPrimaryNow &&
-				   kinectManager.GetJointTrackingState(primaryUserID, (int)KinectInterop.JointType.HandLeft) != KinectInterop.TrackingState.NotTracked /*&& UseLeftHand*/)
+				   kinectManager.GetJointTrackingState(primaryUserID, (int)KinectInterop.JointType.HandLeft) != KinectInterop.TrackingState.NotTracked && UseLeftHand)
 				{
 					leftHandPos = kinectManager.GetJointPosition(primaryUserID, (int)KinectInterop.JointType.HandLeft);
 					
@@ -348,7 +348,7 @@ public class InteractionManager : MonoBehaviour
 				//bool bRightHandPrimaryNow = false;
 				
 				if(isRightIboxValid && //bRightHandPrimaryNow &&
-				   kinectManager.GetJointTrackingState(primaryUserID, (int)KinectInterop.JointType.HandRight) != KinectInterop.TrackingState.NotTracked /*&& !UseLeftHand*/)
+				   kinectManager.GetJointTrackingState(primaryUserID, (int)KinectInterop.JointType.HandRight) != KinectInterop.TrackingState.NotTracked &&  !UseLeftHand)
 				{
 					rightHandPos = kinectManager.GetJointPosition(primaryUserID, (int)KinectInterop.JointType.HandRight);
 					
@@ -463,16 +463,7 @@ public class InteractionManager : MonoBehaviour
 					{
 						cursorScreenPos = Vector3.Lerp(cursorScreenPos, leftHandScreenPos, smoothFactor * Time.deltaTime);
 					}
-					//					else
-					//					{
-					//						leftHandScreenPos = cursorScreenPos;
-					//					}
 
-					/*
-					if (controlMouseCursor && !useHandCursor && ButtonMenu.mainSettings.UseLeftHand)
-					{
-						MouseControl.MouseMove(cursorScreenPos, debugText);
-					}*/
 				}
 				else
 				{
@@ -512,16 +503,7 @@ public class InteractionManager : MonoBehaviour
 					{
 						cursorScreenPos = Vector3.Lerp(cursorScreenPos, rightHandScreenPos, smoothFactor * Time.deltaTime);
 					}
-					//					else
-					//					{
-					//						rightHandScreenPos = cursorScreenPos;
-					//					}
-
-					/*
-					if(controlMouseCursor && !useHandCursor && !ButtonMenu.mainSettings.UseLeftHand)
-					{
-						MouseControl.MouseMove(cursorScreenPos, debugText);
-					}*/
+					
 				}
 				else
 				{

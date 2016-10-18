@@ -5,7 +5,7 @@ using System.Collections;
 public class GuiWindowScript : MonoBehaviour 
 {
 	// GUI rectangle and skin
-	public Rect guiWindowRect = new Rect(-140, 40, 300, 420);
+	public Rect guiWindowRect = new Rect(-140, 40, 300, 500);
 	public GUISkin guiSkin;
 
 	// public parameters
@@ -54,15 +54,15 @@ public class GuiWindowScript : MonoBehaviour
 		isControlMouseOn = GUILayout.Toggle(isControlMouseOn, "Control Mouse");
 		SetMouseControl(isControlMouseOn);
 
-        //GUILayout.Space(30);
-        //UseLeftHandPlayer0 = GUILayout.Toggle(UseLeftHandPlayer0, "Use left hand for player 0");
-        //SetPlayerPreferHand(0, UseLeftHandPlayer0);
-        //GUILayout.Space(30);
+        GUILayout.Space(30);
+        UseLeftHandPlayer0 = GUILayout.Toggle(UseLeftHandPlayer0, "Use left hand for player 0");
+        SetPlayerPreferHand(0, UseLeftHandPlayer0);
+        GUILayout.Space(30);    
 
-        //UseLeftHandPlayer1 = GUILayout.Toggle(UseLeftHandPlayer1, "Use left hand for player 1");
-        //SetPlayerPreferHand(1, UseLeftHandPlayer1);
-		
-		GUILayout.FlexibleSpace();
+        UseLeftHandPlayer1 = GUILayout.Toggle(UseLeftHandPlayer1, "Use left hand for player 1");
+        SetPlayerPreferHand(1, UseLeftHandPlayer1);
+
+        GUILayout.FlexibleSpace();
 		
 		resetObjectsClicked = GUILayout.Button("Reset Objects");
 		if(resetObjectsClicked)
@@ -126,8 +126,8 @@ public class GuiWindowScript : MonoBehaviour
     private void SetPlayerPreferHand(int playerIndex, bool uselefthand)
     {
         var manager = (from m in Managers where m.playerIndex == playerIndex select m).FirstOrDefault();
-        //if (manager != null)
-        //    manager.UseLeftHand = uselefthand;
+        if (manager != null)
+            manager.UseLeftHand = uselefthand;
     }
 
 	// turn off or on mouse-cursor control
