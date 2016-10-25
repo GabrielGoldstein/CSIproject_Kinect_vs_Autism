@@ -91,16 +91,21 @@ public class PecMatch1 : MonoBehaviour {
 
 
 		//Player 1 Releases PecPart while colliding with PecPlaceHolder
-		if (player1.GetRightHandEvent() == InteractionManager.HandEventType.Release ) //Player 1 Hand is Released
+		if (
+            (player1.IsRightHandPrimary() && player1.GetLastRightHandEvent() == InteractionManager.HandEventType.Release)
+            ||
+            (player1.IsLeftHandPrimary() && player1.GetLastLeftHandEvent() == InteractionManager.HandEventType.Release)           
+            ) //Player 1 Hand is Released
 		{
 		    //If PecPart and PecPlaceHolder tag match (Both belong to Player1) AND PecPart is not snapped AND PecPlaceHolder is not occupied
-			if(other.gameObject.tag == gameObject.tag && (other.GetComponent<Zzero>().isSnapped == false) && (occupied == false)) {
+			if(other.gameObject.tag == gameObject.tag && !other.GetComponent<Zzero>().IsSnapped && !occupied ) 
+                {
 				logScript.file.WriteLine(System.DateTime.Now.ToString("hh:mm:ss")+"  player 0 releases "+ other.gameObject.name+" in a slot");
 
-				other.GetComponent<Zzero>().isSnapped = true; 	//Lets PecPart know its Snapped
-				occupied = true;								//Lets PecPlaceHolder know its Occupied
-				position = gameObject.transform.position; 		//Saves PecPlaceHolder position
-				other.gameObject.transform.position = position;	//Sets PecPart Position to PecPlaceHolder Position
+                    var obj = other.GetComponent<Zzero>();
+                    obj.IsSnapped = true; 	//Lets PecPart know its Snapped
+				    occupied = true;								//Lets PecPlaceHolder know its Occupied
+                    obj.Snappedbject = gameObject;//set snapped object
 					
 
 				    //Assigns PecPart to the Match Array in PecScript

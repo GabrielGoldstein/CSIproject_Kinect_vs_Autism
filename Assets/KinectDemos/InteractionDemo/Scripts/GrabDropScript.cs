@@ -44,9 +44,10 @@ public class GrabDropScript : MonoBehaviour
 
             var manager = (from m in Managers
                            where
-                               (m.GetLastLeftHandEvent() == InteractionManager.HandEventType.Grip && m.UseLeftHand
-                               ||
-                               m.GetRightHandEvent() == InteractionManager.HandEventType.Grip && !m.UseLeftHand
+                              (
+                              (m.GetRightHandEvent() == InteractionManager.HandEventType.Grip && m.IsRightHandPrimary())
+                              ||
+                              (m.GetLastLeftHandEvent() == InteractionManager.HandEventType.Grip && m.IsLeftHandPrimary())
                                )
                                && m.playerIndex == 0
                            select m).FirstOrDefault();
@@ -85,9 +86,10 @@ public class GrabDropScript : MonoBehaviour
         {
             var manager = (from m in Managers
                            where
-                               (m.GetLastLeftHandEvent() == InteractionManager.HandEventType.Grip && m.UseLeftHand
-                               ||
-                               m.GetRightHandEvent() == InteractionManager.HandEventType.Grip && !m.UseLeftHand
+                               (
+                                (m.GetRightHandEvent() == InteractionManager.HandEventType.Grip && m.IsRightHandPrimary())
+                                ||
+                               (m.GetLastLeftHandEvent() == InteractionManager.HandEventType.Grip && m.IsLeftHandPrimary())                              
                                )
                            && m.playerIndex == 1
 
@@ -125,7 +127,9 @@ public class GrabDropScript : MonoBehaviour
         foreach (var m in GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>())
         {
             Managers.Add(m);
+            
         }
+        Debug.Log("" + Managers.Count);
         // save the initial positions and rotations of the objects
         initialObjPos = new Vector3[draggableObjects.Length];
         initialObjRot = new Quaternion[draggableObjects.Length];
@@ -163,22 +167,23 @@ public class GrabDropScript : MonoBehaviour
                 if (draggedObject == null)
                 {
                     // if there is a hand grip, select the underlying object and start dragging it.
-                    if (manager.UseLeftHand)
-                    {
-                        // if the left hand is primary, check for left hand grip
-                        if (manager.GetLastLeftHandEvent() == InteractionManager.HandEventType.Grip)
-                        {
-                            isLeftHandDrag = true;
-                            screenNormalPos = manager.GetLeftHandScreenPos();
-                        }
-                    }
-                    else if (!manager.UseLeftHand)
+                    if (manager.IsRightHandPrimary())
                     {
                         // if the right hand is primary, check for right hand grip
                         if (manager.GetLastRightHandEvent() == InteractionManager.HandEventType.Grip)
                         {
                             isLeftHandDrag = false;
                             screenNormalPos = manager.GetRightHandScreenPos();
+                        }
+                    }
+                    
+                    else if (manager.IsLeftHandPrimary())
+                    {
+                        // if the left hand is primary, check for left hand grip
+                        if (manager.GetLastLeftHandEvent() == InteractionManager.HandEventType.Grip)
+                        {
+                            isLeftHandDrag = true;
+                            screenNormalPos = manager.GetLeftHandScreenPos();
                         }
                     }
 

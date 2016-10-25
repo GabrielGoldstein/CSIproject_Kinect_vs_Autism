@@ -53,7 +53,7 @@ public class Scene3PlaceHolder : MonoBehaviour {
 		if ((this.gameObject.tag == other.gameObject.tag) && (!grabScript.isGrabbed1))
 		{
 			other.gameObject.transform.position = gameObject.transform.position;
-			other.gameObject.GetComponent<Zzero>().isSnapped = true;
+			other.gameObject.GetComponent<Zzero>().IsSnapped = true;
 			gameObject.GetComponent<MeshRenderer>().material.color = new Color (1.0f, 1.0f, 1.0f, 0.0f); 
 			GameObject.FindGameObjectWithTag("ScenePeices").GetComponent<Animator>().SetTrigger ("GameOver");
 			StartCoroutine(Wait ());

@@ -51,7 +51,7 @@ public class PlayVideo : MonoBehaviour {
         }
         
         //If the video ends, then hide the video and show the play button
-        if (!movies[randNum].isPlaying){
+        if (randNum<movies.Length && !movies[randNum].isPlaying){
             video.SetActive(false);
             button.SetActive(true);
         }

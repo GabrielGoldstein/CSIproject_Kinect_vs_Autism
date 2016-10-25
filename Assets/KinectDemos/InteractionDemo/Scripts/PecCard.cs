@@ -73,7 +73,7 @@ public class PecCard : MonoBehaviour {
 	public GameObject PECCards; //Parent Object containing all the PecParts
 
 	public GameObject resultPanel; //Associates to the Parent of the ResultPanel to activate when needed
-	public log scriptLog;
+	public log scriptLog;   
 	public Timer result; //Varable used for the overall Timer
 
 	//bodyMatchMode  true when the game is currently in Body Matching Mode (First Part of the Level - noncollaborative)
@@ -143,10 +143,10 @@ public class PecCard : MonoBehaviour {
 
 				//Sets PEC cards back to there original positions
 				match[0].gameObject.transform.position = match[0].gameObject.GetComponent<Zzero>().origin;
-				match[0].gameObject.GetComponent<Zzero>().isSnapped = false;
+				match[0].gameObject.GetComponent<Zzero>().IsSnapped = false;
 
 				match[1].gameObject.transform.position = match[1].gameObject.GetComponent<Zzero>().origin;
-				match[1].gameObject.GetComponent<Zzero>().isSnapped = false;
+				match[1].gameObject.GetComponent<Zzero>().IsSnapped = false;
 
 				//Sets the Array set function to true so function can repeate multiple times.
 				//Resets First Element in the PlaceHolders Array

@@ -42,9 +42,18 @@ public class Zzero : MonoBehaviour {
 	int p;
 	public int PlayerIndex = -1; //Kinect Player index, set if the object is grabbed
 
-	public bool isSnapped;
+    /// <summary>
+    /// Indicate whether Current object is snapped
+    /// </summary>
+	public bool IsSnapped
+    { get; set; }
 	public bool stillGrabbed = false;
 	public bool stillReleased = false;
+    /// <summary>
+    /// Snapped Object, should be established when the cuurent object state is snapped
+    /// </summary>
+    public GameObject Snappedbject
+    { get; set; }
 
 	float xPos, yPos = 0;
 	Vector3 pos;
@@ -75,42 +84,53 @@ public class Zzero : MonoBehaviour {
 		source = GetComponent<AudioSource>();
 
 		origin = transform.position;
-		isSnapped = false;
+		IsSnapped = false;
 	}
 
 
-	void Update () {
-		//
-		if(isGrabbed && (stillGrabbed == false) ) {
-			p = PlayerIndex; // p store current player holding the body part
+    void Update()
+    {
+        //
+        if (isGrabbed && !stillGrabbed)
+        {
+            p = PlayerIndex; // p store current player holding the body part
 
-            logScript.file.WriteLine(System.DateTime.Now.ToString("hh:mm:ss")+"  player "+p+" grabs "
-                                     + this.name); 
-
-			stillGrabbed = true;
-			stillReleased = false;
-		}
-
-
-		//
-		if (!isSnapped && IsReleased && transform.position != origin ) {
-            Debug.Log("IsReleased");
-			if(stillReleased == false){
-
-				if(pcard.pecStarted == false){
-					logScript.file.WriteLine(System.DateTime.Now.ToString("hh:mm:ss")+"  player "+p+" releases "
-			                         + this.name+" out side");
-				}
-				else {
-					
-					logScript.file.WriteLine(System.DateTime.Now.ToString("hh:mm:ss")+"  player "+p+" releases "+ this.name+" out side");
-				}
-				stillReleased = true;
-			}
-            transform.position = Vector3.Lerp(transform.position, origin, 5 * Time.deltaTime);
-			stillGrabbed = false;
+            logScript.file.WriteLine(System.DateTime.Now.ToString("hh:mm:ss") + "  player " + p + " grabs "
+                                     + this.name);
+            stillGrabbed = true;
+            stillReleased = false;
         }
-	}
+        //check Snapped object Active state, it shoul be false
+        if (Snappedbject != null && Snappedbject.activeInHierarchy)
+        {
+            Snappedbject.SetActive(false);
+        }
+        //check current object position, it should be the same as a snappedobject pos
+        if (Snappedbject!=null && Snappedbject.transform.position != transform.position)
+        {
+            transform.position = Snappedbject.transform.position;
+            Debug.Log("Position " + gameObject.transform.position);
+        }
+        if (!IsSnapped && IsReleased && transform.position != origin)
+        {
+            if (!stillReleased)
+            {
+
+                if (!pcard.pecStarted)
+                {
+                    logScript.file.WriteLine(System.DateTime.Now.ToString("hh:mm:ss") + "  player " + p + " releases "
+                                     + this.name + " out side");
+                }
+                else
+                {
+                    logScript.file.WriteLine(System.DateTime.Now.ToString("hh:mm:ss") + "  player " + p + " releases " + this.name + " out side");
+                }
+                stillReleased = true;
+            }
+            transform.position = Vector3.Lerp(transform.position, origin, 5 * Time.deltaTime);
+            stillGrabbed = false;
+        }
+    }
 
 
 	//Function called from other classes, plays incorrect SFX from the BodyPart

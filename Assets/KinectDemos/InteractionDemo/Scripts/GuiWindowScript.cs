@@ -54,13 +54,13 @@ public class GuiWindowScript : MonoBehaviour
 		isControlMouseOn = GUILayout.Toggle(isControlMouseOn, "Control Mouse");
 		SetMouseControl(isControlMouseOn);
 
-        GUILayout.Space(30);
-        UseLeftHandPlayer0 = GUILayout.Toggle(UseLeftHandPlayer0, "Use left hand for player 0");
-        SetPlayerPreferHand(0, UseLeftHandPlayer0);
-        GUILayout.Space(30);    
+        //GUILayout.Space(30);
+        //UseLeftHandPlayer0 = GUILayout.Toggle(UseLeftHandPlayer0, "Use left hand for player 0");
+        //SetPlayerPreferHand(0, UseLeftHandPlayer0);
+        //GUILayout.Space(30);    
 
-        UseLeftHandPlayer1 = GUILayout.Toggle(UseLeftHandPlayer1, "Use left hand for player 1");
-        SetPlayerPreferHand(1, UseLeftHandPlayer1);
+        //UseLeftHandPlayer1 = GUILayout.Toggle(UseLeftHandPlayer1, "Use left hand for player 1");
+        //SetPlayerPreferHand(1, UseLeftHandPlayer1);
 
         GUILayout.FlexibleSpace();
 		
@@ -123,12 +123,12 @@ public class GuiWindowScript : MonoBehaviour
 			planeObj.SetActive(planeOn);
 		}
 	}
-    private void SetPlayerPreferHand(int playerIndex, bool uselefthand)
-    {
-        var manager = (from m in Managers where m.playerIndex == playerIndex select m).FirstOrDefault();
-        if (manager != null)
-            manager.UseLeftHand = uselefthand;
-    }
+    //private void SetPlayerPreferHand(int playerIndex, bool uselefthand)
+    //{
+    //    var manager = (from m in Managers where m.playerIndex == playerIndex select m).FirstOrDefault();
+    //    if (manager != null)
+    //        manager.UseLeftHand = uselefthand;
+    //}
 
 	// turn off or on mouse-cursor control
 	private void SetMouseControl(bool controlMouseOn)

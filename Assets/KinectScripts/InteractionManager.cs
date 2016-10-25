@@ -15,8 +15,8 @@ public class InteractionManager : MonoBehaviour
 		Release = 2
 	}
 
-    public bool UseLeftHand
-    { get; set; }
+    //public bool UseLeftHand
+    //{ get; set; }
 
     // The index of the player, whose hands the InteractionManager tracks. Default 0 (first player).
     public int playerIndex = 0;
@@ -277,7 +277,7 @@ public class InteractionManager : MonoBehaviour
 				//bool bLeftHandPrimaryNow = false;
 				
 				if(isleftIboxValid && //bLeftHandPrimaryNow &&
-				   kinectManager.GetJointTrackingState(primaryUserID, (int)KinectInterop.JointType.HandLeft) != KinectInterop.TrackingState.NotTracked && UseLeftHand)
+				   kinectManager.GetJointTrackingState(primaryUserID, (int)KinectInterop.JointType.HandLeft) != KinectInterop.TrackingState.NotTracked)// && UseLeftHand)
 				{
 					leftHandPos = kinectManager.GetJointPosition(primaryUserID, (int)KinectInterop.JointType.HandLeft);
 					
@@ -348,7 +348,7 @@ public class InteractionManager : MonoBehaviour
 				//bool bRightHandPrimaryNow = false;
 				
 				if(isRightIboxValid && //bRightHandPrimaryNow &&
-				   kinectManager.GetJointTrackingState(primaryUserID, (int)KinectInterop.JointType.HandRight) != KinectInterop.TrackingState.NotTracked &&  !UseLeftHand)
+				   kinectManager.GetJointTrackingState(primaryUserID, (int)KinectInterop.JointType.HandRight) != KinectInterop.TrackingState.NotTracked )//&&  !UseLeftHand)
 				{
 					rightHandPos = kinectManager.GetJointPosition(primaryUserID, (int)KinectInterop.JointType.HandRight);
 					

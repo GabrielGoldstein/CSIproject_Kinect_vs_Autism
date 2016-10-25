@@ -89,19 +89,23 @@ public class PecMatch2 : MonoBehaviour {
 			rend.material.color = Color.green; //Turns PecPart holder Green 
         else
 			rend.material.color = Color.red; //Turns PecPart holder Red
-
+        Debug.Log(string.Format("obj1 {0}, obj2 {1}", gameObject.tag, other.gameObject.tag));
 
         //Player 1 Releases PecPart while colliding with PecPlaceHolder
-        if (player2.GetRightHandEvent() == InteractionManager.HandEventType.Release) //Player 1 Hand is Released
-        {
+        if (   (player2.IsLeftHandPrimary() && player2.GetLastLeftHandEvent() == InteractionManager.HandEventType.Release)
+               ||
+               (player2.IsRightHandPrimary() && player2.GetLastRightHandEvent() == InteractionManager.HandEventType.Release)) //Player 1 Hand is Released
+        
+            {
             //If PecPart and PecPlaceHolder tag match (Both belong to Player1) AND PecPart is not snapped AND PecPlaceHolder is not occupied
-            if (other.gameObject.tag == gameObject.tag &&(other.GetComponent<Zzero>().isSnapped == false) && occupied == false) {
+            if (other.gameObject.tag == gameObject.tag && !other.GetComponent<Zzero>().IsSnapped && !occupied) {
 				logScript.file.WriteLine(System.DateTime.Now.ToString("hh:mm:ss")+"  player 1 releases "+ other.gameObject.name+" in a slot");
 
-				other.GetComponent<Zzero>().isSnapped = true;   //Lets PecPart know its Snapped
+                var obj = other.GetComponent<Zzero>();
+                obj.IsSnapped = true;   //Lets PecPart know its Snapped
                 occupied = true;                                //Lets PecPlaceHolder know its Occupied
-                position = gameObject.transform.position;       //Saves PecPlaceHolder position
-                other.gameObject.transform.position = position; //Sets PecPart Position to PecPlaceHolder Position (move into place)
+                obj.Snappedbject = gameObject;//set snapped object
+
 
 
                 //Assigns PecPart to the Match Array in PecScript
