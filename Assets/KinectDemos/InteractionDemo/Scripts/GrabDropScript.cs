@@ -19,7 +19,6 @@ public class GrabDropScript : MonoBehaviour
 
 	// interaction manager reference
 	//private InteractionManager manager;
-	private bool isLeftHandDrag;
 
 	// currently dragged object and its parameters
 	public GameObject draggedObject1 = null;
@@ -44,11 +43,7 @@ public class GrabDropScript : MonoBehaviour
 
             var manager = (from m in Managers
                            where
-                              (
-                              (m.GetRightHandEvent() == InteractionManager.HandEventType.Grip && m.IsRightHandPrimary())
-                              ||
-                              (m.GetLastLeftHandEvent() == InteractionManager.HandEventType.Grip && m.IsLeftHandPrimary())
-                               )
+                              m.PrimaryHandEvent == InteractionManager.HandEventType.Grip
                                && m.playerIndex == 0
                            select m).FirstOrDefault();
             if (manager != null && draggedObject1!=null){
@@ -86,11 +81,8 @@ public class GrabDropScript : MonoBehaviour
         {
             var manager = (from m in Managers
                            where
-                               (
-                                (m.GetRightHandEvent() == InteractionManager.HandEventType.Grip && m.IsRightHandPrimary())
-                                ||
-                               (m.GetLastLeftHandEvent() == InteractionManager.HandEventType.Grip && m.IsLeftHandPrimary())                              
-                               )
+                             m.PrimaryHandEvent == InteractionManager.HandEventType.Grip                           
+                               
                            && m.playerIndex == 1
 
                            select m).FirstOrDefault();
@@ -167,27 +159,9 @@ public class GrabDropScript : MonoBehaviour
                 if (draggedObject == null)
                 {
                     // if there is a hand grip, select the underlying object and start dragging it.
-                    if (manager.IsRightHandPrimary())
-                    {
-                        // if the right hand is primary, check for right hand grip
-                        if (manager.GetLastRightHandEvent() == InteractionManager.HandEventType.Grip)
-                        {
-                            isLeftHandDrag = false;
-                            screenNormalPos = manager.GetRightHandScreenPos();
-                        }
-                    }
-                    
-                    else if (manager.IsLeftHandPrimary())
-                    {
-                        // if the left hand is primary, check for left hand grip
-                        if (manager.GetLastLeftHandEvent() == InteractionManager.HandEventType.Grip)
-                        {
-                            isLeftHandDrag = true;
-                            screenNormalPos = manager.GetLeftHandScreenPos();
-                        }
-                    }
 
-                    // check if there is an underlying object to be selected
+                    screenNormalPos = manager.PrimaryHandScreenPos;
+                                        // check if there is an underlying object to be selected
                     if (screenNormalPos != Vector3.zero)
                     {
                         // convert the normalized screen pos to pixel pos
@@ -251,10 +225,9 @@ public class GrabDropScript : MonoBehaviour
                 else
                 {
                     // continue dragging the object
-                    
+
                     // check if the object (hand grip) was released
-                    bool isReleased = isLeftHandDrag ? (manager.GetLastLeftHandEvent() == InteractionManager.HandEventType.Release) :
-                        (manager.GetLastRightHandEvent() == InteractionManager.HandEventType.Release);
+                    bool isReleased = (manager.PrimaryHandEvent == InteractionManager.HandEventType.Release);
 
                     if (isReleased)
                     {
@@ -280,10 +253,8 @@ public class GrabDropScript : MonoBehaviour
                     }
                     else
                     {
-//                        Debug.Log("translate position");
-                        screenNormalPos = isLeftHandDrag ? manager.GetLeftHandScreenPos() : manager.GetRightHandScreenPos();
-
-                        // convert the normalized screen pos to 3D-world pos
+                        
+                        screenNormalPos = manager.PrimaryHandScreenPos;
                         screenPixelPos.x = (int)(screenNormalPos.x * Camera.main.pixelWidth);
                         screenPixelPos.y = (int)(screenNormalPos.y * Camera.main.pixelHeight);
                         screenPixelPos.z = screenNormalPos.z + draggedObjectDepth;

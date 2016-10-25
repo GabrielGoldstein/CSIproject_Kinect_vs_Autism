@@ -109,35 +109,27 @@ public class CursorSettings : MonoBehaviour {
 
     public void ResetCursor()
     {
-            if (
+        if (
 
-                currentCursor != CursorType.Grip
-                && Manager != null
-                &&
-                (
-                (Manager.GetLeftHandEvent() == InteractionManager.HandEventType.Grip && Manager.IsLeftHandPrimary())
-                ||
-            (Manager.GetRightHandEvent() == InteractionManager.HandEventType.Grip && !Manager.IsRightHandPrimary()))
-                )
-            {
-                Cursor.SetCursor(gripCursor, hotSpot,
-                curMode);
-                currentCursor = CursorType.Grip;
-            }
-            else
-                if ((Manager.GetLeftHandEvent() != InteractionManager.HandEventType.Grip && Manager.IsLeftHandPrimary())
-                ||
-            (Manager.GetRightHandEvent() != InteractionManager.HandEventType.Grip && !Manager.IsRightHandPrimary()))
-                {
+            currentCursor != CursorType.Grip
+            && Manager != null
+            && Manager.PrimaryHandEvent == InteractionManager.HandEventType.Grip
+            )
+        {
+            Cursor.SetCursor(gripCursor, hotSpot,
+            curMode);
+            currentCursor = CursorType.Grip;
+        }
+        else
+            if (Manager != null && Manager.PrimaryHandEvent != InteractionManager.HandEventType.Grip)
+        {
 
-                    Cursor.SetCursor(handCusor,
-                                      hotSpot,
-                                      curMode);
-                    currentCursor = CursorType.Hand;
-                }
-        
+            Cursor.SetCursor(handCusor,
+                              hotSpot,
+                              curMode);
+            currentCursor = CursorType.Hand;
+        }
     }
-
 	public   void SetCusorHand1()
 	{
 		currentCursor = CursorType.Hand1;

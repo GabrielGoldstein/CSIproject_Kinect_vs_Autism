@@ -91,10 +91,7 @@ public class PecMatch1 : MonoBehaviour {
 
 
 		//Player 1 Releases PecPart while colliding with PecPlaceHolder
-		if (
-            (player1.IsRightHandPrimary() && player1.GetLastRightHandEvent() == InteractionManager.HandEventType.Release)
-            ||
-            (player1.IsLeftHandPrimary() && player1.GetLastLeftHandEvent() == InteractionManager.HandEventType.Release)           
+		if (player1.PrimaryHandEvent ==  InteractionManager.HandEventType.Release
             ) //Player 1 Hand is Released
 		{
 		    //If PecPart and PecPlaceHolder tag match (Both belong to Player1) AND PecPart is not snapped AND PecPlaceHolder is not occupied

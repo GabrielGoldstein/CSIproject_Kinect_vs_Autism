@@ -1,11 +1,12 @@
 using UnityEngine;
 using System.Linq;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GuiWindowScript : MonoBehaviour 
 {
 	// GUI rectangle and skin
-	public Rect guiWindowRect = new Rect(-140, 40, 300, 500);
+	public Rect guiWindowRect = new Rect(-140, 40, 300, 700);
 	public GUISkin guiSkin;
 
 	// public parameters
@@ -30,12 +31,17 @@ public class GuiWindowScript : MonoBehaviour
 	{
 		planeObj = GameObject.Find("Plane");
 	}
-    public InteractionManager[] Managers;
+    public List<InteractionManager> Managers = new List<InteractionManager>();
 	public void openOptions()
 	{
 		hiddenWindow = false;
 		optionsButton.SetActive (false);
-	}
+        foreach (var m in GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>())
+        {
+            Managers.Add(m);
+
+        }
+    }
 
 
 	private void ShowGuiWindow(int windowID) 
@@ -54,17 +60,21 @@ public class GuiWindowScript : MonoBehaviour
 		isControlMouseOn = GUILayout.Toggle(isControlMouseOn, "Control Mouse");
 		SetMouseControl(isControlMouseOn);
 
-        //GUILayout.Space(30);
-        //UseLeftHandPlayer0 = GUILayout.Toggle(UseLeftHandPlayer0, "Use left hand for player 0");
-        //SetPlayerPreferHand(0, UseLeftHandPlayer0);
-        //GUILayout.Space(30);    
+        GUILayout.Space(30);
+        InteractionManager.UseFreeHand = GUILayout.Toggle(InteractionManager.UseFreeHand, "Use Free Hand");
+        if (!InteractionManager.UseFreeHand)
+        {
+            GUILayout.Space(30);
+            UseLeftHandPlayer0 = GUILayout.Toggle(UseLeftHandPlayer0, "Use left hand for player 0");
+            SetPlayerPreferHand(0, UseLeftHandPlayer0);
+            GUILayout.Space(30);
+            UseLeftHandPlayer1 = GUILayout.Toggle(UseLeftHandPlayer1, "Use left hand for player 1");
+            SetPlayerPreferHand(1, UseLeftHandPlayer1);
+        }
 
-        //UseLeftHandPlayer1 = GUILayout.Toggle(UseLeftHandPlayer1, "Use left hand for player 1");
-        //SetPlayerPreferHand(1, UseLeftHandPlayer1);
-
-        GUILayout.FlexibleSpace();
-		
-		resetObjectsClicked = GUILayout.Button("Reset Objects");
+        //  GUILayout.FlexibleSpace();
+        GUILayout.Space(30);
+        resetObjectsClicked = GUILayout.Button("Reset Objects");
 		if(resetObjectsClicked)
 		{
 			//label1Text = "Resetting objects...";
@@ -82,7 +92,6 @@ public class GuiWindowScript : MonoBehaviour
 		
 		GUILayout.Label(label2Text);
 		GUILayout.EndVertical();
-		
 		// Make the window draggable.
 		GUI.DragWindow();
 	}
@@ -122,18 +131,18 @@ public class GuiWindowScript : MonoBehaviour
 		{
 			planeObj.SetActive(planeOn);
 		}
-	}
-    //private void SetPlayerPreferHand(int playerIndex, bool uselefthand)
-    //{
-    //    var manager = (from m in Managers where m.playerIndex == playerIndex select m).FirstOrDefault();
-    //    if (manager != null)
-    //        manager.UseLeftHand = uselefthand;
-    //}
+	}    private void SetPlayerPreferHand(int playerIndex, bool uselefthand)
+    {
+        var manager = (from m in Managers where m.playerIndex == playerIndex select m).FirstOrDefault();
+        if (manager != null)    
+            manager.UseLeftHand = uselefthand;
+    }
 
-	// turn off or on mouse-cursor control
-	private void SetMouseControl(bool controlMouseOn)
+
+    // turn off or on mouse-cursor control
+    private void SetMouseControl(bool controlMouseOn)
 	{
-        if (Managers!=null && Managers.Length > 0)
+        if (Managers!=null && Managers.Count > 0)
         {
             foreach (var m in Managers)
             {

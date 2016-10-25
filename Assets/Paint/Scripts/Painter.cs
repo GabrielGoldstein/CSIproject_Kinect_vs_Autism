@@ -75,11 +75,8 @@ public class Painter : MonoBehaviour
     {
 
         if ((Input.GetMouseButton(0)
-            && manager.GetLeftHandEvent() == InteractionManager.HandEventType.None
-            && manager.GetLeftHandEvent() == InteractionManager.HandEventType.None) ||
-            (manager.IsLeftHandPrimary() && manager.GetLeftHandEvent() == InteractionManager.HandEventType.Grip)
-            ||
-            (manager.IsRightHandPrimary() && manager.GetRightHandEvent() == InteractionManager.HandEventType.Grip))
+            && manager.PrimaryHandEvent == InteractionManager.HandEventType.None) ||
+            manager.PrimaryHandEvent == InteractionManager.HandEventType.Grip)
         {
             RaycastHit hit;
             Vector3 cursorPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0.0f);
