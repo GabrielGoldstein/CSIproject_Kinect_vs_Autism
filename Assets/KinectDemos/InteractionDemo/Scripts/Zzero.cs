@@ -106,7 +106,7 @@ public class Zzero : MonoBehaviour {
         //    Snappedbject.SetActive(false);
         //}
         //check current object position, it should be the same as a snappedobject pos
-        if (Snappedbject!=null && Snappedbject.transform.position != transform.position)
+        if (IsSnapped && Snappedbject!=null && Snappedbject.transform.position != transform.position)
         {
             transform.position = 
                 Vector3.Lerp(transform.position, Snappedbject.transform.position, 5 * Time.deltaTime);
