@@ -100,15 +100,16 @@ public class Zzero : MonoBehaviour {
             stillGrabbed = true;
             stillReleased = false;
         }
-        //check Snapped object Active state, it shoul be false
-        if (Snappedbject != null && Snappedbject.activeInHierarchy)
-        {
-            Snappedbject.SetActive(false);
-        }
+        //check Snapped object Active state, it should be false
+        //if (Snappedbject != null && Snappedbject.activeInHierarchy)
+        //{
+        //    Snappedbject.SetActive(false);
+        //}
         //check current object position, it should be the same as a snappedobject pos
         if (Snappedbject!=null && Snappedbject.transform.position != transform.position)
         {
-            transform.position = Snappedbject.transform.position;
+            transform.position = 
+                Vector3.Lerp(transform.position, Snappedbject.transform.position, 5 * Time.deltaTime);
             Debug.Log("Position " + gameObject.transform.position);
         }
         if (!IsSnapped && IsReleased && transform.position != origin)

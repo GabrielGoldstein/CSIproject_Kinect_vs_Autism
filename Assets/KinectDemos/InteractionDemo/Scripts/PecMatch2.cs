@@ -91,8 +91,8 @@ public class PecMatch2 : MonoBehaviour {
 			rend.material.color = Color.red; //Turns PecPart holder Red
         Debug.Log(string.Format("obj1 {0}, obj2 {1}", gameObject.tag, other.gameObject.tag));
 
-        //Player 1 Releases PecPart while colliding with PecPlaceHolder
-        if (   player2.PrimaryHandEvent == InteractionManager.HandEventType.Release) //Player 1 Hand is Released
+        //Player 2 Releases PecPart while colliding with PecPlaceHolder
+        if (   player2.PrimaryHandEvent == InteractionManager.HandEventType.Release) //Player 2 Hand is Released
         
             {
             //If PecPart and PecPlaceHolder tag match (Both belong to Player1) AND PecPart is not snapped AND PecPlaceHolder is not occupied
