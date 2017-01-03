@@ -50,7 +50,7 @@ public class Zzero : MonoBehaviour {
 	public bool stillGrabbed = false;
 	public bool stillReleased = false;
     /// <summary>
-    /// Snapped Object, should be established when the cuurent object state is snapped
+    /// Snapped Object, should be established when the current object state is snapped
     /// </summary>
     public GameObject Snappedbject
     { get; set; }
@@ -64,7 +64,7 @@ public class Zzero : MonoBehaviour {
 	public AudioClip boing; //Incorrect SFX
 
     public bool CorrectPlaced
-    { get; set; }
+	{ get; set ; }
     public bool IsReleased {
         get {return PlayerIndex == -1;}
     }
@@ -110,6 +110,7 @@ public class Zzero : MonoBehaviour {
         {
             transform.position = 
                 Vector3.Lerp(transform.position, Snappedbject.transform.position, 5 * Time.deltaTime);
+			
             Debug.Log("Position " + gameObject.transform.position);
         }
         if (!IsSnapped && IsReleased && transform.position != origin)

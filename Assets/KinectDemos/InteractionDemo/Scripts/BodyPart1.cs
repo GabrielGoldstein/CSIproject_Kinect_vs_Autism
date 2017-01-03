@@ -21,6 +21,8 @@ public class BodyPart1 : MonoBehaviour
     public PecCard pec;
     public AudioSource source;
     public socket scoreKeep;
+
+
     
     // Use this for initialization
     void Start()
@@ -186,11 +188,12 @@ public class BodyPart1 : MonoBehaviour
         Debug.Log("ScoreVector: " + scoreVector);
         Debug.Log("VECTOR ADDITION: " + (gameObject.transform.position + scoreVector));
 
-        if (gameObject.tag == "leftArm" || gameObject.tag == "rightArm")
+		if (gameObject.tag == "leftArm" || gameObject.tag == "rightArm"||gameObject.tag=="torso")
         {
             tmp.transform.localPosition = new Vector3(gameObject.transform.localPosition.x * 40,
                                                            gameObject.transform.localPosition.y + 50,
                                                            gameObject.transform.localPosition.z);
+			gameObject.SetActive(false);
         }
         else if (gameObject.tag == "leftLeg")
         {
@@ -198,7 +201,7 @@ public class BodyPart1 : MonoBehaviour
                                                               gameObject.transform.localPosition.y - 50,
                                                               gameObject.transform.localPosition.z);
 
-
+			gameObject.SetActive(false);
 
         }
         else if (gameObject.tag == "rightLeg")
@@ -207,7 +210,7 @@ public class BodyPart1 : MonoBehaviour
                                                            gameObject.transform.localPosition.y - 50,
                                                            gameObject.transform.localPosition.z);
 
-
+			gameObject.SetActive(false);
 
         }
         else

@@ -90,6 +90,7 @@ public class PecCard : MonoBehaviour {
 	public GameObject headOutline; //The HeadOutline before the PEC MODE starts
 
 
+
 	void Start () {
 		//pec = new GameObject[arraySize];
 
@@ -128,6 +129,8 @@ public class PecCard : MonoBehaviour {
 					source.PlayOneShot(clapping); //Play Clapping Audio
 					smokeEffect.SetActive(true); //Starts the SmokeEffect
 					firstTime = false;
+					placeHolders[0].gameObject.SetActive(false);
+					placeHolders[1].gameObject.SetActive(false);
 					StartCoroutine(wait()); //Wait 3 Secs to activate model and deactivate Parts,PEC Card;
 				}
 			}
@@ -148,6 +151,8 @@ public class PecCard : MonoBehaviour {
 				match[1].gameObject.transform.position = match[1].gameObject.GetComponent<Zzero>().origin;
 				match[1].gameObject.GetComponent<Zzero>().IsSnapped = false;
 
+				placeHolders[0].SetActive(true);
+				placeHolders[1].SetActive(true);
 				//Sets the Array set function to true so function can repeate multiple times.
 				//Resets First Element in the PlaceHolders Array
 				if (placeHolders[0].gameObject.tag == "P1"){	/*Change to "placeHolders[0].gameObject.CompareTag("P1")*/

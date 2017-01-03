@@ -1946,7 +1946,7 @@ public class KinectManager : MonoBehaviour
 								KinectInterop.BodyData bodyDataOther = bodyFrame.bodyData[j];
 								
 								if((bodyDataOther.bIsTracked != 0) && 
-									(Mathf.Abs(bodyDataOther.position.z) < Mathf.Abs(bodyPos.z)))
+									(Mathf.Abs(bodyDataOther.position.x) < Mathf.Abs(bodyData.position.x)))
 								{
 									bClosestUser = false;
 									iClosestUserIndex = j;

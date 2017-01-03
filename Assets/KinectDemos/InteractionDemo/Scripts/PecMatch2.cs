@@ -103,6 +103,7 @@ public class PecMatch2 : MonoBehaviour {
                 obj.IsSnapped = true;   //Lets PecPart know its Snapped
                 occupied = true;                                //Lets PecPlaceHolder know its Occupied
                 obj.Snappedbject = gameObject;//set snapped object
+				gameObject.SetActive(false);
 
 
 
@@ -129,7 +130,10 @@ public class PecMatch2 : MonoBehaviour {
                         
                         //matchTransaction.setSnapped(other.gameObject, i);
                     }
+
+
 				}
+
 				Debug.Log("Position " + position);				
 			}
 		}	

@@ -103,7 +103,8 @@ public class PecMatch1 : MonoBehaviour {
                     obj.IsSnapped = true; 	//Lets PecPart know its Snapped
 				    occupied = true;								//Lets PecPlaceHolder know its Occupied
                     obj.Snappedbject = gameObject;//set snapped object
-					
+					gameObject.SetActive(false);
+
 
 				    //Assigns PecPart to the Match Array in PecScript
 					if (arraySet) {
@@ -118,7 +119,7 @@ public class PecMatch1 : MonoBehaviour {
 
 						arraySet = false;
 					}
-
+					
 				//Loops throu GrabScript's DraggableObjects array to find the PecPart to replace it with an EmptyObject
 					for(int i = 0; i < grabScript.draggableObjects.Length; i++){
 					//If PecPart Tag and Name match
@@ -128,7 +129,11 @@ public class PecMatch1 : MonoBehaviour {
 
 							//matchTransaction.setSnapped(other.gameObject, i);
 						}
+
+
 					}
+
+
 				Debug.Log("Position " + position);				
 			}
 		}
