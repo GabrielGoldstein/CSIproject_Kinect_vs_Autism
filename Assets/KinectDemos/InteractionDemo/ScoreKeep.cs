@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class socket : MonoBehaviour {
+public class ScoreKeep : MonoBehaviour {
 
 	public float p1Score,p2Score = 0;
 	public int p1snapCount = 0;
@@ -9,7 +9,7 @@ public class socket : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+		
 	}
 	
 	// Update is called once per frame

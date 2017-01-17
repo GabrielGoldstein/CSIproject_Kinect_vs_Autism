@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/KinectDemos/InteractionDemo/Scenes/Scene 2.unity
+- path: Assets/KinectDemos/InteractionDemo/Scenes/Full Game_LVL3.unity
   isLoaded: 1
   isActive: 1

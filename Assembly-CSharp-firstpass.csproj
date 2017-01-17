@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{8591B008-678F-C0E7-8800-4B91DCEF004C}</ProjectGuid>
+    <ProjectGuid>{260E1C43-BB1A-807C-AB15-05B1EBE100DB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-firstpass</AssemblyName>
@@ -209,10 +209,10 @@
  <HintPath>C:/Program Files/Unity5.5/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
  </Reference>
  <Reference Include="OpenCvSharp">
- <HintPath>C:/Users/user/Downloads/MikeBranchKinect/Kinect-vs-Autism-project-CSI-2-student-tests/Assets/KinectScripts/OpenCV/OpenCvSharp.dll</HintPath>
+ <HintPath>C:/Users/user/Documents/GitHub/Kinect-vs-Autism-project-CSI-2/Assets/KinectScripts/OpenCV/OpenCvSharp.dll</HintPath>
  </Reference>
  <Reference Include="ICSharpCode.SharpZipLib">
- <HintPath>C:/Users/user/Downloads/MikeBranchKinect/Kinect-vs-Autism-project-CSI-2-student-tests/Assets/KinectScripts/SharpZipLib/ICSharpCode.SharpZipLib.dll</HintPath>
+ <HintPath>C:/Users/user/Documents/GitHub/Kinect-vs-Autism-project-CSI-2/Assets/KinectScripts/SharpZipLib/ICSharpCode.SharpZipLib.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

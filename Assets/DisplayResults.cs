@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class DisplayResults : MonoBehaviour {
-	public socket displayResult;
+	public ScoreKeep displayResult;
 	public GameObject info, snap1, snap2;
 
 	public GameObject p1Snapped;
@@ -18,7 +18,7 @@ public class DisplayResults : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		displayResult = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<socket>();
+		displayResult = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ScoreKeep>();
 
 		logScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<log>();
 

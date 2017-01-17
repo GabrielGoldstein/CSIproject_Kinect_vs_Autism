@@ -8,6 +8,7 @@ using System.IO;
 
 public class InteractionManager : MonoBehaviour 
 {
+	
 	public enum HandEventType : int
 	{
 		None = 0,
@@ -84,7 +85,7 @@ public class InteractionManager : MonoBehaviour
 	// GUI-Text object to be used for displaying debug information
 	public GUIText debugText;
 	
-	public long primaryUserID = 0;
+	public  long primaryUserID = 0;
 	
 	private bool isLeftHandPrimary = false;
 	private bool isRightHandPrimary = false;
@@ -334,11 +335,13 @@ public class InteractionManager : MonoBehaviour
 						leftHandInteractingSince = Time.realtimeSinceStartup;
 					}
 					
-					// check for left press
-					isLeftHandPress = ((leftIboxRightTopFront.z - 0.1f) >= leftHandPos.z);
+					// check for left press 
+					//isLeftHandPress = ((leftIboxRightTopFront.z - 0.1f) >= leftHandPos.z);//michael commenting out code 1/11/2017
 					
 					// check for left hand click
+					//michael 1/11/2017
 					float fClickDist = (leftHandPos - lastLeftHandPos).magnitude;
+					/*
 					if(allowHandClicks && isLeftHandInteracting && (fClickDist < KinectInterop.Constants.ClickMaxDistance))
 					{
 						if((Time.realtimeSinceStartup - lastLeftHandTime) >= KinectInterop.Constants.ClickStayDuration)
@@ -364,20 +367,23 @@ public class InteractionManager : MonoBehaviour
 							leftHandClickProgress = (Time.realtimeSinceStartup - lastLeftHandTime) / KinectInterop.Constants.ClickStayDuration;
 						}
 					}
-					else
+					*/
+					/*else if(!allowHandClicks)
 					{
 						isLeftHandClick = false;
 						leftHandClickProgress = 0f;
 						lastLeftHandPos = leftHandPos;
 						lastLeftHandTime = Time.realtimeSinceStartup;
 					}
+					*/
 				}
 				else
 				{
 					isLeftHandInteracting = false;
 					isLeftHandPress = false;
 				}
-				
+
+				//michael 1/11/2017
 				// get the right hand state
 				rightHandState = kinectManager.GetRightHandState(primaryUserID);				
 				// check if the right hand is interacting
@@ -417,7 +423,8 @@ public class InteractionManager : MonoBehaviour
 					// check for right press
 					isRightHandPress = ((rightIboxRightTopFront.z - 0.1f) >= rightHandPos.z);
 					
-					// check for right hand click
+					/*
+					// check for right hand click //michael commenting out code 1/11/2017
 					float fClickDist = (rightHandPos - lastRightHandPos).magnitude;
 					if(allowHandClicks && isRightHandInteracting && (fClickDist < KinectInterop.Constants.ClickMaxDistance))
 					{
@@ -451,6 +458,7 @@ public class InteractionManager : MonoBehaviour
 						lastRightHandPos = rightHandPos;
 						lastRightHandTime = Time.realtimeSinceStartup;
 					}
+					*/
 				}
 				else
 				{
@@ -574,10 +582,10 @@ public class InteractionManager : MonoBehaviour
 				}
 			}
 		}
+	}
 
 		//Debug.Log ("Player: "+ playerIndex + " Hand Position: " + rightHandPos);
 
-	}
 	
 	
 	// converts hand state to hand event type
@@ -589,11 +597,15 @@ public class InteractionManager : MonoBehaviour
 			return HandEventType.Release;
 			
 		case KinectInterop.HandState.Closed:
+			return HandEventType.Grip;//michael 01/11/17 added closed to return grip only instead of closed and lasso
 		case KinectInterop.HandState.Lasso:
-			return HandEventType.Grip;
+			return HandEventType.Release;
+		//	return HandEventType.Grip;
+			
 			
 		case KinectInterop.HandState.Unknown:
-			return lastEventType;
+			return lastEventType; //michael 01/11/17 
+
 		}
 		
 		return HandEventType.None;
@@ -670,6 +682,7 @@ public class InteractionManager : MonoBehaviour
 		}
 		
 		// display the cursor status and position
+
 		if(useHandCursor)
 		{
 			Texture texture = null;
@@ -703,6 +716,7 @@ public class InteractionManager : MonoBehaviour
                 {
                     if (texture != null)
                     {
+						
                         //handCursor.transform.position = cursorScreenPos; // Vector3.Lerp(handCursor.transform.position, cursorScreenPos, 3 * Time.deltaTime);
                         Rect rectTexture = new Rect(cursorScreenPos.x * Screen.width - texture.width / 2, (1f - cursorScreenPos.y) * Screen.height - texture.height / 2,
                                                     texture.width, texture.height);
@@ -715,6 +729,7 @@ public class InteractionManager : MonoBehaviour
                 }
             }
 		}
+
 	}
 	
 }

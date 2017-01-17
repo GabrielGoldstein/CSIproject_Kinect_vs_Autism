@@ -1,11 +1,11 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2015
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kinect-vs-Autism-project-CSI-2.CSharp.Plugins", "Kinect-vs-Autism-project-CSI-2.CSharp.Plugins.csproj", "{734A04E8-7A8C-6629-4C5A-E75458C93A12}"
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{5967BD84-7ADB-6991-35E8-F076FFF79559}") = "Kinect-vs-Autism-project-CSI-2", "Assembly-CSharp-firstpass.csproj", "{260E1C43-BB1A-807C-AB15-05B1EBE100DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kinect-vs-Autism-project-CSI-2.CSharp", "Kinect-vs-Autism-project-CSI-2.CSharp.csproj", "{434339E8-232B-DA20-6FA5-385D04399DF3}"
+Project("{5967BD84-7ADB-6991-35E8-F076FFF79559}") = "Kinect-vs-Autism-project-CSI-2", "Assembly-CSharp.csproj", "{C1DCD0F3-F61E-F88B-BE79-9AE7AE16DFD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kinect-vs-Autism-project-CSI-2.CSharp.Editor.Plugins", "Kinect-vs-Autism-project-CSI-2.CSharp.Editor.Plugins.csproj", "{FDCE46CE-8A8E-49CA-6B29-6BB1B109DF72}"
+Project("{5967BD84-7ADB-6991-35E8-F076FFF79559}") = "Kinect-vs-Autism-project-CSI-2", "Assembly-CSharp-Editor-firstpass.csproj", "{9A088379-E891-1E2A-5570-DF10C955A3FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,20 +13,23 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{734A04E8-7A8C-6629-4C5A-E75458C93A12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{734A04E8-7A8C-6629-4C5A-E75458C93A12}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{734A04E8-7A8C-6629-4C5A-E75458C93A12}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{734A04E8-7A8C-6629-4C5A-E75458C93A12}.Release|Any CPU.Build.0 = Release|Any CPU
-		{434339E8-232B-DA20-6FA5-385D04399DF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{434339E8-232B-DA20-6FA5-385D04399DF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{434339E8-232B-DA20-6FA5-385D04399DF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{434339E8-232B-DA20-6FA5-385D04399DF3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FDCE46CE-8A8E-49CA-6B29-6BB1B109DF72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FDCE46CE-8A8E-49CA-6B29-6BB1B109DF72}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FDCE46CE-8A8E-49CA-6B29-6BB1B109DF72}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FDCE46CE-8A8E-49CA-6B29-6BB1B109DF72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{260E1C43-BB1A-807C-AB15-05B1EBE100DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{260E1C43-BB1A-807C-AB15-05B1EBE100DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{260E1C43-BB1A-807C-AB15-05B1EBE100DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{260E1C43-BB1A-807C-AB15-05B1EBE100DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1DCD0F3-F61E-F88B-BE79-9AE7AE16DFD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1DCD0F3-F61E-F88B-BE79-9AE7AE16DFD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1DCD0F3-F61E-F88B-BE79-9AE7AE16DFD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1DCD0F3-F61E-F88B-BE79-9AE7AE16DFD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A088379-E891-1E2A-5570-DF10C955A3FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A088379-E891-1E2A-5570-DF10C955A3FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A088379-E891-1E2A-5570-DF10C955A3FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A088379-E891-1E2A-5570-DF10C955A3FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
 	EndGlobalSection
 EndGlobal

@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{742274A5-6E94-CC1F-CB75-0BB523984724}</ProjectGuid>
+    <ProjectGuid>{9A088379-E891-1E2A-5570-DF10C955A3FC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-Editor-firstpass</AssemblyName>
@@ -113,10 +113,10 @@
  <HintPath>C:/Program Files/Unity5.5/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
  </Reference>
  <Reference Include="OpenCvSharp">
- <HintPath>C:/Users/user/Downloads/MikeBranchKinect/Kinect-vs-Autism-project-CSI-2-student-tests/Assets/KinectScripts/OpenCV/OpenCvSharp.dll</HintPath>
+ <HintPath>C:/Users/user/Documents/GitHub/Kinect-vs-Autism-project-CSI-2/Assets/KinectScripts/OpenCV/OpenCvSharp.dll</HintPath>
  </Reference>
  <Reference Include="ICSharpCode.SharpZipLib">
- <HintPath>C:/Users/user/Downloads/MikeBranchKinect/Kinect-vs-Autism-project-CSI-2-student-tests/Assets/KinectScripts/SharpZipLib/ICSharpCode.SharpZipLib.dll</HintPath>
+ <HintPath>C:/Users/user/Documents/GitHub/Kinect-vs-Autism-project-CSI-2/Assets/KinectScripts/SharpZipLib/ICSharpCode.SharpZipLib.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Graphs">
  <HintPath>C:/Program Files/Unity5.5/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
@@ -127,7 +127,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{8591B008-678F-C0E7-8800-4B91DCEF004C}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+      <Project>{260E1C43-BB1A-807C-AB15-05B1EBE100DB}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

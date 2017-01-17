@@ -20,7 +20,7 @@ public class BodyPart1 : MonoBehaviour
     public AudioClip boing;
     public PecCard pec;
     public AudioSource source;
-    public socket scoreKeep;
+	public ScoreKeep scoreKeep;
 
 
     
@@ -33,7 +33,7 @@ public class BodyPart1 : MonoBehaviour
         logScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<log>();
         source = GetComponent<AudioSource>();
         pec = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PecCard>();
-        scoreKeep = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<socket>();
+		scoreKeep = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ScoreKeep>();
         scoreVector = new Vector3(0, 25, 0);
 
     }
