@@ -135,10 +135,11 @@ public class KinectManager : MonoBehaviour
 	// Kinect body frame data
 	private KinectInterop.BodyFrameData bodyFrame;
 	//private Int64 lastBodyFrameTime = 0;
-	
+
 	// List of all users
-	private List<Int64> alUserIds;
+	private  List<Int64> alUserIds;
 	private Dictionary<Int64, int> dictUserIdToIndex;
+
 	
 	// Primary (first or closest) user ID
 	private Int64 liPrimaryUserId = 0;
@@ -163,6 +164,7 @@ public class KinectManager : MonoBehaviour
 	//private BoneOrientationsFilter boneOrientationFilter = null;
 
 	// returns the single KinectManager instance
+
     public static KinectManager Instance
     {
         get
@@ -195,7 +197,9 @@ public class KinectManager : MonoBehaviour
 		if(sensorData != null && sensorData.sensorInterface != null)
 		{
 			return sensorData.sensorInterface.GetSensorPlatform();
+
 		}
+
 		
 		return KinectInterop.DepthSensorPlatform.None;
 	}
@@ -205,7 +209,7 @@ public class KinectManager : MonoBehaviour
 	{
 		return sensorData != null ? sensorData.bodyCount : 0;
 	}
-	
+
 	// returns the number of joints, tracked by the sensor
 	public int GetJointCount()
 	{
@@ -860,8 +864,8 @@ public class KinectManager : MonoBehaviour
 				if(bodyData.joint[(int)KinectInterop.JointType.ShoulderLeft].trackingState != KinectInterop.TrackingState.NotTracked &&
 				   bodyData.joint[(int)KinectInterop.JointType.HipRight].trackingState != KinectInterop.TrackingState.NotTracked)
 				{
-					leftBotBack.x = bodyData.joint[(int)KinectInterop.JointType.ShoulderLeft].position.x;
-					rightTopFront.x = leftBotBack.x + 2 * (bodyData.joint[(int)KinectInterop.JointType.HipRight].position.x - leftBotBack.x);
+						leftBotBack.x = bodyData.joint[(int)KinectInterop.JointType.ShoulderLeft].position.x;
+						rightTopFront.x = leftBotBack.x +  2 * (bodyData.joint[(int)KinectInterop.JointType.HipRight].position.x - leftBotBack.x);
 				}
 				else
 				{
@@ -873,10 +877,11 @@ public class KinectManager : MonoBehaviour
 				{
 					leftBotBack.y = bodyData.joint[(int)KinectInterop.JointType.HipLeft].position.y;
 					rightTopFront.y = bodyData.joint[(int)KinectInterop.JointType.ShoulderLeft].position.y;
-					
-					float fDelta = (rightTopFront.y - leftBotBack.y) * 0.35f; // * 2 / 3;
+
+					float fDelta = Math.Abs((rightTopFront.y - leftBotBack.y) * 0.35f); // * 2 / 3;
 					leftBotBack.y += fDelta;
 					rightTopFront.y += fDelta;
+
 				}
 				else
 				{
@@ -1369,24 +1374,26 @@ public class KinectManager : MonoBehaviour
 				smoothParameters.maxDeviationRadius = 0.04f;
 				break;
 			case Smoothing.Medium:
-				smoothParameters.smoothing = 0.5f;
-				smoothParameters.correction = 0.1f;
-				smoothParameters.prediction = 0.5f;
-				smoothParameters.jitterRadius = 0.1f;
-				smoothParameters.maxDeviationRadius = 0.1f;
+			smoothParameters.smoothing = 0;//0.5f;
+			smoothParameters.correction =0;// 0.1f;
+			smoothParameters.prediction =0;// 0.5f;
+				smoothParameters.jitterRadius = 0;
+			smoothParameters.maxDeviationRadius =0;// 0.1f;
 				break;
 			case Smoothing.Aggressive:
-				smoothParameters.smoothing = 0.7f;
+				smoothParameters.smoothing = 0.2f;
 				smoothParameters.correction = 0.3f;
 				smoothParameters.prediction = 1.0f;
 				smoothParameters.jitterRadius = 1.0f;
 				smoothParameters.maxDeviationRadius = 1.0f;
 				break;
 		}
+
 		
 		// init data filters
 		jointPositionFilter = new JointPositionsFilter();
 		jointPositionFilter.Init(smoothParameters);
+
 		
 		// init the bone orientation constraints
 		if(useBoneOrientationConstraints)
@@ -2406,7 +2413,7 @@ public class KinectManager : MonoBehaviour
         alUserIds.Remove(userId);
 		dictUserIdToIndex.Remove(userId);
 		
-		if(liPrimaryUserId == userId)
+		 if(liPrimaryUserId == userId)
 		{
 			if(alUserIds.Count > 0)
 			{

@@ -46,6 +46,8 @@ public class PecMatch1 : MonoBehaviour {
 	//Script Varables for Player 1 & 2 (From MainCamera)
 	public InteractionManager player1;
 	public InteractionManager player2; 
+	InteractionManager leftplayer;
+	InteractionManager rightplayer;
 
 	public log logScript; //Contains Log (From MainCamera)
 
@@ -54,25 +56,166 @@ public class PecMatch1 : MonoBehaviour {
 
 	MatchingModel matchTransaction;
 
+	private Positionmanager _PositionManager;
+
+
 
 	void Start () {
 		//Associates the Components in the MainCamera to these variables
 		grabScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<GrabDropScript>();
 		pecScript = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<PecCard>();
-		player1 = (GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>()[0].playerIndex == 0) ? 
-			GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>()[0] : 
-				GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>()[1];
+		player1 = GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>()[0];
 		player2 = GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>()[1];
 		logScript = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<log>();
+
 
 		rend = GetComponent<Renderer>(); //Gets the Renderer from the object attached to this script
 		partOrigin = gameObject.transform.position; //Saves the position of the attached object
 		color = rend.material.color; //Saves the color of the attached object
+		_PositionManager=GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Positionmanager>();
 	}
+
+
+	void assignplayertoside()
+	{
+		if(player1.isRight)
+		{
+			leftplayer=player2;
+			rightplayer=player1;
+
+		}
+		else 
+		leftplayer=player1;
+		rightplayer=player2;
+			
+
+	}
+
+
+	bool leftplayerholdingcorrectobj()
+	{
+		//player1 is releasing an object&& hes on the left side&& the objects hes grabbing has the left side tag
+		if(grabScript.isGrabbed1==false&&player1.isRight==false && grabScript.pecObj1.tag=="P1")
+		{
+			return true;
+		}
+		else if(grabScript.isGrabbed2==false&&player2.isRight==false && grabScript.pecObj2.tag=="P1")
+		{
+			return true;
+		}
+		else 
+			return false;
+
+
+	}
+
+	bool rightplayerholdingcorrectobj()
+	{
+		if(grabScript.isGrabbed1==false&&player1.isRight==true && grabScript.pecObj1.tag=="P2")
+		{
+			return true;
+		}
+		else if(grabScript.isGrabbed2==false&&player2.isRight==true && grabScript.pecObj2.tag=="P2")
+		{
+			return true;
+		}
+		else 
+			return false;
+
+	}
+
+	void snapp(Collider other)
+	{
+		if(other.gameObject.tag == gameObject.tag && !other.GetComponent<Zzero>().IsSnapped && !occupied) 
+		{
+			//if(player1.PrimaryHandEvent==InteractionManager.HandEventType.Release||player2.PrimaryHandEvent==InteractionManager.HandEventType.Release )
+			//{
+			//logScript.file.WriteLine(System.DateTime.Now.ToString("hh:mm:ss")+"  player 0 releases "+ other.gameObject.name+" in a slot");
+
+			var obj = other.GetComponent<Zzero>();
+			obj.IsSnapped = true; 	//Lets PecPart know its Snapped
+			occupied = true;								//Lets PecPlaceHolder know its Occupied
+			obj.Snappedbject = gameObject;//set snapped object
+			gameObject.SetActive(false);
+
+
+			//Assigns PecPart to the Match Array in PecScript
+			if (arraySet) {
+				other.GetComponent<AudioSource>().PlayOneShot(snap); //Plays Snap Audio
+
+				//If the first value in PecScript Match array is null then assign PecPart to it
+				if (pecScript.match[0] == null)
+					pecScript.match[0] = other.gameObject;
+				//If the second value in PecScript Match array is null then assign PecPart to it
+				else if (pecScript.match[1] == null)
+					pecScript.match[1] = other.gameObject;
+
+				arraySet = false;
+			}
+
+			//Loops throu GrabScript's DraggableObjects array to find the PecPart to replace it with an EmptyObject
+			for(int i = 0; i < grabScript.draggableObjects.Length; i++){
+				//If PecPart Tag and Name match
+				if(other.gameObject.tag == grabScript.draggableObjects[i].tag 
+					&& other.gameObject.name == grabScript.draggableObjects[i].name){
+					grabScript.draggableObjects[i] = emptyObject; //Replace with EmptyObject
+
+					//matchTransaction.setSnapped(other.gameObject, i);
+				}
+
+
+			}
+
+
+	}
+	}
+	void snappingconditions(Collider other)
+	{
+	if(other.tag=="P1")
+		{
+			Debug.Log("grabScript.isGrabbed1"+grabScript.isGrabbed1+"other.tag"+other.tag);
+
+			if (leftplayerholdingcorrectobj())
+			{	
+				snapp(other);
+			}
+
+
+		}
+	 if(other.tag=="P2")
+		{
+			if (rightplayerholdingcorrectobj())
+			{	
+			snapp(other);
+			}
+
+		}
+		}
+
+				
+
+
+
+
+		
+	IEnumerator wait() {
+		yield return new WaitForSeconds(1);
+
+
+
 	
+	}
+
+	
+
+
 
 	void Update () {
 		//determine a snap, send to MatchingModel.snap
+		assignplayertoside();
+		Debug.Log("leftplayer.PrimaryHandEvent"+leftplayer.PrimaryHandEvent);
+			
+	
 	}
 
 	void OnTriggerExit(Collider other) {
@@ -89,14 +232,23 @@ public class PecMatch1 : MonoBehaviour {
 		else
 			rend.material.color = Color.red; //Turns PecPart Red
 
+		snappingconditions(other);
+	}
+
 
 		//Player 1 Releases PecPart while colliding with PecPlaceHolder
-		if (player1.PrimaryHandEvent ==  InteractionManager.HandEventType.Release
-            ) //Player 1 Hand is Released
-		{
+	/*
+		if ( (leftplayerholdingcorrectobj()||rightplayerholdingcorrectobj()))
+			{// && (player1.isRight == false ))
+			//&& other.gameObject==grabScript.draggedObject1 ) //&& player1.playerIndex == 0) || (player2.PrimaryHandEvent == InteractionManager.HandEventType.Release && player2.playerIndex == 0)) //Player 1 Hand is Released
+
+				
+
 		    //If PecPart and PecPlaceHolder tag match (Both belong to Player1) AND PecPart is not snapped AND PecPlaceHolder is not occupied
-			if(other.gameObject.tag == gameObject.tag && !other.GetComponent<Zzero>().IsSnapped && !occupied ) 
+			if(other.gameObject.tag == gameObject.tag && !other.GetComponent<Zzero>().IsSnapped && !occupied  ) 
                 {
+				//if(player1.PrimaryHandEvent==InteractionManager.HandEventType.Release||player2.PrimaryHandEvent==InteractionManager.HandEventType.Release )
+				//{
 				logScript.file.WriteLine(System.DateTime.Now.ToString("hh:mm:ss")+"  player 0 releases "+ other.gameObject.name+" in a slot");
 
                     var obj = other.GetComponent<Zzero>();
@@ -136,6 +288,11 @@ public class PecMatch1 : MonoBehaviour {
 
 				Debug.Log("Position " + position);				
 			}
+		//}
 		}
 	}
 }
+
+*/
+}
+

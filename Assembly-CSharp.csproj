@@ -65,6 +65,9 @@
      <Compile Include="Assets\CloudFaceDetection\DemoScenes\Scripts\WebcamSource.cs" />
      <Compile Include="Assets\CloudFaceDetection\DemoScenes\Scripts\WebcamSourceBase.cs" />
      <Compile Include="Assets\DisplayResults.cs" />
+     <Compile Include="Assets\EngageFace.cs" />
+     <Compile Include="Assets\EngagementMeter.cs" />
+     <Compile Include="Assets\FaceVisuals.cs" />
      <Compile Include="Assets\KinectDemos\DepthColliderDemo\Scripts\DepthImageViewer.cs" />
      <Compile Include="Assets\KinectDemos\DepthColliderDemo\Scripts\EggMover.cs" />
      <Compile Include="Assets\KinectDemos\DepthColliderDemo\Scripts\EggSpawner.cs" />
@@ -90,6 +93,7 @@
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\GrabDropScript.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\GuiWindowScript.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\HandPosDetection.cs" />
+     <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\KinectVertices.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\Lantern.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\MatchingModel.cs" />
      <Compile Include="Assets\KinectDemos\InteractionDemo\Scripts\PauseMenu.cs" />
@@ -131,16 +135,16 @@
      <Compile Include="Assets\KinectScripts\KinectGestures.cs" />
      <Compile Include="Assets\KinectScripts\KinectInterop.cs" />
      <Compile Include="Assets\KinectScripts\KinectManager.cs" />
-     <Compile Include="Assets\KinectScripts\Samples\FollowUserRotation.cs" />
-     <Compile Include="Assets\KinectScripts\Samples\GetFacePointsDemo.cs" />
-     <Compile Include="Assets\KinectScripts\Samples\GetJointPositionDemo.cs" />
-     <Compile Include="Assets\KinectScripts\Samples\JointOrientationView.cs" />
-     <Compile Include="Assets\KinectScripts\Samples\JointPositionView.cs" />
-     <Compile Include="Assets\KinectScripts\Samples\MouseControl.cs" />
-     <Compile Include="Assets\KinectScripts\Samples\PointCloudView.cs" />
-     <Compile Include="Assets\KinectScripts\Samples\SimpleBackgroundRemoval.cs" />
-     <Compile Include="Assets\KinectScripts\Samples\SimpleGestureListener.cs" />
-     <Compile Include="Assets\KinectScripts\Samples\SimpleVisualGestureListener.cs" />
+     <Compile Include="Assets\KinectScripts\Playmaker\Samples\FollowUserRotation.cs" />
+     <Compile Include="Assets\KinectScripts\Playmaker\Samples\GetFacePointsDemo.cs" />
+     <Compile Include="Assets\KinectScripts\Playmaker\Samples\GetJointPositionDemo.cs" />
+     <Compile Include="Assets\KinectScripts\Playmaker\Samples\JointOrientationView.cs" />
+     <Compile Include="Assets\KinectScripts\Playmaker\Samples\JointPositionView.cs" />
+     <Compile Include="Assets\KinectScripts\Playmaker\Samples\MouseControl.cs" />
+     <Compile Include="Assets\KinectScripts\Playmaker\Samples\PointCloudView.cs" />
+     <Compile Include="Assets\KinectScripts\Playmaker\Samples\SimpleBackgroundRemoval.cs" />
+     <Compile Include="Assets\KinectScripts\Playmaker\Samples\SimpleGestureListener.cs" />
+     <Compile Include="Assets\KinectScripts\Playmaker\Samples\SimpleVisualGestureListener.cs" />
      <Compile Include="Assets\KinectScripts\SpeechErrorHandler.cs" />
      <Compile Include="Assets\KinectScripts\SpeechManager.cs" />
      <Compile Include="Assets\KinectScripts\VisualGestureManager.cs" />
@@ -157,6 +161,7 @@
      <Compile Include="Assets\Paint\Scripts\Mathfx.cs" />
      <Compile Include="Assets\Paint\Scripts\Painter.cs" />
      <Compile Include="Assets\Paint\Scripts\Samples.cs" />
+     <Compile Include="Assets\Positionmanager.cs" />
      <Compile Include="Assets\SkinTest.cs" />
      <Compile Include="Assets\log.cs" />
      <None Include="Assets\Resources\BlurShader.shader" />
@@ -168,9 +173,6 @@
      <None Include="Assets\Resources\Erode.shader" />
      <None Include="Assets\Resources\BodyShader.shader" />
      <None Include="Assets\Resources\Dilate.shader" />
- <Reference Include="UnityEngine.Advertisements">
- <HintPath>C:/Program Files/Unity5.5/Editor/Data/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
- </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity5.5/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
@@ -185,9 +187,6 @@
  </Reference>
  <Reference Include="UnityEngine.HoloLens">
  <HintPath>C:/Program Files/Unity5.5/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.Purchasing">
- <HintPath>C:/Program Files/Unity5.5/Editor/Data/UnityExtensions/Unity/UnityPurchasing/UnityEngine.Purchasing.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.VR">
  <HintPath>C:/Program Files/Unity5.5/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>

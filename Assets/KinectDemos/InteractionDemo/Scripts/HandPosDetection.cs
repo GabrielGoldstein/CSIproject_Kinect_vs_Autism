@@ -22,7 +22,7 @@ public class HandPosDetection : MonoBehaviour {
 		active = false;
 		gameOver = false;
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 
@@ -41,7 +41,7 @@ public class HandPosDetection : MonoBehaviour {
 				}
 			}
 		}
-	
+
 		//Left Hand Detection
 		if (interaction1.GetLeftHandScreenPos().x >= .4375 && interaction1.GetLeftHandScreenPos().x <= .5625){
 			if (interaction1.GetLeftHandScreenPos().y >= .4375 && interaction1.GetLeftHandScreenPos().y <= .5625){
@@ -69,9 +69,9 @@ public class HandPosDetection : MonoBehaviour {
 			Debug.Log("GAMEOVER!!!");
 			StartCoroutine(Wait());
 		}
-		
 
-	*/}
+
+		*/}
 
 	IEnumerator Wait() {
 		yield return new WaitForSeconds(2);

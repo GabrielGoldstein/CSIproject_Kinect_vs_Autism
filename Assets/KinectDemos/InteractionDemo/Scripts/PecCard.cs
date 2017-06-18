@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System.Text;
+using System.IO;
 public class PecCard : MonoBehaviour {
 	//Programmer: Gabriel Goldstein
 
@@ -58,7 +59,7 @@ public class PecCard : MonoBehaviour {
 	public int snapCounter; //Number of BodyParts currently SnappedIn
 	public int numPieces; 	//Number of total BodyParts that need to be SnappedIn
 	public int arraySize;
-
+	private EngagementMeter engagementMeter;
 	public GameObject[] match; //Array that holds each players choice of PecPart for is it correct checking
 	public GameObject[] pec;
 	public GameObject[] placeHolders; //Array that holds the PecPlaceHolders for resetting
@@ -88,9 +89,15 @@ public class PecCard : MonoBehaviour {
 	/*RECENT ADDITION (Await testing for adding)*/
 	public GameObject correctPec; //Contains the Answer for the level (Assigned in the Unity Editor)
 	public GameObject headOutline; //The HeadOutline before the PEC MODE starts
+	PecMatch1 _Pecmatch1;
 
 
 
+
+	void Awake()
+	{
+		
+	}
 	void Start () {
 		//pec = new GameObject[arraySize];
 
@@ -99,22 +106,34 @@ public class PecCard : MonoBehaviour {
 		interactionManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>();
 		result = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Timer>();
 		scriptLog = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<log>();
+		engagementMeter = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<EngagementMeter>();
+	   
+	
 
 		source = GetComponent<AudioSource>(); //Gets AudioSource from the attached Object
 	}
 
 
 	void Update () {
+
+
+		
 		//If all BodyParts are SnappedIn
 		if((snapCounter == numPieces)&&(temp2 == false)){
 			Debug.Log("BEGIN PEC MODE");
-			scriptLog.file.WriteLine("\n"+System.DateTime.Now.ToString("hh:mm:ss")+"  Pec Mode starts");
+			//scriptLog.file.WriteLine("\n"+System.DateTime.Now.ToString("hh:mm:ss")+"  Pec Mode starts");
 
 			bodyMatchMode = false;	//Switchs mode
 			PECCards.SetActive (true); //Turns on all PECCards
 			headOutline.SetActive(false);//Turns HeadOutline off to not be in the way of the PECPLACEHOLDER
 			temp2 = true; //To prevent loop
 			pecStarted = true; //Log purpose in Zzero
+
+			string csvfile="C:\\Users\\user\\Desktop\\cloud.csv";
+			StringBuilder csvcontent=new StringBuilder();
+			csvcontent.AppendLine("\nPec Started\n");
+
+			//File.AppendAllText(csvfile,csvcontent.ToString());
 		}
 
 
@@ -131,7 +150,9 @@ public class PecCard : MonoBehaviour {
 					firstTime = false;
 					placeHolders[0].gameObject.SetActive(false);
 					placeHolders[1].gameObject.SetActive(false);
+					engagementMeter.sendToCsv();
 					StartCoroutine(wait()); //Wait 3 Secs to activate model and deactivate Parts,PEC Card;
+
 				}
 			}
 
@@ -155,24 +176,25 @@ public class PecCard : MonoBehaviour {
 				placeHolders[1].SetActive(true);
 				//Sets the Array set function to true so function can repeate multiple times.
 				//Resets First Element in the PlaceHolders Array
-				if (placeHolders[0].gameObject.tag == "P1"){	/*Change to "placeHolders[0].gameObject.CompareTag("P1")*/
+				//if (placeHolders[0].gameObject.tag == "P1"){	/*Change to "placeHolders[0].gameObject.CompareTag("P1")*/
 					placeHolders[0].gameObject.GetComponent<PecMatch1>().arraySet = true;
 					placeHolders[0].gameObject.GetComponent<PecMatch1>().occupied = false;
-				}
-				else if (placeHolders[0].gameObject.tag == "P2"){	/*Change to "placeHolders[0].gameObject.CompareTag("P2")*/
-					placeHolders[0].gameObject.GetComponent<PecMatch2>().arraySet = true;
-					placeHolders[0].gameObject.GetComponent<PecMatch2>().occupied = false;
-				}
+			//	}
+				//else if (placeHolders[0].gameObject.tag == "P2"){	/*Change to "placeHolders[0].gameObject.CompareTag("P2")*/
+				//	placeHolders[0].gameObject.GetComponent<PecMatch1>().arraySet = true;
+				//	placeHolders[0].gameObject.GetComponent<PecMatch1>().occupied = false;
+			//	}
 
 				//Resets Second Element in the PlaceHolders Array
-				if (placeHolders[1].gameObject.tag == "P1"){	/*Change to "placeHolders[0].gameObject.CompareTag("P1")*/
+				//if (placeHolders[1].gameObject.tag == "P1"){	/*Change to "placeHolders[0].gameObject.CompareTag("P1")*/
 					placeHolders[1].gameObject.GetComponent<PecMatch1>().arraySet = true;
 					placeHolders[1].gameObject.GetComponent<PecMatch1>().occupied = false;
-				}
-				else if (placeHolders[1].gameObject.tag == "P2"){	/*Change to "placeHolders[0].gameObject.CompareTag("P1")*/
-					placeHolders[1].gameObject.GetComponent<PecMatch2>().arraySet = true;
-					placeHolders[1].gameObject.GetComponent<PecMatch2>().occupied = false;
-				}
+
+				//}
+			//	else if (placeHolders[1].gameObject.tag == "P2"){	/*Change to "placeHolders[0].gameObject.CompareTag("P1")*/
+					//placeHolders[1].gameObject.GetComponent<PecMatch1>().arraySet = true;
+				//	placeHolders[1].gameObject.GetComponent<PecMatch1>().occupied = false;
+				//}
 
 				//Loops throu the DraggableObjects array in the GrabScript and places the PecPart back into the DraggableObjects array
 				for(int i = 0; i < grabScript.draggableObjects.Length; i++){
@@ -211,4 +233,10 @@ public class PecCard : MonoBehaviour {
 		interactionManager[1].useHandCursor = false;
 	}
 
+
+
+
+
+
 }
+

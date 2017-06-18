@@ -88,7 +88,7 @@ public class Zzero : MonoBehaviour {
 	}
 
 
-    void Update()
+    void FixedUpdate()
     {
         //
         if (isGrabbed && !stillGrabbed)

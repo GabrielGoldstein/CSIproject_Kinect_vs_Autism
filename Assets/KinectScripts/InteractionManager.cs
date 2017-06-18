@@ -1,5 +1,5 @@
 using UnityEngine;
-//using Windows.Kinect;
+using Windows.Kinect;
 
 using System.Collections;
 using System.Runtime.InteropServices;
@@ -8,7 +8,12 @@ using System.IO;
 
 public class InteractionManager : MonoBehaviour 
 {
-	
+	Vector3 leftShoulder=Vector3.zero;
+	Vector3 rightHip=Vector3.zero;
+	Vector3 rightShoulder=Vector3.zero;
+	Vector3 head=Vector3.zero;
+
+
 	public enum HandEventType : int
 	{
 		None = 0,
@@ -55,7 +60,9 @@ public class InteractionManager : MonoBehaviour
                 return GetRightHandScreenPos();
         }
     }
-
+	public float speedFactorX;
+	public float speedFactorY;
+	private KinectManager kinectManager;
     // The index of the player, whose hands the InteractionManager tracks. Default 0 (first player).
     public int playerIndex = 0;
 	
@@ -66,7 +73,9 @@ public class InteractionManager : MonoBehaviour
 	public Texture gripHandTexture;
 	public Texture releaseHandTexture;
 	public Texture normalHandTexture;
-	
+
+	//checks which side the player is on
+	public bool isRight { get; set;}
 	// Smooth factor for cursor movement
 	public float smoothFactor = 3f;
 	
@@ -133,6 +142,9 @@ public class InteractionManager : MonoBehaviour
 	
 	// Bool to keep track whether Kinect and Interaction library have been initialized
 	private bool interactionInited = false;
+
+
+
 	
 	// The single instance of FacetrackingManager
 	//private static InteractionManager instance;
@@ -159,6 +171,7 @@ public class InteractionManager : MonoBehaviour
 	public long GetUserID()
 	{
 		return primaryUserID;
+
 	}
 	
 	// returns the current left hand event (none, grip or release)
@@ -277,6 +290,7 @@ public class InteractionManager : MonoBehaviour
     void Start()
     {
         //instance = this;
+	
         
         interactionInited = true;
     }
@@ -293,17 +307,19 @@ public class InteractionManager : MonoBehaviour
 	
 	void Update () 
 	{
-		KinectManager kinectManager = KinectManager.Instance;
+		kinectManager = KinectManager.Instance;
+	
+	
 
 		//Debug.Log ("Player: "+ playerIndex + " Hand Position: " + rightHandScreenPos);
 
 		
 		// update Kinect interaction
-		if(kinectManager && kinectManager.IsInitialized())
+		if(kinectManager && kinectManager.IsInitialized() )
 		{
 			primaryUserID = kinectManager.GetUserIdByIndex(playerIndex);
 			
-			if(primaryUserID != 0)
+			if(primaryUserID != 0 )
 			{
 				HandEventType handEvent = HandEventType.None;
 				
@@ -320,9 +336,10 @@ public class InteractionManager : MonoBehaviour
 				{
 					leftHandPos = kinectManager.GetJointPosition(primaryUserID, (int)KinectInterop.JointType.HandLeft);
 					
-					leftHandScreenPos.x = Mathf.Clamp01((leftHandPos.x - leftIboxLeftBotBack.x) / (leftIboxRightTopFront.x - leftIboxLeftBotBack.x));
+					leftHandScreenPos.x = Mathf.Clamp01((leftHandPos.x - leftIboxLeftBotBack.x) / (leftIboxRightTopFront.x)  - leftIboxLeftBotBack.x);
 					leftHandScreenPos.y = Mathf.Clamp01((leftHandPos.y - leftIboxLeftBotBack.y) / (leftIboxRightTopFront.y - leftIboxLeftBotBack.y));
 					leftHandScreenPos.z = Mathf.Clamp01((leftIboxLeftBotBack.z - leftHandPos.z) / (leftIboxLeftBotBack.z - leftIboxRightTopFront.z));
+
 					
 					bool wasLeftHandInteracting = isLeftHandInteracting;
 					isLeftHandInteracting = (leftHandPos.x >= (leftIboxLeftBotBack.x - 1.0f)) && (leftHandPos.x <= (leftIboxRightTopFront.x + 0.5f)) &&
@@ -389,18 +406,40 @@ public class InteractionManager : MonoBehaviour
 				// check if the right hand is interacting
 				isRightIboxValid = kinectManager.GetRightHandInteractionBox(primaryUserID, ref rightIboxLeftBotBack, ref rightIboxRightTopFront, isRightIboxValid);
 				//bool bRightHandPrimaryNow = false;
-				
+
 				if(isRightIboxValid && //bRightHandPrimaryNow &&
 				   kinectManager.GetJointTrackingState(primaryUserID, (int)KinectInterop.JointType.HandRight) != KinectInterop.TrackingState.NotTracked 
                    && (!UseLeftHand || UseFreeHand))
 
                 {
-					rightHandPos = kinectManager.GetJointPosition(primaryUserID, (int)KinectInterop.JointType.HandRight);
 					
-					rightHandScreenPos.x = Mathf.Clamp01((rightHandPos.x - rightIboxLeftBotBack.x) / (rightIboxRightTopFront.x - rightIboxLeftBotBack.x));
-					rightHandScreenPos.y = Mathf.Clamp01((rightHandPos.y - rightIboxLeftBotBack.y) / (rightIboxRightTopFront.y - rightIboxLeftBotBack.y));
+					rightHandPos =  kinectManager.GetJointPosition(primaryUserID, (int)KinectInterop.JointType.HandRight);
+
+					leftShoulder=kinectManager.GetJointPosition(primaryUserID, (int)KinectInterop.JointType.ShoulderLeft);
+					rightShoulder=kinectManager.GetJointPosition(primaryUserID, (int)KinectInterop.JointType.ShoulderRight);
+					rightHip=kinectManager.GetJointPosition(primaryUserID, (int)KinectInterop.JointType.HipRight);
+					head=kinectManager.GetJointPosition(primaryUserID, (int)KinectInterop.JointType.Head);
+				//	rightHandPos.x+=10f;
+				//	rightHandPos.x=leftShoulder.x-rightHandPos.x;
+					/*
+					rightHandPos.x+=Math.Abs(rightHandPos.x)*.00001f;
+					rightHandPos.y+=Math.Abs(rightHandPos.y)*.00001f;
+*/
+					Debug.Log("righthandpos="+rightHandPos);
+					
+
+					
+					//rightHandScreenPos.x=Mathf.Clamp01(rightHandPos.x);
+					//rightHandScreenPos.x=Mathf.InverseLerp(rightHandPos.x,1.4f,1);
+					//Debug.Log("rightHandScreenPos.x "+ rightHandScreenPos.x);
+					//rightHandScreenPos.x =  ((rightHandPos.x - leftShoulder.x)/(-.04f-leftShoulder.x));
+					rightHandScreenPos.x =  ((rightHandPos.x - (leftShoulder.x+.2f))/((rightShoulder.x +.3f)-(leftShoulder.x +.2f)));
+					//rightHandScreenPos.x= Mathf.Clamp01((rightHandPos.x - rightIboxLeftBotBack.x) / (rightIboxRightTopFront.x - rightIboxLeftBotBack.x));//Mathf.Clamp(((rightHandPos.x + rightIboxLeftBotBack.x) / (rightIboxRightTopFront.x - rightIboxLeftBotBack.x)),0,2);
+					rightHandScreenPos.y=(((rightHandPos.y)-(rightHip.y+.2f))/((head.y)-(rightHip.y+.2f)));
+					//rightHandScreenPos.y =  Mathf.Clamp01((rightHandPos.y - rightIboxLeftBotBack.y) / (rightIboxRightTopFront.y - rightIboxLeftBotBack.y));////Mathf.Clamp(((rightHandPos.y - rightIboxLeftBotBack.y) / (rightIboxRightTopFront.y - rightIboxLeftBotBack.y)),0,2);
 					rightHandScreenPos.z = Mathf.Clamp01((rightIboxLeftBotBack.z - rightHandPos.z) / (rightIboxLeftBotBack.z - rightIboxRightTopFront.z));
-					
+
+					//Debug.Log("rightHandScreenPos.x="+rightHandScreenPos.x);
 					bool wasRightHandInteracting = isRightHandInteracting;
 					isRightHandInteracting = (rightHandPos.x >= (rightIboxLeftBotBack.x - 0.5f)) && (rightHandPos.x <= (rightIboxRightTopFront.x + 1.0f)) &&
 						(rightHandPos.y >= (rightIboxLeftBotBack.y - 0.1f)) && (rightHandPos.y <= (rightIboxRightTopFront.y + 0.7f)) &&

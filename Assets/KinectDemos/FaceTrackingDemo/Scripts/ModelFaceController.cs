@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class ModelFaceController : MonoBehaviour 
 {
+	private FacetrackingManager manager;
 	public enum AxisEnum { X, Y, Z };
 	
 	// Head
@@ -81,7 +82,7 @@ public class ModelFaceController : MonoBehaviour
 	public float LowerEyelidRightRaised;
 	
 	
-	private FacetrackingManager manager;
+
 	private KinectInterop.DepthSensorPlatform platform;
 	
 	private Vector3 HeadInitialPosition;
@@ -115,7 +116,7 @@ public class ModelFaceController : MonoBehaviour
 		UpperLipRightNeutral = GetJointRotation(UpperLipRight, UpperLipRightAxis);
 		
 		JawNeutral = GetJointRotation(Jaw, JawAxis);
-		
+
 		LipLeftNeutral = GetJointRotation(LipLeft, LipLeftAxis);
 		LipRightNeutral = GetJointRotation(LipRight, LipRightAxis);
 		
@@ -141,7 +142,8 @@ public class ModelFaceController : MonoBehaviour
 	void Update() 
 	{
 		// get the face-tracking manager instance
-		if(manager == null)
+		KinectManager kinectManager = KinectManager.Instance;
+		if(manager==null)
 		{
 			manager = FacetrackingManager.Instance;
 		}
@@ -222,6 +224,7 @@ public class ModelFaceController : MonoBehaviour
 			fAU6_right = (platform == KinectInterop.DepthSensorPlatform.KinectSDKv2) ? (fAU6_right * 2 - 1) : fAU6_right;
 			SetJointRotation(UpperEyelidRight, UpperEyelidRightAxis, fAU6_right, UpperEyelidRightNeutral, UpperEyelidRightLowered);
 			SetJointRotation(LowerEyelidRight, LowerEyelidRightAxis, fAU6_right, LowerEyelidRightNeutral, LowerEyelidRightRaised);
+
 		}
 	}
 	

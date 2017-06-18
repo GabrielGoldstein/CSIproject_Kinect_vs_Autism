@@ -162,6 +162,7 @@ public class CloudFaceManager : MonoBehaviour
 	{
 		for(int i = 0; i < faces.Length; i++)
 		{
+			
 			Face face = faces[i];
 			Color faceColor = faceColors[i % faceColors.Length];
 

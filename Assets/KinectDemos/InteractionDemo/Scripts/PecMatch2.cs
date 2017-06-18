@@ -60,9 +60,9 @@ public class PecMatch2 : MonoBehaviour {
         grabScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<GrabDropScript>();
 		pecScript = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<PecCard>();
 		//assign player 1 and player 2 correctly
-        player1 = (GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>()[0].playerIndex == 0) ? 
-	        GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>()[0] : 
-				GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>()[1];
+		player1 = (GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>()[0]);//.playerIndex == 0) ? 
+	       // GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>()[0] : 
+			//	GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>()[1];
 		player2 = GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>()[1];
 		logScript = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<log>();
 
@@ -74,6 +74,8 @@ public class PecMatch2 : MonoBehaviour {
 
 	void Update () {
 		//determine a snap, send to MatchingModel.snap
+
+		Debug.Log("player 1: " + player1.isRight + "/nplayer 2: "+ player2.isRight);
 	}
 	
 	void OnTriggerExit(Collider other) {
@@ -92,9 +94,9 @@ public class PecMatch2 : MonoBehaviour {
         Debug.Log(string.Format("obj1 {0}, obj2 {1}", gameObject.tag, other.gameObject.tag));
 
         //Player 2 Releases PecPart while colliding with PecPlaceHolder
-        if (   player2.PrimaryHandEvent == InteractionManager.HandEventType.Release) //Player 2 Hand is Released
-        
-            {
+		if (false) /*(player2.PrimaryHandEvent ==  InteractionManager.HandEventType.Release) &&*/ //( player2.isRight==true ) ) //&& other.gameObject==grabScript.draggedObject2) // && player2.playerIndex == 1) || (player1.PrimaryHandEvent == InteractionManager.HandEventType.Release && player1.playerIndex == 1)  ) //Player 2 Hand is Released
+        {
+			
             //If PecPart and PecPlaceHolder tag match (Both belong to Player1) AND PecPart is not snapped AND PecPlaceHolder is not occupied
             if (other.gameObject.tag == gameObject.tag && !other.GetComponent<Zzero>().IsSnapped && !occupied) {
 				logScript.file.WriteLine(System.DateTime.Now.ToString("hh:mm:ss")+"  player 1 releases "+ other.gameObject.name+" in a slot");

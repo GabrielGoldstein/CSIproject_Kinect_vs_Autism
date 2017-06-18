@@ -7,8 +7,10 @@ using System.Collections.Generic;
 public class FacetrackingManager : MonoBehaviour 
 {
 	// The index of the player, whose face this manager tracks. Default is 0 (first player).
+
+	private KinectManager kinectManager;
 	public int playerIndex = 0;
-	
+	private Mesh mesh;
 	// Public bool to determine whether to track face model data or not
 	public bool getFaceModelData = false;
 
@@ -108,6 +110,7 @@ public class FacetrackingManager : MonoBehaviour
 			return sensorData.sensorInterface.IsFaceTracked(userId);
 		}
 
+
 		return false;
 	}
 	
@@ -120,7 +123,7 @@ public class FacetrackingManager : MonoBehaviour
 		{
 			vHeadPos.z = -vHeadPos.z;
 		}
-		
+	
 		return vHeadPos;
 	}
 	
@@ -179,8 +182,8 @@ public class FacetrackingManager : MonoBehaviour
 			}
 			else
 			{
-				rotAngles.x = -rotAngles.x;
-				rotAngles.y = -rotAngles.y;
+				rotAngles.x = rotAngles.x;
+				rotAngles.y = rotAngles.y;
 			}
 			
 			return Quaternion.Euler(rotAngles);
@@ -211,10 +214,10 @@ public class FacetrackingManager : MonoBehaviour
 		{
 			return dictAU[faceAnimKey];
 		}
-		
+
 		return 0.0f;
 	}
-	
+
 	// gets all animation units for the specified user. returns true if the user's face is tracked, false otherwise
 	public bool GetUserAnimUnits(long userId, ref Dictionary<KinectInterop.FaceShapeAnimations, float> dictAnimUnits)
 	{
@@ -334,7 +337,7 @@ public class FacetrackingManager : MonoBehaviour
 		try 
 		{
 			// get sensor data
-			KinectManager kinectManager = KinectManager.Instance;
+			kinectManager = KinectManager.Instance;
 			if(kinectManager && kinectManager.IsInitialized())
 			{
 				sensorData = kinectManager.GetSensorData();
@@ -410,13 +413,19 @@ public class FacetrackingManager : MonoBehaviour
 		
 		isFacetrackingInitialized = false;
 		instance = null;
-	}
-	
+	} 
+
+
 	void Update() 
 	{
 		if(isFacetrackingInitialized)
 		{
-			KinectManager kinectManager = KinectManager.Instance;
+
+
+			if(kinectManager==null)
+			kinectManager= KinectManager.Instance;
+
+			
 			if(kinectManager && kinectManager.IsInitialized())
 			{
 				primaryUserID = kinectManager.GetUserIdByIndex(playerIndex);
@@ -493,7 +502,8 @@ public class FacetrackingManager : MonoBehaviour
 			}
 		}
 	}
-	
+
+
 	private void CreateFaceModelMesh()
 	{
 		if(faceModelMesh == null)
@@ -516,6 +526,7 @@ public class FacetrackingManager : MonoBehaviour
 		avModelVertices = new Vector3[iNumVertices];
 		bGotModelVertices = sensorData.sensorInterface.GetFaceModelVertices(0, ref avModelVertices);
 
+
 		if(!bGotModelVertices)
 			return;
 
@@ -529,14 +540,22 @@ public class FacetrackingManager : MonoBehaviour
 		faceModelMesh.GetComponent<MeshFilter>().mesh = mesh;
 		
 		mesh.vertices = avModelVertices;
+
 		mesh.uv = avModelUV;
 		mesh.triangles = avModelTriangles;
 		mesh.RecalculateNormals();
+
+
 
 		//faceModelMesh.transform.rotation = faceModelRot;
 
 		bFaceModelMeshInited = true;
 	}
+
+
+
+	
+
 
 	private void UpdateFaceModelMesh()
 	{
@@ -552,16 +571,32 @@ public class FacetrackingManager : MonoBehaviour
 		
 		if(bGotModelVertices && faceModelMesh != null && bFaceModelMeshInited)
 		{
-			//Quaternion faceModelRot = faceModelMesh.transform.rotation;
+			Quaternion faceModelRot = faceModelMesh.transform.rotation;
 			//faceModelMesh.transform.rotation = Quaternion.identity;
 			
-			Mesh mesh = faceModelMesh.GetComponent<MeshFilter>().mesh;
+			mesh = faceModelMesh.GetComponent<MeshFilter>().mesh;
 			mesh.vertices = avModelVertices;
 			mesh.RecalculateNormals();
 			mesh.RecalculateBounds();
 
-			//faceModelMesh.transform.rotation = faceModelRot;
+			Debug.Log(mesh.vertices[10]);
 		}
+
+
 	}
-	
+
+	public Vector3 getMeshTransform()
+	{
+		Vector3 meshVector;
+
+		if(isTrackingFace)
+		{
+		 meshVector=new Vector3(mesh.vertices[KinectVertices.getLefteyeInnercorner()].x, mesh.vertices[KinectVertices.getLefteyeInnercorner()].y, mesh.vertices[KinectVertices.getLefteyeInnercorner()].z);
+		}
+		else
+			meshVector=new Vector3(0,0,0);
+
+		return meshVector;
+
+	}
 }

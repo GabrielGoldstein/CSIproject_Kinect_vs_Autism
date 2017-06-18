@@ -7,6 +7,8 @@ public class GrabDropScript : MonoBehaviour
 {
 	// dragable objects list
 	public GameObject[] draggableObjects;
+
+
 	public float dragSpeed = 3.0f;
 	public Material selectedObjectMaterial;
 
@@ -22,7 +24,10 @@ public class GrabDropScript : MonoBehaviour
 
 	// currently dragged object and its parameters
 	public GameObject draggedObject1 = null;
-    private GameObject draggedObject2 = null;
+    public GameObject draggedObject2 = null;
+	public GameObject pecObj = null;
+	public GameObject pecObj1 = null;
+	public GameObject pecObj2 = null;
 	private float draggedObjectDepth;
 	private Vector3 draggedObjectOffset;
 	private Material draggedObjectMaterial;
@@ -77,6 +82,7 @@ public class GrabDropScript : MonoBehaviour
 
     public bool isGrabbed2
     {
+
         get
         {
             var manager = (from m in Managers
@@ -116,6 +122,7 @@ public class GrabDropScript : MonoBehaviour
 
     void Start()
     {
+		
         foreach (var m in GameObject.FindGameObjectWithTag("MainCamera").GetComponents<InteractionManager>())
         {
             Managers.Add(m);
@@ -156,12 +163,14 @@ public class GrabDropScript : MonoBehaviour
                 Vector3 screenNormalPos = Vector3.zero;
                 Vector3 screenPixelPos = Vector3.zero;
                 var draggedObject = manager.playerIndex == 0 ? draggedObject1 : draggedObject2;
+				pecObj = manager.playerIndex == 0 ? pecObj1 : pecObj2;
                 if (draggedObject == null)
                 {
                     // if there is a hand grip, select the underlying object and start dragging it.
 
                     screenNormalPos = manager.PrimaryHandScreenPos;
-                                        // check if there is an underlying object to be selected
+                    
+					// check if there is an underlying object to be selected
                     if (screenNormalPos != Vector3.zero)
                     {
                         // convert the normalized screen pos to pixel pos
@@ -188,21 +197,25 @@ public class GrabDropScript : MonoBehaviour
                                         if (manager.playerIndex == 0 && draggedObject2 != obj)
                                         {
                                             draggedObject1 = obj;
+											pecObj1=obj;
                                         }
-                                        else
-                                            if (manager.playerIndex == 1 && draggedObject1 != obj)
+                                        else if (manager.playerIndex == 1 && draggedObject1 != obj)
                                             {
                                                 draggedObject2 = obj;
+											pecObj2=obj;
                                             }
-                                            else
-                                                continue;
+                                        else continue;
                                         //draggedObjectDepth = draggedObject.transform.position.z - Camera.main.transform.position.z;
                                         //---------------------------------------------------------------------------------
                                         //---------------------------------------------------------------------------------
                                         //Original LINE of code above, the below code is trying to restrict the dragged object's Z-axis
-                                        draggedX = draggedObject.transform.position.x;
+
+
+
+										draggedX = draggedObject.transform.position.x;
                                         draggedY = draggedObject.transform.position.y;
-                                        draggedObject.transform.position.Set(draggedX, draggedY, 0);
+
+										draggedObject.transform.position.Set(draggedX, draggedY, 0);
                                         draggedObjectDepth = 0 - Camera.main.transform.position.z;
                                         draggedObjectOffset = hit.point - draggedObject.transform.position;
                                         Debug.Log("Dragged Object Depth: " + draggedObjectDepth);
@@ -250,24 +263,60 @@ public class GrabDropScript : MonoBehaviour
                         }
                         else
                             draggedObject2 = null;
+
                     }
+
                     else
                     {
                         
+
+					
                         screenNormalPos = manager.PrimaryHandScreenPos;
                         screenPixelPos.x = (int)(screenNormalPos.x * Camera.main.pixelWidth);
-                        screenPixelPos.y = (int)(screenNormalPos.y * Camera.main.pixelHeight);
+						screenPixelPos.y =(int)(screenNormalPos.y * Camera.main.pixelHeight);
                         screenPixelPos.z = screenNormalPos.z + draggedObjectDepth;
 
                         Vector3 newObjectPos = Camera.main.ScreenToWorldPoint(screenPixelPos) - draggedObjectOffset;
-                        draggedObject.transform.position = Vector3.Lerp(draggedObject.transform.position, 
-                            new Vector3(newObjectPos.x,newObjectPos.y,draggedObject.transform.position.z), dragSpeed * Time.deltaTime);
+                        
 
-                    }
+						if(draggedObject.tag=="leftdoor")
+						{
+							draggedObject.transform.position = Vector3.Lerp(draggedObject.transform.position, 
+								new Vector3(Mathf.Clamp( newObjectPos.x,-15,-6),0,draggedObject.transform.position.z), dragSpeed * Time.deltaTime);
+						
+							if(draggedObject.transform.position.x<=-12)
+							{
+								draggedObject.SetActive(false);
+							}
+						
+						}
+						if(draggedObject.tag=="rightdoor")
+						{
+							draggedObject.transform.position = Vector3.Lerp(draggedObject.transform.position, 
+								new Vector3(Mathf.Clamp( newObjectPos.x,6,15),0,draggedObject.transform.position.z), dragSpeed * Time.deltaTime);
+							if(draggedObject.transform.position.x>=12)
+							{
+								draggedObject.SetActive(false);
+							}
+
+						
+						}
+
+
+						if(!(draggedObject.tag=="rightdoor"||draggedObject.tag=="leftdoor"))
+						draggedObject.transform.position = Vector3.Lerp(draggedObject.transform.position, 
+							new Vector3(newObjectPos.x,newObjectPos.y,draggedObject.transform.position.z), dragSpeed * Time.deltaTime);
+
+                    
+					
+					
+					}
                 }
             }
 		}
 	}
+
+
 
 	// reset positions and rotations of the objects
 	private void ResetObjects()
@@ -281,6 +330,10 @@ public class GrabDropScript : MonoBehaviour
 			draggableObjects[i].transform.rotation = initialObjRot[i];
 		}
 	}
+
+
+
+
 	
 	void OnGUI()
 	{
