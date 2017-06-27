@@ -39,7 +39,7 @@ public interface DepthSensorInterface
 	void FreeMultiSourceFrame(KinectInterop.SensorData sensorData);
 
 	// polls for new body/skeleton frame. must fill in all needed body and joints' elements (tracking state and position)
-	// returns true if new body frame is available, false otherwise
+	// returns true if new body frame is available, false
 	bool PollBodyFrame(KinectInterop.SensorData sensorData, ref KinectInterop.BodyFrameData bodyFrame, ref Matrix4x4 kinectToWorld);
 
 	// polls for new color frame data

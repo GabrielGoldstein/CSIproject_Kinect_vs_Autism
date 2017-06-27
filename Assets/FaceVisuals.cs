@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class FaceVisuals : MonoBehaviour {
 
-	public void changeMeshColor(Color newColor)
+    
+    
+
+    public void changeMeshColor(Color newColor)
 	{
 
 	}

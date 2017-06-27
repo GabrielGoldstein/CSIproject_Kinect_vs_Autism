@@ -4,14 +4,18 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.KinectScripts;
 
-public class KinectManager : MonoBehaviour 
+public class KinectManager : MonoBehaviour,UserSubject
 {
-	// How high off the ground is the sensor (in meters).
+	
+    
+    // How high off the ground is the sensor (in meters).
 	public float sensorHeight = 1.0f;
 
 	// Kinect elevation angle (in degrees)
 	public float sensorAngle = 0f;
+    private List<UserObserver> userCountObserverList;
 	
 	// Setting to determine whether to automatically set the sensor height and angle or not.
 	// The user must stay in front of the sensor, in order to have automatic detection.
@@ -2991,6 +2995,20 @@ public class KinectManager : MonoBehaviour
 
 		return false;
 	}
-	
+
+    void UserSubject.addObserver(UserObserver newObserver)
+    {
+        userCountObserverList.Add(newObserver);
+    }
+
+    void UserSubject.notifyObserver()
+    {
+        foreach(UserObserver observer in userCountObserverList)
+        {
+            observer.updateUserPositions(alUserIds.Count);
+        }
+    }
+
+  
 }
 

@@ -2,13 +2,15 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.KinectScripts;
 //using System.Runtime.InteropServices;
 
-public class FacetrackingManager : MonoBehaviour 
+public class FacetrackingManager : MonoBehaviour
 {
-	// The index of the player, whose face this manager tracks. Default is 0 (first player).
+    // The index of the player, whose face this manager tracks. Default is 0 (first player).
 
-	private KinectManager kinectManager;
+    
+    private KinectManager kinectManager;
 	public int playerIndex = 0;
 	private Mesh mesh;
 	// Public bool to determine whether to track face model data or not
@@ -599,4 +601,5 @@ public class FacetrackingManager : MonoBehaviour
 		return meshVector;
 
 	}
+
 }

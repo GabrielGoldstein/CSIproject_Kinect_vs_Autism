@@ -508,7 +508,7 @@ public class KinectInterop
 
 		return listInterfaces;
 	}
-
+    
 	// opens the default sensor and needed readers
 	public static SensorData OpenDefaultSensor(List<DepthSensorInterface> listInterfaces, 
 	                                           FrameSource dwFlags, float sensorAngle, bool bUseMultiSource)

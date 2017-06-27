@@ -13,10 +13,7 @@ public class EngagementMeter : MonoBehaviour {
 	public GameObject rightArrow;
 	private Vector3 leftMeshPos;
 	private Vector3 rightMeshPos;
-
-
-
-	public GameObject engagement;
+    public GameObject engagement;
 	private Vector3 p1shoulderpos;//extrenous remove later
 	private Vector3 p1rightShoulderPos;
 	private Vector3 p1leftShoulderPos;
@@ -73,9 +70,8 @@ public class EngagementMeter : MonoBehaviour {
 
 
 	void Awake(){
-		//.playerIndex == 0) ? 
-
-		_PecCard=GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PecCard>();
+        //.playerIndex == 0) ? 
+        _PecCard =GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PecCard>();
 		_KinectManager=GameObject.FindGameObjectWithTag("MainCamera").GetComponent<KinectManager>();
 		faceManagerP1=GameObject.FindGameObjectWithTag("MainCamera").GetComponents<FacetrackingManager>()[0];
 		faceManagerP2=GameObject.FindGameObjectWithTag("MainCamera").GetComponents<FacetrackingManager>()[1];
@@ -226,38 +222,7 @@ public class EngagementMeter : MonoBehaviour {
 	}
 	public void measureEngagement()
 	{
-		var p1id=_KinectManager.GetUserIdByIndex(0);
-		var p2id=_KinectManager.GetUserIdByIndex(1);
-
-		var p1pos= _KinectManager.GetUserPosition(p1id);
-		var p2pos= _KinectManager.GetUserPosition(p2id);
-
-		if(_KinectManager.GetUsersCount()==1)
-		{
-			leftid=p1id;
-		}
-		else if(_KinectManager.GetUsersCount()>1)
-		{
-			if(p1pos.x<=p2pos.x)
-			{
-				leftid=p1id;
-				rightid=p2id;
-			}
-			else if(p2pos.x>=p1pos.x)
-			{
-				leftid=p2id;
-				rightid=p1id;
-				//faceManagerP1.faceModelMesh=face2;
-				//faceManagerP2.faceModelMesh=face1;
-			}
-			else 
-			{
-				leftid=0;
-				rightid=0;
-			}
-		}
-
-		if(faceManagerP1.IsTrackingFace()&&faceManagerP2.IsTrackingFace()&&_KinectManager.IsUserDetected())
+        if (faceManagerP1.IsTrackingFace()&&faceManagerP2.IsTrackingFace()&&_KinectManager.IsUserDetected())
 		{
 			//process left player
 			// allocate storage for the point cloud points in a vector

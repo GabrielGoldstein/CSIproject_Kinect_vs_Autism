@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public  class KinectVertices : MonoBehaviour {
-		private  const int LefteyeInnercorner 	     =		    210;
+    //list of face vertices you can retrieve from the kinect using these indeces
+        private  const int LefteyeInnercorner 	     =		    210;
 		private  const int LefteyeOutercorner		 =			469;
 		private  const int LefteyeMidtop 			 =			241;
 		private  const int LefteyeMidbottom		 	 = 			1104;
