@@ -97,6 +97,7 @@ public class UserPositions : MonoBehaviour, UserObserver {
     
     void UserObserver.updateUserPositions(int newUserCount)
     {
+        Debug.Log("user count is" + newUserCount);
         userCount = newUserCount;
         assignMeshesByPositions();
         assignIdByPosition();

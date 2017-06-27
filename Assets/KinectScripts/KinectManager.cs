@@ -8,10 +8,10 @@ using Assets.KinectScripts;
 
 public class KinectManager : MonoBehaviour,UserSubject
 {
-	
-    
+    UserObserver userObserver;
+
     // How high off the ground is the sensor (in meters).
-	public float sensorHeight = 1.0f;
+    public float sensorHeight = 1.0f;
 
 	// Kinect elevation angle (in degrees)
 	public float sensorAngle = 0f;
@@ -1250,7 +1250,13 @@ public class KinectManager : MonoBehaviour,UserSubject
 	
 	void Awake()
 	{
-		try
+
+        UserObserver userObserver = new UserPositions();
+        addObserver(userObserver);
+        
+
+
+        try
 		{
 			bool bOnceRestarted = false;
 			if(System.IO.File.Exists("KMrestart.txt"))
@@ -1973,6 +1979,7 @@ public class KinectManager : MonoBehaviour,UserSubject
 						if(!addedUsers.Contains(userId))
 						{
 							addedUsers.Add(userId);
+                            
 							addedIndexes.Add(iClosestUserIndex);
 							trackedUsers++;
 						}
@@ -1983,7 +1990,8 @@ public class KinectManager : MonoBehaviour,UserSubject
 				// add userId to the list of new users
 				if(!addedUsers.Contains(userId))
 				{
-					addedUsers.Add(userId);
+                    
+                    addedUsers.Add(userId);
 					addedIndexes.Add(i);
 					trackedUsers++;
 				}
@@ -2934,6 +2942,7 @@ public class KinectManager : MonoBehaviour,UserSubject
 		}
 		
 		return -1;
+        
 	}
 	
 	// check if the calibration pose is complete for given user
@@ -2996,19 +3005,23 @@ public class KinectManager : MonoBehaviour,UserSubject
 		return false;
 	}
 
-    void UserSubject.addObserver(UserObserver newObserver)
+    public void addObserver(UserObserver newObserver)
     {
         userCountObserverList.Add(newObserver);
     }
 
-    void UserSubject.notifyObserver()
+    public void notifyObserver()
     {
-        foreach(UserObserver observer in userCountObserverList)
+        foreach (UserObserver observer in userCountObserverList)
         {
             observer.updateUserPositions(alUserIds.Count);
+
         }
     }
 
+
   
+
+
 }
 

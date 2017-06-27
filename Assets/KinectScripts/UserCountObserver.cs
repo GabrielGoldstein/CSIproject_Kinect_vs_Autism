@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Assets.KinectScripts
 {
-   interface UserObserver
+   public interface UserObserver
     {
        void updateUserPositions(int userCount);
     }

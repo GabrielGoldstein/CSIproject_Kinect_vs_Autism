@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Assets.KinectScripts
 {
-    interface UserSubject
+    public interface UserSubject
     {
          void addObserver(UserObserver newObserver);
          void notifyObserver();
