@@ -7,7 +7,7 @@ using Assets.KinectScripts;
 
 public class FacetrackingManager : MonoBehaviour
 {
-    private class PlayerFacetrackingData : MonoBehaviour
+    private class PlayerFacetrackingData
     {
         // The index of the player, whose face this manager tracks. Default is 0 (first player).
         public int playerIndex = 0;
@@ -26,7 +26,7 @@ public class FacetrackingManager : MonoBehaviour
         public float faceTrackingTolerance = 0.25f;
 
         // The game object that will be used to display the face model mesh
-        public GameObject faceModelMesh = null;
+        public GameObject faceModelMesh = new GameObject();
 
         // Public Bool to determine whether the model mesh should be mirrored or not
         public bool mirroredModelMesh = true;
@@ -217,7 +217,7 @@ public class FacetrackingManager : MonoBehaviour
     public int players = 2;
 
     // The game object that will be used to display the face model mesh
-    public GameObject[] faceModelMesh = new GameObject[2];
+    public GameObject[] faceModelMesh = null;
 
     PlayerFacetrackingData[] playerData = null;
 
@@ -231,9 +231,6 @@ public class FacetrackingManager : MonoBehaviour
 
     // Tolerance (in seconds) allowed to miss the tracked face before losing it
     public float faceTrackingTolerance = 0.25f;
-
-    // The game object that will be used to display the face model mesh
-    //public GameObject faceModelMesh = null;
 
     // Public Bool to determine whether the model mesh should be mirrored or not
     public bool mirroredModelMesh = true;
@@ -507,7 +504,7 @@ public class FacetrackingManager : MonoBehaviour
         return null;
     }
 
-    public GameObject getFaceModelMesh(int index) { }
+    //public GameObject getFaceModelMesh(int index) { }
 
     //----------------------------------- end of public functions --------------------------------------//
     //checks if faces were updated yet this frame. if not, updates facetracker for all faces
@@ -523,11 +520,11 @@ public class FacetrackingManager : MonoBehaviour
 
     void Start()
     {
-        //faceModelMesh = new GameObject[players];
         playerData = new PlayerFacetrackingData[players];
 
         for (int i = 0; i < players; i++)
         {
+            playerData[i] = new PlayerFacetrackingData();
             playerData[i].faceModelMesh = faceModelMesh[i];
             faceModelMesh[i] = null;
         }
