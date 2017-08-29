@@ -205,13 +205,10 @@ GameObject:
   - component: {fileID: 196037492}
   - component: {fileID: 196037491}
   - component: {fileID: 196037496}
-  - component: {fileID: 196037498}
   - component: {fileID: 196037497}
-  - component: {fileID: 196037499}
   - component: {fileID: 196037500}
   - component: {fileID: 196037501}
   - component: {fileID: 196037503}
-  - component: {fileID: 196037502}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -299,11 +296,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eedf84d761a4dc4ba2ed284ddf51aa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerIndex: 0
+  players: 2
+  faceModelMesh:
+  - {fileID: 362403389}
+  - {fileID: 711442618}
   getFaceModelData: 1
   displayFaceRect: 0
   faceTrackingTolerance: 0.5
-  faceModelMesh: {fileID: 362403389}
   mirroredModelMesh: 1
   debugText: {fileID: 644230342}
 --- !u!114 &196037497
@@ -330,7 +329,7 @@ MonoBehaviour:
   useMultiSourceReader: 1
   minUserDistance: 0.5
   maxUserDistance: 0
-  maxTrackedUsers: 6
+  maxTrackedUsers: 2
   detectClosestUser: 1
   ignoreInferredJoints: 1
   lateUpdateAvatars: 0
@@ -344,40 +343,6 @@ MonoBehaviour:
   gestureListeners: []
   calibrationText: {fileID: 0}
   gesturesDebugText: {fileID: 0}
---- !u!114 &196037498
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 196037490}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1eedf84d761a4dc4ba2ed284ddf51aa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerIndex: 1
-  getFaceModelData: 1
-  displayFaceRect: 0
-  faceTrackingTolerance: 0.5
-  faceModelMesh: {fileID: 711442618}
-  mirroredModelMesh: 1
-  debugText: {fileID: 644230342}
---- !u!114 &196037499
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 196037490}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e6b96c993cf0bf4d86fdfa4ed19b9a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leftArrow: {fileID: 1605888170}
-  rightArrow: {fileID: 0}
-  engagement: {fileID: 785183999}
-  face1: {fileID: 362403389}
-  face2: {fileID: 711442618}
 --- !u!114 &196037500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -389,15 +354,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75d981e768086d042b4db993626f4e3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  engagement: {fileID: 785183999}
-  leftPlayerEngagement: 0
-  rightPlayerEngagement: 0
-  combinedPlayerEngagement: 0
-  leftPlayerEngagementsecondHalf: 0
-  rightPlayerEngagementsecondHalf: 0
-  combinedPlayerEngagementsecondHalf: 0
-  face1: {fileID: 362403389}
-  face2: {fileID: 711442618}
 --- !u!114 &196037501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -407,17 +363,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: edc85b8c1ac7f954fbee3fed620e2148, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &196037502
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 196037490}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e97ce84951ac5b4d80d1e3d07da5253, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &196037503

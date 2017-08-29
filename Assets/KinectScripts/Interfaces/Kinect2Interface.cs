@@ -253,7 +253,7 @@ public class Kinect2Interface : DepthSensorInterface
 		coordMapper = kinectSensor.CoordinateMapper;
 
 		this.bodyCount = kinectSensor.BodyFrameSource.BodyCount;
-		sensorData.bodyCount = this.bodyCount;
+        sensorData.bodyCount = this.bodyCount;
 		sensorData.jointCount = 25;
 
 		sensorData.depthCameraFOV = 60f;

@@ -221,7 +221,7 @@ public class FacetrackingManager : MonoBehaviour
 
     PlayerFacetrackingData[] playerData = null;
 
-    private KinectManager kinectManager;
+    private KinectManager kinectManager = null;
 
     // Public bool to determine whether to track face model data or not
     public bool getFaceModelData = false;
@@ -284,6 +284,14 @@ public class FacetrackingManager : MonoBehaviour
         }
 
 
+        return false;
+    }
+
+    public bool IsTrackingAnyFace()
+    {
+        foreach (PlayerFacetrackingData singlePlayerData in playerData)
+            if (singlePlayerData.IsTrackingFace())
+                return true;
         return false;
     }
 
@@ -504,7 +512,10 @@ public class FacetrackingManager : MonoBehaviour
         return null;
     }
 
-    //public GameObject getFaceModelMesh(int index) { }
+    public GameObject getFaceModelMesh(int index)
+    {
+        return playerData[index].faceModelMesh;
+    }
 
     //----------------------------------- end of public functions --------------------------------------//
     //checks if faces were updated yet this frame. if not, updates facetracker for all faces
@@ -520,13 +531,20 @@ public class FacetrackingManager : MonoBehaviour
 
     void Start()
     {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(this);
+        //DontDestroyOnLoad(gameObject);
+
         playerData = new PlayerFacetrackingData[players];
 
         for (int i = 0; i < players; i++)
         {
             playerData[i] = new PlayerFacetrackingData();
             playerData[i].faceModelMesh = faceModelMesh[i];
-            faceModelMesh[i] = null;
+            // playerData's faceModelMesh was assigned, so delete FacetrackingManager's to reduce memory usage
+            faceModelMesh[i] = null; 
         }
         faceModelMesh = null;
 
@@ -541,7 +559,6 @@ public class FacetrackingManager : MonoBehaviour
             {
                 sensorData = kinectManager.GetSensorData();
             }
-            // bug - if statement not working correctly
             if (sensorData == null || sensorData.sensorInterface == null)
             {
                 throw new Exception("Face tracking cannot be started, because KinectManager is missing or not initialized.");
@@ -569,16 +586,12 @@ public class FacetrackingManager : MonoBehaviour
             }
 
             // Initialize the face tracker
-            // memory leak here in InitFaceTracking 
             if (!sensorData.sensorInterface.InitFaceTracking(getFaceModelData, displayFaceRect))
             {
                 throw new Exception("Face tracking could not be initialized.");
             }
 
-            //instance = this;
             isFacetrackingInitialized = true;
-
-            //DontDestroyOnLoad(gameObject);
 
             if (debugText != null)
             {
@@ -640,11 +653,10 @@ public class FacetrackingManager : MonoBehaviour
         {
             if (debugText != null)
             {
-                for (int i = 0; i < players; i++)
-                if (playerData[i].isTrackingFace)
+                if (playerData[0].isTrackingFace)
                 {
                     debugText.GetComponent<GUIText>().text = 
-                            "Tracking - skeletonID: " + playerData[i].primaryUserID;
+                            "Tracking - skeletonID: " + playerData[0].primaryUserID;
                 }
                 else
                 {

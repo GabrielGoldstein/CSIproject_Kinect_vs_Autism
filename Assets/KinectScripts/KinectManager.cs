@@ -15,7 +15,7 @@ public class KinectManager : MonoBehaviour,UserSubject
 
 	// Kinect elevation angle (in degrees)
 	public float sensorAngle = 0f;
-    private List<UserObserver> userCountObserverList;
+    private List<UserObserver> userCountObserverList = new List<UserObserver>();
 	
 	// Setting to determine whether to automatically set the sensor height and angle or not.
 	// The user must stay in front of the sensor, in order to have automatic detection.
@@ -2330,10 +2330,10 @@ public class KinectManager : MonoBehaviour,UserSubject
 			if(CheckForCalibrationPose(userId, bodyIndex, playerCalibrationPose))
 			{
 				int uidIndex = alUserIds.Count;
-				Debug.Log("Adding user " + uidIndex + ", ID: " + userId + ", Index: " + bodyIndex);
-				
+                Debug.Log("Adding user " + uidIndex + ", ID: " + userId + ", Index: " + bodyIndex);
 				alUserIds.Add(userId);
-				dictUserIdToIndex[userId] = bodyIndex;
+                notifyObserver();
+                dictUserIdToIndex[userId] = bodyIndex;
 				
 				if(liPrimaryUserId == 0)
 				{
