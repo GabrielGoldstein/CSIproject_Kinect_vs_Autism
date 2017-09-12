@@ -111,7 +111,7 @@ public class Zzero : MonoBehaviour {
             transform.position = 
                 Vector3.Lerp(transform.position, Snappedbject.transform.position, 5 * Time.deltaTime);
 			
-            Debug.Log("Position " + gameObject.transform.position);
+            //Debug.Log("Position " + gameObject.transform.position);
         }
         if (!IsSnapped && IsReleased && transform.position != origin)
         {

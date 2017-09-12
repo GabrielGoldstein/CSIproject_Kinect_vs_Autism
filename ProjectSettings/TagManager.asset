@@ -23,6 +23,10 @@ TagManager:
   - Engagement
   - rightdoor
   - leftdoor
+  - pause
+  - leftface
+  - rightface
+  - bothfaces
   layers:
   - Default
   - TransparentFX

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
+/*
 //this class contains a collection of functions to determine the left and right players information
 public class UserPositions : MonoBehaviour, UserObserver {
 
@@ -107,3 +107,4 @@ public class UserPositions : MonoBehaviour, UserObserver {
 
 
 }
+*/

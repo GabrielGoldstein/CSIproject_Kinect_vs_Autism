@@ -213,7 +213,7 @@ public class PecMatch1 : MonoBehaviour {
 	void Update () {
 		//determine a snap, send to MatchingModel.snap
 		assignplayertoside();
-		Debug.Log("leftplayer.PrimaryHandEvent"+leftplayer.PrimaryHandEvent);
+		//Debug.Log("leftplayer.PrimaryHandEvent"+leftplayer.PrimaryHandEvent);
 			
 	
 	}

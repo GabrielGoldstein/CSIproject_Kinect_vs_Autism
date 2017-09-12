@@ -68,6 +68,7 @@ public class PecCard : MonoBehaviour {
 	public AudioClip boing; //Audio Played when Incorrect
 	public AudioClip clapping; //Audio Played when PecCards are finished
 
+	public GameObject pause;
 	public GameObject smokeEffect; //Contains SmokeEffect GameObject (Assigned in the UnityEditor)
 	public GameObject avatar; //Contains the 3D Avatar Model (Assigned in the UnityEditor) - used as a reward feedback
 	public GameObject bodyParts; //Parent Object containing all the BodyParts
@@ -90,6 +91,7 @@ public class PecCard : MonoBehaviour {
 	public GameObject correctPec; //Contains the Answer for the level (Assigned in the Unity Editor)
 	public GameObject headOutline; //The HeadOutline before the PEC MODE starts
 	PecMatch1 _Pecmatch1;
+	private FacetrackingManager faceTrackingManager;
 
 
 
@@ -107,6 +109,7 @@ public class PecCard : MonoBehaviour {
 		result = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Timer>();
 		scriptLog = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<log>();
 		engagementMeter = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<EngagementMeter>();
+		faceTrackingManager=GameObject.FindGameObjectWithTag("MainCamera").GetComponent<FacetrackingManager>();
 	   
 	
 
@@ -125,13 +128,14 @@ public class PecCard : MonoBehaviour {
 
 			bodyMatchMode = false;	//Switchs mode
 			PECCards.SetActive (true); //Turns on all PECCards
+			pause.SetActive(true);
 			headOutline.SetActive(false);//Turns HeadOutline off to not be in the way of the PECPLACEHOLDER
 			temp2 = true; //To prevent loop
 			pecStarted = true; //Log purpose in Zzero
 
-			string csvfile="C:\\Users\\user\\Desktop\\cloud.csv";
-			StringBuilder csvcontent=new StringBuilder();
-			csvcontent.AppendLine("\nPec Started\n");
+			//string csvfile="C:\\Users\\user\\Desktop\\cloud.csv";
+			//StringBuilder csvcontent=new StringBuilder();
+			//csvcontent.AppendLine("\nPec Started\n");
 
 			//File.AppendAllText(csvfile,csvcontent.ToString());
 		}
@@ -150,7 +154,7 @@ public class PecCard : MonoBehaviour {
 					firstTime = false;
 					placeHolders[0].gameObject.SetActive(false);
 					placeHolders[1].gameObject.SetActive(false);
-					engagementMeter.sendToCsv();
+					faceTrackingManager.sendToCsv();
 					StartCoroutine(wait()); //Wait 3 Secs to activate model and deactivate Parts,PEC Card;
 
 				}

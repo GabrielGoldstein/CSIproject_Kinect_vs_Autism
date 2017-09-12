@@ -184,9 +184,9 @@ public class BodyPart1 : MonoBehaviour
 
 
         //tmp.GetComponent<Text>().text = score.ToString();
-        Debug.Log("GameObject.transform.position: " + gameObject.transform.position);
-        Debug.Log("ScoreVector: " + scoreVector);
-        Debug.Log("VECTOR ADDITION: " + (gameObject.transform.position + scoreVector));
+//        Debug.Log("GameObject.transform.position: " + gameObject.transform.position);
+       // Debug.Log("ScoreVector: " + scoreVector);
+      //  Debug.Log("VECTOR ADDITION: " + (gameObject.transform.position + scoreVector));
 
 		if (gameObject.tag == "leftArm" || gameObject.tag == "rightArm"||gameObject.tag=="torso")
         {

@@ -23,6 +23,7 @@ public class GrabDropScript : MonoBehaviour
 	//private InteractionManager manager;
 
 	// currently dragged object and its parameters
+	public GameObject pause; 
 	public GameObject draggedObject1 = null;
     public GameObject draggedObject2 = null;
 	public GameObject pecObj = null;
@@ -31,6 +32,8 @@ public class GrabDropScript : MonoBehaviour
 	private float draggedObjectDepth;
 	private Vector3 draggedObjectOffset;
 	private Material draggedObjectMaterial;
+	private bool player1PushingButton;
+	private bool player2PushingButton;
 
 	// initial objects' positions and rotations (used for resetting objects)
 	private Vector3[] initialObjPos;
@@ -128,7 +131,7 @@ public class GrabDropScript : MonoBehaviour
             Managers.Add(m);
             
         }
-        Debug.Log("" + Managers.Count);
+        //Debug.Log("" + Managers.Count);
         // save the initial positions and rotations of the objects
         initialObjPos = new Vector3[draggableObjects.Length];
         initialObjRot = new Quaternion[draggableObjects.Length];
@@ -142,6 +145,8 @@ public class GrabDropScript : MonoBehaviour
 
 	void Update() 
 	{
+
+		transitionOnRayCast();
         if (resetObjects && draggedObject1 == null && draggedObject2 == null) 
 		{
 			// reset the objects as needed
@@ -158,7 +163,8 @@ public class GrabDropScript : MonoBehaviour
 
         foreach (var manager in Managers)            
 		{
-            if (manager != null && manager.IsInteractionInited())
+			
+			if (manager != null && manager.IsInteractionInited())
             {
                 Vector3 screenNormalPos = Vector3.zero;
                 Vector3 screenPixelPos = Vector3.zero;
@@ -218,8 +224,8 @@ public class GrabDropScript : MonoBehaviour
 										draggedObject.transform.position.Set(draggedX, draggedY, 0);
                                         draggedObjectDepth = 0 - Camera.main.transform.position.z;
                                         draggedObjectOffset = hit.point - draggedObject.transform.position;
-                                        Debug.Log("Dragged Object Depth: " + draggedObjectDepth);
-                                        Debug.Log("Dragged Object Z: " + draggedObject.transform.position.z);
+                                      //  Debug.Log("Dragged Object Depth: " + draggedObjectDepth);
+                                      //  Debug.Log("Dragged Object Z: " + draggedObject.transform.position.z);
                                         //----------------------------------------------------------------------------------
                                         //---------------------------------------------------------------------------------
                                         // set selection material
@@ -317,6 +323,61 @@ public class GrabDropScript : MonoBehaviour
 	}
 
 
+	public void transitionOnRayCast()
+	{
+		
+		foreach (var manager in Managers)            
+		{
+			if (manager != null && manager.IsInteractionInited())
+			{
+				Vector3 screenNormalPos = Vector3.zero;
+				Vector3 screenPixelPos = Vector3.zero;
+
+					screenNormalPos = manager.PrimaryHandScreenPos;
+
+					// check if there is an underlying object to be selected
+					if (screenNormalPos != Vector3.zero)
+					{
+						// convert the normalized screen pos to pixel pos
+						screenPixelPos.x = (int)(screenNormalPos.x * Camera.main.pixelWidth);
+						screenPixelPos.y = (int)(screenNormalPos.y * Camera.main.pixelHeight);
+						Ray ray = Camera.main.ScreenPointToRay(screenPixelPos);
+
+						// check if there is an underlying objects
+						RaycastHit hit;
+						if (Physics.Raycast(ray, out hit))
+						{
+						//Debug.Log("hit.collider.tag "+hit.collider.tag);
+							
+						if (hit.collider.tag=="pause"&&manager.playerIndex==0){
+							player1PushingButton=true;
+							Debug.Log("collider is hit by"+ manager.playerIndex);
+							}
+						else if(hit.collider.tag!="pause"&& manager.playerIndex==0)
+						{
+							player1PushingButton=false;
+						}
+						if (hit.collider.tag=="pause"&&manager.playerIndex==1)
+						{	player2PushingButton=true;
+							Debug.Log("collider is hit by"+ manager.playerIndex);
+						}
+						else if(hit.collider.tag!="pause"&& manager.playerIndex==1)
+						{
+							player2PushingButton=false;
+						}
+						}
+					if(player1PushingButton&&player2PushingButton)
+					{
+						Debug.Log("both players pushing button");
+						pause.SetActive(false);
+
+					}
+				}
+			}
+		}
+
+
+	}
 
 	// reset positions and rotations of the objects
 	private void ResetObjects()

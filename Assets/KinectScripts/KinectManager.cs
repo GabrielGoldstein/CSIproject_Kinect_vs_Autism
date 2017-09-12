@@ -1251,8 +1251,8 @@ public class KinectManager : MonoBehaviour,UserSubject
 	void Awake()
 	{
 
-        UserObserver userObserver = new UserPositions();
-        addObserver(userObserver);
+       // UserObserver userObserver = new UserPositions();
+      //  addObserver(userObserver);
         
 
 

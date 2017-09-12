@@ -528,9 +528,9 @@ public class KinectInterop
 					if(sensorData != null)
 					{
 						sensorData.sensorInterface = sensorInt;
-						Debug.Log("Interface used: " + sensorInt.GetType().Name);
+						//Debug.Log("Interface used: " + sensorInt.GetType().Name);
 
-						Debug.Log("Shader level: " + SystemInfo.graphicsShaderLevel);
+						//Debug.Log("Shader level: " + SystemInfo.graphicsShaderLevel);
 						if(sensorData.bodyIndexImage != null && IsDirectX11Available())
 						{
 							Shader bodyIndexShader = Shader.Find("Kinect/BodyShader");

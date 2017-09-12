@@ -9,11 +9,11 @@ using System;
 
 public class EngagementMeter : MonoBehaviour {
 
-	public GameObject leftArrow;
-	public GameObject rightArrow;
+	//public GameObject leftArrow;
+	//public GameObject rightArrow;
 	private Vector3 leftMeshPos;
 	private Vector3 rightMeshPos;
-    public GameObject engagement;
+    //public GameObject engagement;
     private int p1Index;
     private int p2Index;
 	private Vector3 p1shoulderpos;//extrenous remove later
@@ -45,13 +45,13 @@ public class EngagementMeter : MonoBehaviour {
 	private FacetrackingManager faceManager;
 	private KinectManager _KinectManager;
 
-	private long leftid;
-	private long rightid;
+	private long leftId;
+	private long rightId;
 
-
+	public int  fixedUpdateCounter=0;
 	private PecCard _PecCard;
-	public GameObject face1;
-	public GameObject face2;
+	//public GameObject face1;
+	//public GameObject face2;
 	private Renderer faceMat1;
 	private Renderer faceMat2;
 	private Vector3[] avModelVertices1 = null;
@@ -76,15 +76,17 @@ public class EngagementMeter : MonoBehaviour {
         p2Index = 1;
         _PecCard =GameObject.FindGameObjectWithTag("MainCamera").GetComponent<PecCard>();
 		_KinectManager=GameObject.FindGameObjectWithTag("MainCamera").GetComponent<KinectManager>();
-        faceManager = FacetrackingManager.Instance;
-		faceMat1=face1.GetComponent<Renderer>();//change to left and right
-		faceMat2=face2.GetComponent<Renderer>();//change left and right
-		stars=engagement.GetComponentsInChildren<Animator>();
-		faceMat1.material.shader=Shader.Find("Specular");
-		faceMat2.material.shader=Shader.Find("Specular");
+       
+//		faceMat1=face1.GetComponent<Renderer>();//change to left and right
+//		faceMat2=face2.GetComponent<Renderer>();//change left and right
+		//stars=engagement.GetComponentsInChildren<Animator>();
+//		faceMat1.material.shader=Shader.Find("Specular");
+//		faceMat2.material.shader=Shader.Find("Specular");
 		}
 	// Use this for initialization
 	void Start () {
+		faceManager = FacetrackingManager.Instance;
+		//Debug.Log("in Start: facemanager instance"+ faceManager);
 		
 		 leftPlayerEngagement=0;
 		 rightPlayerEngagement=0;
@@ -97,6 +99,7 @@ public class EngagementMeter : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+		Debug.Log("inside fixedupdate of engagement meter");
 		/*
 		updateCounter++;
 		float timeRequired=30f;
@@ -130,13 +133,26 @@ public class EngagementMeter : MonoBehaviour {
 		//Debug.Log(_KinectManager.GetJointPosition(_KinectManager.GetUserIdByIndex(0),4));
 		*/
 		//lockArrow();
-		leadArrow();
-		measureEngagement();
+		//leadArrow();
+
+		fixedUpdateCounter++;
+		Debug.Log("in fixed update");
+		if(faceManager==null)
+		{
+			//Debug.Log("In FixedUpdate, faceManager was null");
+			faceManager=FacetrackingManager.Instance;
+		}
+		if(fixedUpdateCounter==24)
+		{
+			measureEngagement();
+			fixedUpdateCounter=0;
+		}
+		//measureEngagement();
 		//Resources.UnloadUnusedAssets();
 }
 
 	public void assignMesh() 
-	{
+	{	
 		Vector3 p1MeshPos=faceManager.getMeshTransform(p1Index);
 		Vector3 p2MeshPos=faceManager.getMeshTransform(p2Index);
 
@@ -160,12 +176,44 @@ public class EngagementMeter : MonoBehaviour {
 		}
 	}
 
+
+	public void assignIdByPosition()
+	{
+
+		long p1Id = KinectManager.Instance.GetUserIdByIndex(p1Index);
+		long p2Id = KinectManager.Instance.GetUserIdByIndex(p2Index);
+		Vector3 p1pos = KinectManager.Instance.GetUserPosition(p1Id);
+		Vector3 p2pos = KinectManager.Instance.GetUserPosition(p2Id);
+		int userCount=KinectManager.Instance.GetUsersCount();
+
+
+		if (userCount == 1)
+		{
+			leftId = p1Id;
+		}
+		else if (userCount>1)
+		{
+			if (p1pos.x <= p2pos.x)
+			{
+				leftId = p1Id;
+				rightId = p2Id;
+			}
+			else if (p2pos.x >= p1pos.x)
+			{
+				leftId = p2Id;
+				rightId = p1Id;
+			}
+
+		}
+	}
+	/*
 	public void leadArrow()
 	{
 		assignMesh();
 		leftArrow.transform.position=new Vector3(leftMeshPos.x+.2f,leftMeshPos.y+.2f,leftMeshPos.z);
 	
 	}
+	*/
 
 	public void lockArrow()
 	{
@@ -177,26 +225,31 @@ public class EngagementMeter : MonoBehaviour {
 	public void sendToCsv()
 	{
         // divide by 50 because its in update itll happen 50 times
-		//combinedPlayerEngagement/=50f;
-		leftPlayerEngagement/=50f;
-		rightPlayerEngagement/=50f;
-		combinedPlayerEngagement/=50f;
-		combinedPlayerEngagementsecondHalf/=50f;
-		leftPlayerEngagementsecondHalf/=50f;
-		rightPlayerEngagementsecondHalf/=50f;
-		string currTime = System.DateTime.Now.ToString("h:mm:ss tt");
+		combinedPlayerEngagement/=2f;
+		leftPlayerEngagement/=2f;
+		rightPlayerEngagement/=2f;
+		combinedPlayerEngagement/=2f;
+		combinedPlayerEngagementsecondHalf/=25f;
+		leftPlayerEngagementsecondHalf/=2f;
+		rightPlayerEngagementsecondHalf/=2f;
+		//string currTime = System.DateTime.Now.ToString("h:mm:ss tt");
+		string currTime=System.DateTime.Now.ToString("yyyy-MM-dd h:mm tt");
 		var p1id=_KinectManager.GetUserIdByIndex(0);
 		bool ran=false;
 		StringBuilder csvcontent=new StringBuilder();
 		string csvfile="C:\\Users\\user\\Desktop\\cloud.csv";
 			if(!ran)
 			{
-				
+			Debug.Log("in sendtocsv writing to file cloud.csv");
+			Debug.Log(leftPlayerEngagement.ToString()+",   "+ rightPlayerEngagement.ToString()+ ","+ combinedPlayerEngagement.ToString()+","+currTime);
+			Debug.Log(leftPlayerEngagementsecondHalf.ToString()+","+ rightPlayerEngagementsecondHalf.ToString()+ ","+ 
+				combinedPlayerEngagementsecondHalf.ToString()+","+currTime+"diving by 2 now instead of 25");
 			//csvcontent.AppendLine("LeftPlayerEngagement,RightPlayerEngagement,CombinedPlayerEngagement");
-			csvcontent.AppendLine(leftPlayerEngagement.ToString()+","+ rightPlayerEngagement.ToString()+ ","+ combinedPlayerEngagement.ToString()+","+currTime);//System.DateTime.UtcNow.ToString("HH:mm dd MMMM, yyyy")
-			csvcontent.AppendLine(leftPlayerEngagementsecondHalf.ToString()+","+ rightPlayerEngagementsecondHalf.ToString()+ ","+ combinedPlayerEngagementsecondHalf.ToString()+","+currTime);
+			csvcontent.AppendLine(leftPlayerEngagement.ToString()+",   "+ rightPlayerEngagement.ToString()+ ",   "+
+				combinedPlayerEngagement.ToString()+",   "+currTime+"diving by 2 now instead of 25");//System.DateTime.UtcNow.ToString("HH:mm dd MMMM, yyyy")
+			csvcontent.AppendLine(leftPlayerEngagementsecondHalf.ToString()+",   "+ rightPlayerEngagementsecondHalf.ToString()+ ",   "+ combinedPlayerEngagementsecondHalf.ToString()+","+currTime);
 			ran=true;
-			File.AppendAllText(csvfile,csvcontent.ToString());
+			File.AppendAllText(csvfile,csvcontent.ToString() );
 			}
 		/*
 		avModelVertices1=new Vector3[faceManagerP1.GetFaceModelVertexCount()];
@@ -223,37 +276,54 @@ public class EngagementMeter : MonoBehaviour {
 	}
 	public void measureEngagement()
 	{
-        if (faceManager.IsTrackingFace(p1Index) && faceManager.IsTrackingFace(p2Index) && _KinectManager.IsUserDetected())
+//		Debug.Log("in measure engagement");
+//		Debug.Log("(faceManager.GetFaceTrackingID(p1Index)) = " + (faceManager.GetFaceTrackingID(p1Index)));
+//		if(faceManager.IsTrackingFace(faceManager.GetFaceTrackingID(p1Index)))
+//			{
+//				Debug.Log("is tracking");
+//			}
+//			else
+//			{
+//			Debug.Log("isnt tracking");
+//			}
+
+		//Debug.Log("faceManager.IsTrackingFace(faceManager.GetFaceTrackingID(p1Index) "+ faceManager.IsTrackingFace(faceManager.GetFaceTrackingID(p1Index))+"faceManager.IsTrackingFace(faceManager.GetFaceTrackingID(p2Index)) "+faceManager.IsTrackingFace(faceManager.GetFaceTrackingID(p2Index))+"_KinectManager.IsUserDetected() "+_KinectManager.IsUserDetected());
+
+		assignIdByPosition();
+		if (faceManager.IsTrackingFace(faceManager.GetFaceTrackingID(p1Index)) && faceManager.IsTrackingFace(faceManager.GetFaceTrackingID(p2Index)) && _KinectManager.IsUserDetected())
 		{
+
+
+			Debug.Log("in faceManager.isTrackingFace");
 			//process left player
 			// allocate storage for the point cloud points in a vector
 			//get the face point cloud from the FaceTrackingManager and fill up the vector
-			//get the joint position for the left shoulder
+			//get the joint position for the left shoulder 
 			avModelVertices1=new Vector3[faceManager.GetFaceModelVertexCount(p1Index)];
-			faceManager.GetUserFaceVertices(leftid, ref avModelVertices1);
-			p1shoulderpos=_KinectManager.GetJointPosition(leftid,4);
+			faceManager.GetUserFaceVertices(leftId, ref avModelVertices1);
+			p1shoulderpos=_KinectManager.GetJointPosition(leftId,4);
 			//get the distance between the chin and the left shoulder
 			p1shoulderToChin=Mathf.Abs((((avModelVertices1[4].x)-(p1shoulderpos.x))*(100f)));
 			//get the joint position for the right shoulder
-			p1rightShoulderPos=_KinectManager.GetJointPosition(leftid,8);
+			p1rightShoulderPos=_KinectManager.GetJointPosition(leftId,8);
 			//same as above (left)
-			p1leftShoulderPos=_KinectManager.GetJointPosition(leftid,4);
+			p1leftShoulderPos=_KinectManager.GetJointPosition(leftId,4);
 			//difference of the .z positions for the shoulders (if body turns)
 			p1shoulderToShoulder=(p1rightShoulderPos.z - p1leftShoulderPos.z)*20f;
 			//head distance plus shoulder distance
 			p1TotalEngagement=p1shoulderToChin + p1shoulderToShoulder;
-			Debug.Log("p1TotalEngagement"+p1TotalEngagement);
+			Debug.Log("p1TotalEngagement "+p1TotalEngagement);
 			// process right player
-			p2rightShoulderPos=_KinectManager.GetJointPosition(rightid,8);
-			p2leftShoulderPos=_KinectManager.GetJointPosition(rightid,4);
+			p2rightShoulderPos=_KinectManager.GetJointPosition(rightId,8);
+			p2leftShoulderPos=_KinectManager.GetJointPosition(rightId,4);
 			p2shoulderToShoulder=((p2leftShoulderPos.z)-(p2rightShoulderPos.z))*20f;
 			//get the face point cloud from the FaceTrackingManager and fill up the vector
 			avModelVertices2=new Vector3[faceManager.GetFaceModelVertexCount(p2Index)];
-			faceManager.GetUserFaceVertices(rightid, ref avModelVertices2);
-			p2shoulderpos=_KinectManager.GetJointPosition(rightid,4);
+			faceManager.GetUserFaceVertices(rightId, ref avModelVertices2);
+			p2shoulderpos=_KinectManager.GetJointPosition(rightId,4);
 			p2shoulderToChin=Mathf.Abs((((avModelVertices2[4].x)-(p2shoulderpos.x))*(100f)));
 			p2TotalEngagement =(p2shoulderToChin)-(p2shoulderToShoulder);
-			//Debug.Log("p2TotalEngagement"+p2TotalEngagement);
+			Debug.Log("p2TotalEngagement "+p2TotalEngagement);
 			/*
 			p2rightShoulderPos=_KinectManager.GetJointPosition(rightid,8);
 			p2leftShoulderPos=_KinectManager.GetJointPosition(rightid,4);
@@ -264,7 +334,7 @@ public class EngagementMeter : MonoBehaviour {
 			p2shoulderToChin=(((avModelVertices2[4].x)-(p2shoulderpos.x))*(100f));
 			p2TotalEngagement =(p2shoulderToChin)-(p2shoulderToShoulder);
 */
-			//Debug.Log("p1TotalEngagement"+p1TotalEngagement+"p2TotalEngagement"+p2TotalEngagement);
+			Debug.Log("p1TotalEngagement"+p1TotalEngagement+"p2TotalEngagement"+p2TotalEngagement);
 
 
 			//Debug.Log("leftshoulder.z=" +p1leftShoulderPos.z+"rightshoulder.z"+p1rightShoulderPos.z);
@@ -274,7 +344,7 @@ public class EngagementMeter : MonoBehaviour {
 			//Debug.Log("p1engagement= "+ ((p1shoulderToChin)+(p1shoulderToShoulder)));
 			//Debug.Log("p2engagment="+((p2shoulderToChin)-(p2shoulderToShoulder)));
 			//Debug.Log("leftshoulder-rightshoulder"+(rightShoulderPos.z-leftShoulderPos.z ));
-			if(p1TotalEngagement>=23f&&p2TotalEngagement<=12f)
+			if(p1TotalEngagement>=20f&&p2TotalEngagement<=15f)
 			{
 				//faceMat1.material.SetColor("_Color",Color.green);
 				//faceMat2.material.SetColor("_Color",Color.green);
@@ -288,7 +358,7 @@ public class EngagementMeter : MonoBehaviour {
 				//engagement.SetActive(true);
 				//StartCoroutine(wait());
 			}
-			if(p1TotalEngagement>=25f && !(p1TotalEngagement>=25f&&p2TotalEngagement<=12f))
+			if(p1TotalEngagement>=20f && !(p1TotalEngagement>=20f&&p2TotalEngagement<=15f))
 			{
 				
 				//faceMat1.material.SetColor("_Color",Color.blue);
@@ -300,24 +370,24 @@ public class EngagementMeter : MonoBehaviour {
 					leftPlayerEngagement++;
 
 			}
-			if(!(p1TotalEngagement>=25f)&&!(p1TotalEngagement>=25f&&p2TotalEngagement<=12f))
+			if(!(p1TotalEngagement>=20f)&&!(p1TotalEngagement>=20f&&p2TotalEngagement<=15f))
 			{
 				//faceMat1.material.SetColor("_Color",Color.gray);
 
 			}
 
-			if(p2TotalEngagement<=12f && !(p1TotalEngagement>=25f&&p2TotalEngagement<=12f))
+			if(p2TotalEngagement<=10f && !(p1TotalEngagement>=20f&&p2TotalEngagement<=10f))
 			{
 				
 				//faceMat2.material.SetColor("_Color",Color.blue);
-				if(_PecCard.pecStarted)
+				if(_PecCard.pecStarted)//second phase of level
 				{
 					rightPlayerEngagementsecondHalf++;
 				}
 				else
 				rightPlayerEngagement++;
 			}
-			if(!(p2TotalEngagement<=12f) && !(p1TotalEngagement>=25f&&p2TotalEngagement<=12f))
+			if(!(p2TotalEngagement<=10f) && !(p1TotalEngagement>=20f&&p2TotalEngagement<=10f))
 			{
 				//faceMat2.material.SetColor("_Color",Color.gray);
 			}

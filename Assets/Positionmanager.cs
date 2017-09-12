@@ -63,8 +63,8 @@ public void playerSideAdjuster()
 	{
 		var p1pos= _KinectManager.GetUserPosition(p1id);
 		var p2pos= _KinectManager.GetUserPosition(p2id);
-		Debug.Log("p1pos="+p1pos);
-		Debug.Log("p2pos="+p2pos);
+		//Debug.Log("p1pos="+p1pos);
+		//Debug.Log("p2pos="+p2pos);
 
 		if(p1pos.x <= p2pos.x)
 		{

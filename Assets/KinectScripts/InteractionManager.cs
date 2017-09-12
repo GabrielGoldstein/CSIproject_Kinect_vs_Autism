@@ -425,7 +425,7 @@ public class InteractionManager : MonoBehaviour
 					rightHandPos.x+=Math.Abs(rightHandPos.x)*.00001f;
 					rightHandPos.y+=Math.Abs(rightHandPos.y)*.00001f;
 */
-					Debug.Log("righthandpos="+rightHandPos);
+					//Debug.Log("righthandpos="+rightHandPos);
 					
 
 					

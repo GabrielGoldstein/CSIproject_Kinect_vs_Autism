@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+/*
 public class ModelFaceController : MonoBehaviour 
 {
 	private FacetrackingManager manager;
@@ -293,3 +294,4 @@ public class ModelFaceController : MonoBehaviour
 	
 	
 }
+*/
